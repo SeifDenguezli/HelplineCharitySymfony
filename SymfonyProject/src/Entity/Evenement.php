@@ -223,6 +223,38 @@ class Evenement
         $this->description = $description;
     }
 
+    /**
+     * @return \User
+     */
+    public function getAssociationid(): \User
+    {
+        return $this->associationid;
+    }
+
+    /**
+     * @param \User $associationid
+     */
+    public function setAssociationid(\User $associationid): void
+    {
+        $this->associationid = $associationid;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserid()
+    {
+        return $this->userid;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $userid
+     */
+    public function setUserid($userid): void
+    {
+        $this->userid = $userid;
+    }
+
 
 
 }
