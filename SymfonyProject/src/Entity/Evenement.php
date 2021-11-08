@@ -95,4 +95,134 @@ class Evenement
         $this->userid = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    /**
+     * @return int
+     */
+    public function getEventid(): int
+    {
+        return $this->eventid;
+    }
+
+    /**
+     * @param int $eventid
+     */
+    public function setEventid(int $eventid): void
+    {
+        $this->eventid = $eventid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDoncategorie(): string
+    {
+        return $this->doncategorie;
+    }
+
+    /**
+     * @param string $doncategorie
+     */
+    public function setDoncategorie(string $doncategorie): void
+    {
+        $this->doncategorie = $doncategorie;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCause(): string
+    {
+        return $this->cause;
+    }
+
+    /**
+     * @param string $cause
+     */
+    public function setCause(string $cause): void
+    {
+        $this->cause = $cause;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param string|null $region
+     */
+    public function setRegion(?string $region): void
+    {
+        $this->region = $region;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumParticipants(): int
+    {
+        return $this->numParticipants;
+    }
+
+    /**
+     * @param int $numParticipants
+     */
+    public function setNumParticipants(int $numParticipants): void
+    {
+        $this->numParticipants = $numParticipants;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateCreation(): \DateTime
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * @param \DateTime $dateCreation
+     */
+    public function setDateCreation(\DateTime $dateCreation): void
+    {
+        $this->dateCreation = $dateCreation;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMontantCollecte(): float
+    {
+        return $this->montantCollecte;
+    }
+
+    /**
+     * @param float $montantCollecte
+     */
+    public function setMontantCollecte(float $montantCollecte): void
+    {
+        $this->montantCollecte = $montantCollecte;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+
+
 }
