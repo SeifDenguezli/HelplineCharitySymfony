@@ -224,11 +224,11 @@ class Evenement
     }
 
     /**
-     * @return \User
+     * @return \User|null
      */
-    public function getAssociationid(): \User
+    public function getAssociationid(): ?\User
     {
-        return $this->associationid;
+        return null;
     }
 
     /**
