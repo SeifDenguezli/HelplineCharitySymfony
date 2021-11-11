@@ -1,20 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Evenements {% endblock %}
+{% block title %}Evenement index{% endblock %}
 
-{% block stylesheets %}
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/eventStyle.css') }}" rel="stylesheet">
-{% endblock %}
 
 {% block carousel %}
+
     <!-- Carousel Start -->
     <div class="carousel">
         <div class="container-fluid">
             <div class="owl-carousel">
                 <div class="carousel-item">
                     <div class="carousel-img">
-                        <img src="{{ asset('img/donation-img.jpg') }}" alt="Image">
+                        <img src="{{ asset('img/carousel-1.jpg') }}" alt="Image">
                     </div>
                     <div class="carousel-text">
 
@@ -24,14 +21,13 @@
                         </p>
                         <div class="carousel-btn">
                             <a class="btn btn-custom" href="">Donate Now</a>
-                            <a class="btn btn-custom btn-play" data-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-target="#videoModal">Watch Video</a>
                         </div>
 
                     </div>
                 </div>
                 <div class="carousel-item">
                     <div class="carousel-img">
-                        <img src="{{ asset('img/donation-img2.jpg') }}" alt="Image">
+                        <img src="{{ asset('img/carousel-2.jpg') }}" alt="Image">
                     </div>
                     <div class="carousel-text">
                         <h1>Get Involved with helping hand</h1>
@@ -40,13 +36,12 @@
                         </p>
                         <div class="carousel-btn">
                             <a class="btn btn-custom" href="">Donate Now</a>
-                            <a class="btn btn-custom btn-play" data-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-target="#videoModal">Watch Video</a>
                         </div>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <div class="carousel-img">
-                        <img src="{{ asset('img/donation-img3.jpg') }}" alt="Image">
+                        <img src="{{ asset('img/carousel-3.jpg') }}" alt="Image">
                     </div>
                     <div class="carousel-text">
                         <h1>Bringing smiles to millions</h1>
@@ -55,7 +50,6 @@
                         </p>
                         <div class="carousel-btn">
                             <a class="btn btn-custom" href="">Donate Now</a>
-                            <a class="btn btn-custom btn-play" data-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-target="#videoModal">Watch Video</a>
                         </div>
                     </div>
                 </div>
@@ -64,48 +58,49 @@
 
     </div>
     <!-- Carousel End -->
-
-
 {% endblock %}
 
+
+
 {% block body %}
-    <div class="event">
-        <div class="container">
-            <div class="section-header text-center">
-                <p>Upcoming Events</p>
-                <h2>Be ready for our upcoming charity events</h2>
-            </div>
-            <div class="row">
 
 
-                {% for evenement in evenements %}
+        <div class="event">
+            <div class="container">
+                <div class="section-header text-center">
+                    <p>Upcoming Events</p>
+                    <h2>Be ready for our upcoming charity events</h2>
+                </div>
+                <div class="row">
 
+                    {% for evenement in evenements %}
                     <div class="col-lg-6">
                         <div class="event-item">
                             <img src="{{ asset('img/event-1.jpg') }}" alt="Image">
                             <div class="event-content">
                                 <div class="event-meta">
                                     <p><i class="fa fa-calendar-alt"></i>{{ evenement.dateCreation ? evenement.dateCreation|date('Y-m-d') : '' }}</p>
-                                    <p><i class="fa fa-usd" aria-hidden="true"></i>{{ evenement.montantCollecte }} TND</p>
-                                    <p><i class="fa fa-map-marker-alt"></i>{{ evenement.region }}</p>
+                                    <p><i class="far fa-clock"></i>{{ evenement.montantCollecte }} TND</p>
+                                    <p><i class="fa fa-map-marker-alt"></i>{{ evenement.Region }}</p>
                                 </div>
                                 <div class="event-text">
-                                    <h3>{{ evenement.doncategorie }}</h3>
+                                    <h3>{{ evenement.cause }}</h3>
                                     <p>
                                         {{ evenement.description }}
                                     </p>
-                                    <a class="btn btn-custom" href="">Participer</a>
-                                    <a class="btn btn-custom" href="{{ path('evenement_show', {'eventid': evenement.eventid}) }}">Détails</a>
+                                    <a class="btn btn-custom" href="">Join Now</a>
+                                    <a class="btn btn-custom" href="{{ path('evenement_show', {'eventId': evenement.eventId}) }}">Details</a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
+                </div>
 
-                {% endfor %}
-
-
+                </div>
             </div>
-        </div>
-    </div>
+
+
+    <a class="btn btn-custom" href="{{ path('getFakeData') }}">Generate Database</a>
 
 {% endblock %}

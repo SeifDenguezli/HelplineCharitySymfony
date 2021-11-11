@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Evenement;
+use App\Entity\User;
 use App\Form\EvenementType;
+use App\Repository\EvenementRepository;
+use Faker\Factory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,14 +20,10 @@ class EvenementController extends AbstractController
     /**
      * @Route("/", name="evenement_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(EvenementRepository $evenementRepository): Response
     {
-        $evenements = $this->getDoctrine()
-            ->getRepository(Evenement::class)
-            ->findAll();
-
         return $this->render('evenement/index.html.twig', [
-            'evenements' => $evenements,
+            'evenements' => $evenementRepository->findAll(),
         ]);
     }
 
@@ -52,7 +51,64 @@ class EvenementController extends AbstractController
     }
 
     /**
-     * @Route("/{eventid}", name="evenement_show", methods={"GET"})
+     * @Route("/getFakeData", name="getFakeData")
+     */
+    public function getFakeData(): Response
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $faker = Factory::create('FR-fr');
+
+        $users = [];
+
+        //Generation Users
+        for($i=1; $i <= 10; $i++) {
+            $user = new User();
+            $user->setName($faker->name);
+            $user->setPassword($faker->password);
+            $user->setCity($faker->city);
+            $user->setGouvernorat($faker->state);
+            $user->setPhone($faker->phoneNumber);
+            $user->setMail($faker->email);
+            $user->setRole($faker->state);
+            $user->setMontantDonne($faker->randomFloat());
+            $manager->persist($user);
+            $users[] = $user;
+
+        }
+
+        //Generation Evenements
+        for($i=1; $i <= 10; $i++) {
+
+            $donCateg = $faker->sentence;
+            $cause = $faker->sentence;
+            $region = $faker->country;
+            $participants = mt_rand(20, 200);
+            $dateCreation = $faker->dateTime;
+            $montantCollecte = $faker->randomFloat();
+            $description = $faker->sentence;
+            $user = $users[mt_rand(0,count($users)-1)];
+
+            $event = new Evenement();
+
+            $event->setDonCategorie($donCateg);
+            $event->setCause($cause);
+            $event->setRegion($region);
+
+            $event->setNumParticipants($participants);
+            $event->setDateCreation($dateCreation);
+            $event->setMontantCollecte($montantCollecte);
+            $event->setDescription($description);
+            $event->setAssociationId($user);
+
+            $manager->persist($event);
+            $manager->flush();
+        }
+
+        return $this->redirectToRoute('evenement_index', []);
+    }
+
+    /**
+     * @Route("/{eventId}", name="evenement_show", methods={"GET"})
      */
     public function show(Evenement $evenement): Response
     {
@@ -62,7 +118,7 @@ class EvenementController extends AbstractController
     }
 
     /**
-     * @Route("/{eventid}/edit", name="evenement_edit", methods={"GET","POST"})
+     * @Route("/{eventId}/edit", name="evenement_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Evenement $evenement): Response
     {
@@ -82,11 +138,11 @@ class EvenementController extends AbstractController
     }
 
     /**
-     * @Route("/{eventid}", name="evenement_delete", methods={"POST"})
+     * @Route("/{eventId}", name="evenement_delete", methods={"POST"})
      */
     public function delete(Request $request, Evenement $evenement): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$evenement->getEventid(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$evenement->getEventId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($evenement);
             $entityManager->flush();
@@ -94,4 +150,6 @@ class EvenementController extends AbstractController
 
         return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }

@@ -8,12 +8,12 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Eventid</th>
-                <td>{{ evenement.eventid }}</td>
+                <th>EventId</th>
+                <td>{{ evenement.eventId }}</td>
             </tr>
             <tr>
-                <th>Doncategorie</th>
-                <td>{{ evenement.doncategorie }}</td>
+                <th>DonCategorie</th>
+                <td>{{ evenement.donCategorie }}</td>
             </tr>
             <tr>
                 <th>Cause</th>
@@ -21,18 +21,18 @@
             </tr>
             <tr>
                 <th>Region</th>
-                <td>{{ evenement.region }}</td>
+                <td>{{ evenement.Region }}</td>
             </tr>
             <tr>
-                <th>NumParticipants</th>
+                <th>Num_participants</th>
                 <td>{{ evenement.numParticipants }}</td>
             </tr>
             <tr>
-                <th>DateCreation</th>
+                <th>Date_creation</th>
                 <td>{{ evenement.dateCreation ? evenement.dateCreation|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
-                <th>MontantCollecte</th>
+                <th>Montant_collecte</th>
                 <td>{{ evenement.montantCollecte }}</td>
             </tr>
             <tr>
@@ -44,7 +44,7 @@
 
     <a href="{{ path('evenement_index') }}">back to list</a>
 
-    <a href="{{ path('evenement_edit', {'eventid': evenement.eventid}) }}">edit</a>
+    <a href="{{ path('evenement_edit', {'eventId': evenement.eventId}) }}">edit</a>
 
     {{ include('evenement/_delete_form.html.twig') }}
 {% endblock %}

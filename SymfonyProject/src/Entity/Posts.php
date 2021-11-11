@@ -56,5 +56,70 @@ class Posts
      */
     private $postcontent;
 
+    public function getPostid(): ?int
+    {
+        return $this->postid;
+    }
+
+    public function getPosttitle(): ?string
+    {
+        return $this->posttitle;
+    }
+
+    public function setPosttitle(string $posttitle): self
+    {
+        $this->posttitle = $posttitle;
+
+        return $this;
+    }
+
+    public function getPosttype(): ?string
+    {
+        return $this->posttype;
+    }
+
+    public function setPosttype(string $posttype): self
+    {
+        $this->posttype = $posttype;
+
+        return $this;
+    }
+
+    public function getPostdate(): ?\DateTimeInterface
+    {
+        return $this->postdate;
+    }
+
+    public function setPostdate(\DateTimeInterface $postdate): self
+    {
+        $this->postdate = $postdate;
+
+        return $this;
+    }
+
+    public function getLikecount(): ?int
+    {
+        return $this->likecount;
+    }
+
+    public function setLikecount(int $likecount): self
+    {
+        $this->likecount = $likecount;
+
+        return $this;
+    }
+
+    public function getPostcontent(): ?string
+    {
+        return $this->postcontent;
+    }
+
+    public function setPostcontent(string $postcontent): self
+    {
+        $this->postcontent = $postcontent;
+
+        return $this;
+    }
+
 
 }

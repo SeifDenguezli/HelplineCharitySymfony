@@ -15,7 +15,7 @@ class CategorieService
     /**
      * @var int
      *
-     * @ORM\Column(name="id-categorie", type="integer", nullable=false)
+     * @ORM\Column(name="`id-categorie`", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -24,9 +24,26 @@ class CategorieService
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=255, nullable=false)
+     * @ORM\Column(name="`type`", type="string", length=255, nullable=false)
      */
     private $type;
+
+    public function getIdCategorie(): ?int
+    {
+        return $this->idCategorie;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
 
 
 }
