@@ -5,12 +5,12 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * User
+ * UserConnected
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="user_connected")
  * @ORM\Entity
  */
-class User
+class UserConnected
 {
     /**
      * @var int
@@ -84,43 +84,5 @@ class User
      */
     private $montantDonne;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Evenement", inversedBy="userid")
-     * @ORM\JoinTable(name="event_user",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="userId", referencedColumnName="userId")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="eventId", referencedColumnName="eventId")
-     *   }
-     * )
-     */
-    private $eventid;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->eventid = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string| null
-     */
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
 
 }

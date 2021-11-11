@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block blog %}
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <body style="background-color: rgba(0,2,7,0.85)"></body>
+
+    <Center>
+        <a class="btn btn-custom" href="{{ path('posts_new') }}" class="btn-group">Créer un post</a>
+    </Center>
+
+    <br>
+    <div class="container">
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card h-100">
+                        <img src={{ post.postpic }} class="card-img-top" alt="...">
+                        <div class="card-body" >
+                            <h5> Author</h5>
+                            <h5 class="card-title" >{{ post.posttitle }}</h5>
+                            <p class="card-text" >{{ post.postcontent | slice(0,30) }}</p>
+                            <a href="{{ path('posts_show', {'postid': post.postid}) }}" class="btn btn-custom">Voir le post</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
+<br>
+    <br>
+    <br>
+
+{% endblock blog %}

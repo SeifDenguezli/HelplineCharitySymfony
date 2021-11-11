@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use App\Entity\Posts;
 /**
  * Comments
  *
@@ -50,7 +50,6 @@ class Comments
     private $commentcontent;
 
     /**
-     * @var \Posts
      *
      * @ORM\ManyToOne(targetEntity="Posts")
      * @ORM\JoinColumns({
@@ -58,6 +57,105 @@ class Comments
      * })
      */
     private $postid;
+
+
+
+    /**
+     * @return int
+     */
+    public function getCommentid(): int
+    {
+        return $this->commentid;
+    }
+
+    /**
+     * @param int $commentid
+     */
+    public function setCommentid(int $commentid): void
+    {
+        $this->commentid = $commentid;
+    }
+
+    /**
+     * @return string |null
+     */
+    public function getCommentauthor(): ?string
+    {
+        return $this->commentauthor;
+    }
+
+    /**
+     * @param string $commentauthor
+     */
+    public function setCommentauthor(string $commentauthor): void
+    {
+        $this->commentauthor = $commentauthor;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getCommentdate(): ?\DateTime
+    {
+        return $this->commentdate;
+    }
+
+    /**
+     * @param \DateTime $commentdate
+     */
+    public function setCommentdate(\DateTime $commentdate): void
+    {
+        $this->commentdate = $commentdate;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLikecount(): ?int
+    {
+        return $this->likecount;
+    }
+
+    /**
+     * @param int $likecount
+     */
+    public function setLikecount(int $likecount): void
+    {
+        $this->likecount = $likecount;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCommentcontent(): ?string
+    {
+        return $this->commentcontent;
+    }
+
+    /**
+     * @param string $commentcontent
+     */
+    public function setCommentcontent(string $commentcontent): void
+    {
+        $this->commentcontent = $commentcontent;
+    }
+
+    /**
+     * @return Posts|null
+     */
+    public function getPostid(): ?Posts
+    {
+        return $this->postid;
+    }
+
+    /**
+     * @param Posts $postid
+     */
+    public function setPostid(Posts $postid): void
+    {
+        ($this->postid = $postid);
+    }
+
 
 
 }

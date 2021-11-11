@@ -1,0 +1,41 @@
+{{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+<center>
+
+    <div class="errorh">{{ form_errors(form.posttype) }}</div>
+    <div class="errorh"> {{ form_errors(form.posttitle) }}</div>
+    <div class="errorh"> {{ form_errors(form.postcontent) }}</div>
+    <br>
+    <div class="container1" >
+        <div class="wrapper">
+            <section class="post">
+                <div class="content">
+                    <div class="details">
+                        <p>Aymen Zaabar</p>
+                    </div>
+                </div>
+                <div class="options">{{ form_label (form.posttitle,"Titre")}}
+                {{ form_widget(form.posttitle) }}
+                {{ form_label (form.posttype,"Sujet")}}
+                {{ form_widget(form.posttype) }}
+                </div>
+                {{ form_label (form.postcontent,"Votre contenu")}}
+                {{ form_widget(form.postcontent) }}
+                <div class="options">
+                    <p>Add to Your Post</p>
+                    <ul class="list">
+                        <li><img src="icons/gallery.svg" alt="gallery"></li>
+                        <li><img src="icons/emoji.svg" alt="gallery"></li>
+
+                    </ul>
+                </div>
+
+    <button >{{ button_label|default('Post') }}</button>
+            </section>
+        </div>
+    </div>
+</center>
+{{ form_end(form) }}
+
+

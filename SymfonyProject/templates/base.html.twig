@@ -6,7 +6,6 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free Website Template" name="keywords">
     <meta content="Free Website Template" name="description">
-
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
@@ -22,6 +21,7 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -88,7 +88,7 @@
 </div>
 <!-- Nav Bar End -->
 
-
+{% block blog %}
 <!-- Carousel Start -->
 <div class="carousel">
     <div class="container-fluid">
@@ -841,7 +841,7 @@
     </div>
 </div>
 <!-- Blog End -->
-
+{% endblock blog %}
 
 <!-- Footer Start -->
 <div class="footer">
