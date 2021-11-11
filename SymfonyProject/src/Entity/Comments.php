@@ -60,6 +60,71 @@ class Comments
      */
     private $postid;
 
+    public function getCommentid(): ?int
+    {
+        return $this->commentid;
+    }
+
+    public function getCommentauthor(): ?string
+    {
+        return $this->commentauthor;
+    }
+
+    public function setCommentauthor(string $commentauthor): self
+    {
+        $this->commentauthor = $commentauthor;
+
+        return $this;
+    }
+
+    public function getCommentdate(): ?\DateTimeInterface
+    {
+        return $this->commentdate;
+    }
+
+    public function setCommentdate(\DateTimeInterface $commentdate): self
+    {
+        $this->commentdate = $commentdate;
+
+        return $this;
+    }
+
+    public function getLikecount(): ?int
+    {
+        return $this->likecount;
+    }
+
+    public function setLikecount(int $likecount): self
+    {
+        $this->likecount = $likecount;
+
+        return $this;
+    }
+
+    public function getCommentcontent(): ?string
+    {
+        return $this->commentcontent;
+    }
+
+    public function setCommentcontent(string $commentcontent): self
+    {
+        $this->commentcontent = $commentcontent;
+
+        return $this;
+    }
+
+    public function getPostid(): ?Posts
+    {
+        return $this->postid;
+    }
+
+    public function setPostid(?Posts $postid): self
+    {
+        $this->postid = $postid;
+
+        return $this;
+    }
+
 
 
     /**

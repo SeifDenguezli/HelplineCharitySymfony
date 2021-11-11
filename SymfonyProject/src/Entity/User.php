@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
- *
  * @ORM\Table(name="user")
  * @ORM\Entity
  */
@@ -85,26 +86,43 @@ class User
     private $montantDonne;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Evenement", inversedBy="userid")
-     * @ORM\JoinTable(name="event_user",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="userId", referencedColumnName="userId")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="eventId", referencedColumnName="eventId")
-     *   }
-     * )
+     * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="associationId")
      */
-    private $eventid;
+    private $evenements;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
-        $this->eventid = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->evenements = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|Evenement[]
+     */
+    public function getEvenements(): Collection
+    {
+        return $this->evenements;
+    }
+
+    public function addEvenement(Evenement $evenement): self
+    {
+        if (!$this->evenements->contains($evenement)) {
+            $this->evenements[] = $evenement;
+            $evenement->setAssociationId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvenement(Evenement $evenement): self
+    {
+        if ($this->evenements->removeElement($evenement)) {
+            // set the owning side to null (unless already changed)
+            if ($evenement->getAssociationId() === $this) {
+                $evenement->setAssociationId(null);
+            }
+        }
+
+        return $this;
     }
 
     /**
@@ -267,25 +285,9 @@ class User
         $this->montantDonne = $montantDonne;
     }
 
-    /**
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEventid()
-    {
-        return $this->eventid;
-    }
-
-    /**
-     * @param \Doctrine\Common\Collections\Collection $eventid
-     */
-    public function setEventid($eventid): void
-    {
-        $this->eventid = $eventid;
-    }
-
     public function __toString()
     {
-        return $this->name;
+        return $this->getName();
     }
 
 

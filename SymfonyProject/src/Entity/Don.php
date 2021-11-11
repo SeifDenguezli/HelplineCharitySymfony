@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Don
  *
- * @ORM\Table(name="don", indexes={@ORM\Index(name="donorId", columns={"donorId"}), @ORM\Index(name="eventId", columns={"eventId"})})
+ * @ORM\Table(name="don", indexes={@ORM\Index(name="eventId", columns={"eventId"}), @ORM\Index(name="donorId", columns={"donorId"})})
  * @ORM\Entity
  */
 class Don
@@ -42,15 +42,51 @@ class Don
      */
     private $categorie;
 
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="donorId", referencedColumnName="userId")
-     * })
-     */
-    private $donorid;
+    public function getDonid(): ?int
+    {
+        return $this->donid;
+    }
+
+    public function getDonorid(): ?int
+    {
+        return $this->donorid;
+    }
+
+    public function setDonorid(int $donorid): self
+    {
+        $this->donorid = $donorid;
+
+        return $this;
+    }
+
+    public function getEventid(): ?int
+    {
+        return $this->eventid;
+    }
+
+    public function setEventid(?int $eventid): self
+    {
+        $this->eventid = $eventid;
+
+        return $this;
+    }
+
+    public function getDonationdate(): ?string
+    {
+        return $this->donationdate;
+    }
+
+    public function setDonationdate(string $donationdate): self
+    {
+        $this->donationdate = $donationdate;
+
+        return $this;
+    }
+
+    public function getMontant(): ?float
+    {
+        return $this->montant;
+    }
 
     /**
      * @var \Evenement

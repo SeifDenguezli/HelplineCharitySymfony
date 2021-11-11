@@ -15,4 +15,5 @@ return [
     Symfony\Bundle\WebServerBundle\WebServerBundle::class => ['dev' => true],
     Vangrg\ProfanityBundle\VangrgProfanityBundle::class => ['all' => true],
 
+    Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle::class => ['dev' => true, 'test' => true],
 ];
