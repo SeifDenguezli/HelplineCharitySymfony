@@ -107,4 +107,186 @@ class User
         $this->eventid = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    /**
+     * @return int
+     */
+    public function getUserid(): int
+    {
+        return $this->userid;
+    }
+
+    /**
+     * @param int $userid
+     */
+    public function setUserid(int $userid): void
+    {
+        $this->userid = $userid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param string|null $photo
+     */
+    public function setPhoto(?string $photo): void
+    {
+        $this->photo = $photo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param string $city
+     */
+    public function setCity(string $city): void
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGouvernorat(): string
+    {
+        return $this->gouvernorat;
+    }
+
+    /**
+     * @param string $gouvernorat
+     */
+    public function setGouvernorat(string $gouvernorat): void
+    {
+        $this->gouvernorat = $gouvernorat;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string $phone
+     */
+    public function setPhone(string $phone): void
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMail(): string
+    {
+        return $this->mail;
+    }
+
+    /**
+     * @param string $mail
+     */
+    public function setMail(string $mail): void
+    {
+        $this->mail = $mail;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param string $role
+     */
+    public function setRole(string $role): void
+    {
+        $this->role = $role;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getMontantDonne(): ?float
+    {
+        return $this->montantDonne;
+    }
+
+    /**
+     * @param float|null $montantDonne
+     */
+    public function setMontantDonne(?float $montantDonne): void
+    {
+        $this->montantDonne = $montantDonne;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEventid()
+    {
+        return $this->eventid;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $eventid
+     */
+    public function setEventid($eventid): void
+    {
+        $this->eventid = $eventid;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+
 }
