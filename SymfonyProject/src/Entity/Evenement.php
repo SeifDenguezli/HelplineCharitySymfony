@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\EvenementRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EvenementRepository::class)
@@ -15,27 +16,32 @@ class Evenement
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
      */
     private $eventId;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="evenements")
      * @ORM\JoinColumn(name="associationId", referencedColumnName="userId")
+     * @Assert\NotBlank(message="Veuillez spécifier l'association organisatrice")
      */
     private $associationId;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veillez spécifier la catégorie de l'évènement")
      */
     private $donCategorie;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veillez spécifier l'objctif de l'évènement")
      */
     private $cause;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veillez spécifier la région de l'évènement")
      */
     private $Region;
 
@@ -46,6 +52,7 @@ class Evenement
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank(message="Veillez spécifier la date de l'évènement")
      */
     private $date_creation;
 
@@ -53,11 +60,16 @@ class Evenement
      * @ORM\Column(type="float")
      */
     private $montant_collecte;
-
     /**
      * @ORM\Column(type="string", length=1024)
+     * @Assert\NotBlank(message="Veillez spécifier une déscription de l'évènement")
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $coverImage;
 
 
 
@@ -169,6 +181,18 @@ class Evenement
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCoverImage(): ?string
+    {
+        return $this->coverImage;
+    }
+
+    public function setCoverImage(?string $coverImage): self
+    {
+        $this->coverImage = $coverImage;
 
         return $this;
     }

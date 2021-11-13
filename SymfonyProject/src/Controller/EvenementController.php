@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\EvenementType;
 use App\Repository\EvenementRepository;
 use Faker\Factory;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,15 +18,31 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class EvenementController extends AbstractController
 {
+
+
+
     /**
      * @Route("/", name="evenement_index", methods={"GET"})
      */
-    public function index(EvenementRepository $evenementRepository): Response
+    public function index(EvenementRepository $evenementRepository, Request $request, PaginatorInterface $paginator): Response
     {
+
+        $donnees = $evenementRepository->findAll();
+
+        $evenements = $paginator->paginate(
+            $donnees,
+            $request->query->getInt('page',1),
+            4
+
+        );
+
+
         return $this->render('evenement/index.html.twig', [
-            'evenements' => $evenementRepository->findAll(),
+            'evenements' => $evenements,
         ]);
     }
+
+
 
     /**
      * @Route("/new", name="evenement_new", methods={"GET","POST"})
@@ -33,6 +50,8 @@ class EvenementController extends AbstractController
     public function new(Request $request): Response
     {
         $evenement = new Evenement();
+        $evenement->setMontantCollecte(0);
+        $evenement->setNumParticipants(0);
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
 
@@ -86,6 +105,7 @@ class EvenementController extends AbstractController
             $dateCreation = $faker->dateTime;
             $montantCollecte = $faker->randomFloat();
             $description = $faker->sentence;
+            $coverImage = $faker->imageUrl(600,400);
             $user = $users[mt_rand(0,count($users)-1)];
 
             $event = new Evenement();
@@ -99,6 +119,7 @@ class EvenementController extends AbstractController
             $event->setMontantCollecte($montantCollecte);
             $event->setDescription($description);
             $event->setAssociationId($user);
+            $event->setCoverImage($coverImage);
 
             $manager->persist($event);
             $manager->flush();
@@ -106,6 +127,7 @@ class EvenementController extends AbstractController
 
         return $this->redirectToRoute('evenement_index', []);
     }
+
 
     /**
      * @Route("/{eventId}", name="evenement_show", methods={"GET"})
@@ -150,6 +172,4 @@ class EvenementController extends AbstractController
 
         return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
     }
-
-
 }
