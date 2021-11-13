@@ -3,6 +3,7 @@
 {% block title %}Evenement index{% endblock %}
 
 
+
 {% block carousel %}
 
     <!-- Carousel Start -->
@@ -64,19 +65,18 @@
 
 {% block body %}
 
+    <div class="event">
+        <div class="container">
+            <div class="section-header text-center">
+                <p>Upcoming Events</p>
+                <h2>Be ready for our upcoming charity events</h2>
+            </div>
+            <div class="row">
 
-        <div class="event">
-            <div class="container">
-                <div class="section-header text-center">
-                    <p>Upcoming Events</p>
-                    <h2>Be ready for our upcoming charity events</h2>
-                </div>
-                <div class="row">
-
-                    {% for evenement in evenements %}
+                {% for evenement in evenements %}
                     <div class="col-lg-6">
                         <div class="event-item">
-                            <img src="{{ asset('img/event-1.jpg') }}" alt="Image">
+                            <img src="{{ evenement.coverImage }}" alt="Image">
                             <div class="event-content">
                                 <div class="event-meta">
                                     <p><i class="fa fa-calendar-alt"></i>{{ evenement.dateCreation ? evenement.dateCreation|date('Y-m-d') : '' }}</p>
@@ -94,11 +94,20 @@
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
-                </div>
-
-                </div>
+                {% endfor %}
             </div>
+            <div class="pagination">
+                {{ knp_pagination_render(evenements) }}
+            </div>
+
+
+
+
+
+
+
+        </div>
+    </div>
 
 
     <a class="btn btn-custom" href="{{ path('getFakeData') }}">Generate Database</a>
