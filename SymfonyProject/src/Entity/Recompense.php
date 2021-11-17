@@ -29,7 +29,7 @@ class Recompense
     private $nbrepoints;
 
     /**
-     * @var \User
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
@@ -37,6 +37,55 @@ class Recompense
      * })
      */
     private $donorid;
+
+    /**
+     * @return int
+     */
+    public function getRecompenseid(): int
+    {
+        return $this->recompenseid;
+    }
+
+    /**
+     * @param int $recompenseid
+     */
+    public function setRecompenseid(int $recompenseid): void
+    {
+        $this->recompenseid = $recompenseid;
+    }
+
+    /**
+     * @return int |null
+     */
+    public function getNbrepoints(): ?int
+    {
+        return $this->nbrepoints;
+    }
+
+    /**
+     * @param int $nbrepoints
+     */
+    public function setNbrepoints(int $nbrepoints): void
+    {
+        $this->nbrepoints = $nbrepoints;
+    }
+
+    /**
+     * @return User |null
+     */
+    public function getDonorid(): ?User
+    {
+        return $this->donorid;
+    }
+
+    /**
+     * @param User $donorid
+     */
+    public function setDonorid(User $donorid): void
+    {
+        $this->donorid = $donorid;
+    }
+
 
 
 }
