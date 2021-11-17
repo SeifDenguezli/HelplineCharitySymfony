@@ -37,7 +37,7 @@ class EvenementController extends AbstractController
         );
 
 
-        return $this->render('evenement/index.html.twig', [
+        return $this->render('backoffice.html.twig', [
             'evenements' => $evenements,
         ]);
     }
