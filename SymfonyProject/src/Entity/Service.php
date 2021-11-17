@@ -59,5 +59,70 @@ class Service
      */
     private $donorid;
 
+    public function getServiceid(): ?int
+    {
+        return $this->serviceid;
+    }
+
+    public function getTypeservice(): ?string
+    {
+        return $this->typeservice;
+    }
+
+    public function setTypeservice(string $typeservice): self
+    {
+        $this->typeservice = $typeservice;
+
+        return $this;
+    }
+
+    public function getLieu(): ?string
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(string $lieu): self
+    {
+        $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    public function getDatedisponibilite(): ?\DateTimeInterface
+    {
+        return $this->datedisponibilite;
+    }
+
+    public function setDatedisponibilite(\DateTimeInterface $datedisponibilite): self
+    {
+        $this->datedisponibilite = $datedisponibilite;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getDonorid(): ?User
+    {
+        return $this->donorid;
+    }
+
+    public function setDonorid(?User $donorid): self
+    {
+        $this->donorid = $donorid;
+
+        return $this;
+    }
+
 
 }

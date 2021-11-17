@@ -1,0 +1,49 @@
+{% extends 'backoffice.html.twig' %}
+
+{% block title %}Evenement index{% endblock %}
+
+{% block body %}
+    <h1>Evenement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>EventId</th>
+                <th>DonCategorie</th>
+                <th>Cause</th>
+                <th>Region</th>
+                <th>Num_participants</th>
+                <th>Date_creation</th>
+                <th>Montant_collecte</th>
+                <th>Description</th>
+                <th>CoverImage</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.eventId }}</td>
+                <td>{{ evenement.donCategorie }}</td>
+                <td>{{ evenement.cause }}</td>
+                <td>{{ evenement.Region }}</td>
+                <td>{{ evenement.numParticipants }}</td>
+                <td>{{ evenement.dateCreation ? evenement.dateCreation|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.montantCollecte }}</td>
+                <td>{{ evenement.description }}</td>
+                <td>{{ evenement.coverImage }}</td>
+                <td>
+                    <a href="{{ path('admin_evenement_show', {'eventId': evenement.eventId}) }}">show</a>
+                    <a href="{{ path('admin_evenement_edit', {'eventId': evenement.eventId}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_evenement_new') }}">Create new</a>
+{% endblock %}

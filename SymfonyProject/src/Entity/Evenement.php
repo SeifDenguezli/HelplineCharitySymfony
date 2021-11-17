@@ -2,259 +2,198 @@
 
 namespace App\Entity;
 
+use App\Repository\EvenementRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Evenement
- *
- * @ORM\Table(name="evenement", indexes={@ORM\Index(name="associationId", columns={"associationId"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=EvenementRepository::class)
  */
 class Evenement
 {
+
     /**
-     * @var int
-     *
-     * @ORM\Column(name="eventId", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     *
      */
-    private $eventid;
+    private $eventId;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="donCategorie", type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="evenements")
+     * @ORM\JoinColumn(name="associationId", referencedColumnName="userId")
+     * @Assert\NotBlank(message="Veuillez spécifier l'association organisatrice")
      */
-    private $doncategorie;
+    private $associationId;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="cause", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veillez spécifier la catégorie de l'évènement")
+     */
+    private $donCategorie;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veillez spécifier l'objctif de l'évènement")
      */
     private $cause;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="Region", type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veillez spécifier la région de l'évènement")
      */
-    private $region;
+    private $Region;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="num_participants", type="integer", nullable=false)
+     * @ORM\Column(type="integer")
      */
-    private $numParticipants;
+    private $num_participants;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_creation", type="date", nullable=false)
+     * @ORM\Column(type="date")
+     * @Assert\NotBlank(message="Veillez spécifier la date de l'évènement")
      */
-    private $dateCreation;
+    private $date_creation;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="montant_collecte", type="float", precision=10, scale=0, nullable=false)
+     * @ORM\Column(type="float")
      */
-    private $montantCollecte;
-
+    private $montant_collecte;
     /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=1024, nullable=false)
+     * @ORM\Column(type="string", length=1024)
+     * @Assert\NotBlank(message="Veillez spécifier une déscription de l'évènement")
      */
     private $description;
 
     /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="associationId", referencedColumnName="userId")
-     * })
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $associationid;
+    private $coverImage;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="eventid")
-     */
-    private $userid;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
+
+
+    public function getEventId(): ?int
     {
-        $this->userid = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->eventId;
     }
 
     /**
-     * @return int
+     * @param mixed $eventId
      */
-    public function getEventid(): int
+    public function setEventId($eventId): void
     {
-        return $this->eventid;
+        $this->eventId = $eventId;
     }
 
-    /**
-     * @param int $eventid
-     */
-    public function setEventid(int $eventid): void
+
+
+    public function getAssociationId(): ?User
     {
-        $this->eventid = $eventid;
+        return $this->associationId;
     }
 
-    /**
-     * @return string
-     */
-    public function getDoncategorie(): string
+    public function setAssociationId(?User $associationId): self
     {
-        return $this->doncategorie;
+        $this->associationId = $associationId;
+
+        return $this;
     }
 
-    /**
-     * @param string $doncategorie
-     */
-    public function setDoncategorie(string $doncategorie): void
+    public function getDonCategorie(): ?string
     {
-        $this->doncategorie = $doncategorie;
+        return $this->donCategorie;
     }
 
-    /**
-     * @return string
-     */
-    public function getCause(): string
+    public function setDonCategorie(string $donCategorie): self
+    {
+        $this->donCategorie = $donCategorie;
+
+        return $this;
+    }
+
+    public function getCause(): ?string
     {
         return $this->cause;
     }
 
-    /**
-     * @param string $cause
-     */
-    public function setCause(string $cause): void
+    public function setCause(string $cause): self
     {
         $this->cause = $cause;
+
+        return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getRegion(): ?string
     {
-        return $this->region;
+        return $this->Region;
     }
 
-    /**
-     * @param string|null $region
-     */
-    public function setRegion(?string $region): void
+    public function setRegion(string $Region): self
     {
-        $this->region = $region;
+        $this->Region = $Region;
+
+        return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getNumParticipants(): int
+    public function getNumParticipants(): ?int
     {
-        return $this->numParticipants;
+        return $this->num_participants;
     }
 
-    /**
-     * @param int $numParticipants
-     */
-    public function setNumParticipants(int $numParticipants): void
+    public function setNumParticipants(int $num_participants): self
     {
-        $this->numParticipants = $numParticipants;
+        $this->num_participants = $num_participants;
+
+        return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDateCreation(): \DateTime
+    public function getDateCreation(): ?\DateTimeInterface
     {
-        return $this->dateCreation;
+        return $this->date_creation;
     }
 
-    /**
-     * @param \DateTime $dateCreation
-     */
-    public function setDateCreation(\DateTime $dateCreation): void
+    public function setDateCreation(\DateTimeInterface $date_creation): self
     {
-        $this->dateCreation = $dateCreation;
+        $this->date_creation = $date_creation;
+
+        return $this;
     }
 
-    /**
-     * @return float
-     */
-    public function getMontantCollecte(): float
+    public function getMontantCollecte(): ?float
     {
-        return $this->montantCollecte;
+        return $this->montant_collecte;
     }
 
-    /**
-     * @param float $montantCollecte
-     */
-    public function setMontantCollecte(float $montantCollecte): void
+    public function setMontantCollecte(float $montant_collecte): self
     {
-        $this->montantCollecte = $montantCollecte;
+        $this->montant_collecte = $montant_collecte;
+
+        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description): void
+    public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
     }
 
-    /**
-     * @return \User
-     */
-    public function getAssociationid(): \User
+    public function getCoverImage(): ?string
     {
-        return $this->associationid;
+        return $this->coverImage;
     }
 
-    /**
-     * @param \User $associationid
-     */
-    public function setAssociationid(\User $associationid): void
+    public function setCoverImage(?string $coverImage): self
     {
-        $this->associationid = $associationid;
+        $this->coverImage = $coverImage;
+
+        return $this;
     }
-
-    /**
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUserid()
-    {
-        return $this->userid;
-    }
-
-    /**
-     * @param \Doctrine\Common\Collections\Collection $userid
-     */
-    public function setUserid($userid): void
-    {
-        $this->userid = $userid;
-    }
-
-
-
 }

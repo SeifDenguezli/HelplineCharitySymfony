@@ -38,5 +38,34 @@ class Recompense
      */
     private $donorid;
 
+    public function getRecompenseid(): ?int
+    {
+        return $this->recompenseid;
+    }
+
+    public function getNbrepoints(): ?int
+    {
+        return $this->nbrepoints;
+    }
+
+    public function setNbrepoints(int $nbrepoints): self
+    {
+        $this->nbrepoints = $nbrepoints;
+
+        return $this;
+    }
+
+    public function getDonorid(): ?User
+    {
+        return $this->donorid;
+    }
+
+    public function setDonorid(?User $donorid): self
+    {
+        $this->donorid = $donorid;
+
+        return $this;
+    }
+
 
 }
