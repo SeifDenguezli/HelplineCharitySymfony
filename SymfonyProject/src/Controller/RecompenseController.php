@@ -37,8 +37,8 @@ class RecompenseController extends AbstractController
         $recompense = new Recompense();
         $form = $this->createForm(RecompenseType::class, $recompense);
         $form->handleRequest($request);
-        $user =  new User();
-        $user->setnbrepoints("200");
+       // $user =  new User();
+      // $user->setnbrepoints("200");
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($recompense);

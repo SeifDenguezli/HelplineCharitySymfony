@@ -34,7 +34,8 @@ class ShopController extends AbstractController
         $form = $this->createForm(ShopType::class, $shop);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($shop);
             $entityManager->flush();

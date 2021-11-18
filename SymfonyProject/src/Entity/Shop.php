@@ -15,27 +15,43 @@ class Shop
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Assert\Positive
+     *
+
      */
     private $shopId;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Positive(message="cette valeur doit etre positive")
      */
     private $donorId;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
+     * @ORM\Column(type="string", length=20)
+     * @Assert\NotBlank(message="Veuillez saisir votre nom")
+     *  @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters",
+     *      allowEmptyString = false
+     * )
+   */
     private $name;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotEqualTo(
+     *     value = 15
+     * )
+     * @Assert\Positive
+     * @Assert\NotBlank(message="Veuillez saisir la quantité")
      */
     private $Qte;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez saisir la couleur")
      */
     private $color;
 
