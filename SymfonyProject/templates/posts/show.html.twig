@@ -18,12 +18,16 @@
             <div class="col-md-11">
               <div class="card" >
                     <div class="d-flex justify-content-between p-2 px-3">
+
                         <div class="d-flex flex-row align-items-center"> <img src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png" width="50" class="rounded-circle">
                             <div class="d-flex flex-column ml-2"> <span class="font-weight-bold">{{ user.name }}</span> <small class="text-primary">Membre VIP</small> </div>
                         </div>
-                        <div class="d-flex flex-row mt-1 ellipsis"> <small class="mr-2">{{ post.postdate ? post.postdate|date('Y-m-d') : '' }}</small> <i class="fa fa-ellipsis-h"></i> </div>
+                        <div class="d-flex flex-row mt-1 ellipsis"> <small class="mr-2">{{ post.postdate ? post.postdate|date('Y-m-d') : '' }}</small>
+
+                            <a href="{{ path('posts_edit', {'postid': post.postid}) }}" class="btn btn-inverse-dark">Modifier Post</a></div>
                     </div> <img src={{ post.postpic  }} class="img-fluid">
                     <div class="p-3">
+
                         <h4 style="font-size:30px">    {{ post.posttitle }}</h4>
                         <p class="text-justify" style="font-size:30px">{{ post.postcontent }}</p>
                         <hr>
@@ -59,9 +63,7 @@
                        <div class="commentare">{{ form_widget(form.commentcontent) }}</div>
                       <button >{{ button_label|default('Post') }}</button>
                       <br>
-                      <a href="{{ path('posts_index') }}">back to list</a>
 
-                      <a href="{{ path('posts_edit', {'postid': post.postid}) }}">edit</a>
                   </div>
 
               </div>
@@ -76,4 +78,4 @@
     {{ form_end(form) }}
 
     {{ include('posts/_delete_form.html.twig') }}
-{% endblock body%}
+{% endblock body %}

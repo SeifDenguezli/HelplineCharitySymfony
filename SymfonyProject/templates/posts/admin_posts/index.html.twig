@@ -1,0 +1,52 @@
+{% extends 'backoffice.html.twig' %}
+
+{% block title %}Posts index{% endblock %}
+
+{% block body %}
+
+
+
+
+
+
+    <br>
+    <div class="container">
+        <Center>
+            <a class="btn btn-dark" href="{{ path('admin_posts_new') }}" class="btn-group">Créer un post</a>
+        </Center>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            {% for post in posts %}
+                <br>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card h-100">
+                        <img src={{ post.postpic }} class="card-img-top" alt="..." >
+                        <div class="card-body" >
+                            <h5> Author</h5>
+                            <h5 class="card-title" >{{ post.posttitle }}</h5>
+                            <p class="card-text" >{{ post.postcontent | slice(0,30) }}</p>
+
+                        </div>
+                        <a href="{{ path('admin_posts_show', {'postid': post.postid}) }}" class="btn btn-facebook" style="justify-content: flex-end">Voir le post</a>
+
+
+                        <hr>
+                    </div>
+
+                </div>
+                <br>
+            {% endfor %}
+            <br>
+        </div>
+
+    </div>
+
+
+
+    <br>
+        <br>
+        <br>
+        </div>
+{% endblock %}

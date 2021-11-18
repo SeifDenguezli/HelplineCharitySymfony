@@ -1,13 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Edit Posts{% endblock %}
+ {% block stylesheets %}
+     <!-- Template Stylesheet -->
+     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+     <link href="{{ asset('css/publication.css') }}" rel="stylesheet">
+     <link href="{{ asset('img/favicon.ico') }}" rel="icon">
+     <link href="{{ asset('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap') }}" rel="stylesheet">
+     <link href="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css') }}" rel="stylesheet">
+     <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css') }}" rel="stylesheet">
 
+     <link href="{{ asset('lib/flaticon/font/flaticon.css') }}" rel="stylesheet">
+     <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
+     <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+ {% endblock %}
 {% block body %}
-    <h1>Edit Posts</h1>
 
-    {{ include('posts/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('posts/_form.html.twig', {'button_label': 'Moddifier'}) }}
 
-    <a href="{{ path('posts_index') }}">back to list</a>
+   <center> <a href="{{ path('posts_index') }}">Retour</a></center>
 
-    {{ include('posts/_delete_form.html.twig') }}
 {% endblock %}

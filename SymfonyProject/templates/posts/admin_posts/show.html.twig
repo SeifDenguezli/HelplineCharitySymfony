@@ -1,0 +1,35 @@
+{% extends 'backoffice.html.twig' %}
+
+{% block title %}Posts{% endblock %}
+
+{% block body %}
+
+<link rel="stylesheet" href="/css/apost.css">
+
+    <div id="gradient" >
+
+        <form method="post" action="{{ path('admin_posts_delete', {'postid': post.postid}) }}" onsubmit="return confirm('Voulez vous vraiment supprimer {{ post.posttitle }}');">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.postid) }}">
+             <button  class="btn btn-inverse-dark" style="margin-left: 700px ; margin-top:10%" >Supprimer</button>
+
+        </form>
+<p style="margin-left: 900px; margin-top:-140px"> Editeur : Hassan</p>
+        <p style="margin-left: 900px; margin-top:30px"> Nombre de Posts crée: 10</p>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <div id="card">
+        <img src="{{ post.postpic }}"/>
+        <h2>{{ post.posttitle }}</h2>
+        <p>{{ post.postdate ? post.postdate|date('Y-m-d') : '' }}</p>
+        <br>
+        <p>{{ post.postcontent }}</p>
+
+    </div>
+
+
+{% endblock %}
+{% block footer %}
+{% endblock footer %}
