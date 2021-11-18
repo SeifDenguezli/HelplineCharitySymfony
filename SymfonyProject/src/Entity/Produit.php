@@ -52,5 +52,58 @@ class Produit
      */
     private $donorid;
 
+    public function getProductid(): ?int
+    {
+        return $this->productid;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getQuantite(): ?int
+    {
+        return $this->quantite;
+    }
+
+    public function setQuantite(int $quantite): self
+    {
+        $this->quantite = $quantite;
+
+        return $this;
+    }
+
+    public function getPrixApprox(): ?float
+    {
+        return $this->prixApprox;
+    }
+
+    public function setPrixApprox(float $prixApprox): self
+    {
+        $this->prixApprox = $prixApprox;
+
+        return $this;
+    }
+
+    public function getDonorid(): ?User
+    {
+        return $this->donorid;
+    }
+
+    public function setDonorid(?User $donorid): self
+    {
+        $this->donorid = $donorid;
+
+        return $this;
+    }
+
 
 }

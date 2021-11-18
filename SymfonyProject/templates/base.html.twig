@@ -17,19 +17,22 @@
     <!-- CSS Libraries -->
     <link href="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/flaticon/font/flaticon.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-    <link href="lib/flaticon/font/flaticon.css" rel="stylesheet">
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="{{ asset('lib/flaticon/font/flaticon.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
 
 
     {% block stylesheets %}
     <!-- Template Stylesheet -->
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     {% endblock %}
@@ -81,7 +84,7 @@
                 <a href="index.html" class="nav-item nav-link active">Home</a>
                 <a href="about.html" class="nav-item nav-link">About</a>
                 <a href="causes.html" class="nav-item nav-link">Causes</a>
-                <a href="event.html" class="nav-item nav-link">Events</a>
+                <a href="{{ path('evenement_index') }}" class="nav-item nav-link">Events</a>
                 <a href="blog.html" class="nav-item nav-link">Blog</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
@@ -160,6 +163,7 @@
 </div>
 <!-- Carousel End -->
 {% endblock %}
+
 {% block body %}
 <!-- Video Modal Start-->
 <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -559,6 +563,58 @@
         </div>
     </div>{% endblock %}
     <!-- Event End -->
+<!-- Event Start -->
+
+<div class="event">
+    <div class="container">
+        <div class="section-header text-center">
+            <p>Upcoming Events</p>
+            <h2>Be ready for our upcoming charity events</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="event-item">
+                    <img src="img/event-1.jpg" alt="Image">
+                    <div class="event-content">
+                        <div class="event-meta">
+                            <p><i class="fa fa-calendar-alt"></i>01-Jan-45</p>
+                            <p><i class="far fa-clock"></i>8:00 - 10:00</p>
+                            <p><i class="fa fa-map-marker-alt"></i>New York</p>
+                        </div>
+                        <div class="event-text">
+                            <h3>Lorem ipsum dolor sit</h3>
+                            <p>
+                                Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
+                            </p>
+                            <a class="btn btn-custom" href="">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="event-item">
+                    <img src="img/event-2.jpg" alt="Image">
+                    <div class="event-content">
+                        <div class="event-meta">
+                            <p><i class="fa fa-calendar-alt"></i>01-Jan-45</p>
+                            <p><i class="far fa-clock"></i>8:00 - 10:00</p>
+                            <p><i class="fa fa-map-marker-alt"></i>New York</p>
+                        </div>
+                        <div class="event-text">
+                            <h3>Lorem ipsum dolor sit</h3>
+                            <p>
+                                Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
+                            </p>
+                            <a class="btn btn-custom" href="">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Event End -->
 
 
     <!-- Team Start -->
@@ -937,8 +993,8 @@
 
 
 <!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('https://code.jquery.com/jquery-3.4.1.min.js') }}"></script>
+<script src="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js') }}"></script>
 
 <script src="lib/easing/easing.min.js"></script>
 <script src="lib/owlcarousel/owl.carousel.min.js"></script>
@@ -952,13 +1008,18 @@
 <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
 <script src="{{ asset('lib/counterup/counterup.min.js') }}"></script>
 <script src="{{ asset('lib/parallax/parallax.min.js') }}"></script>
+<script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+<script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
+<script src="{{ asset('lib/counterup/counterup.min.js') }}"></script>
+<script src="{{ asset('lib/parallax/parallax.min.js') }}"></script>
 
 <!-- Contact Javascript File -->
 <script src="{{ asset('mail/jqBootstrapValidation.min.js') }}"></script>
 <script src="{{ asset('mail/contact.js') }}"></script>
 
 <!-- Template Javascript -->
-<script src="js/main.js"></script>
+<script src="{{ asset('js/main.js') }}"></script>
 
 {% endblock %}
 <script src="{{ asset('js/main.js') }}"></script>

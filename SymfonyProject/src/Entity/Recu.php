@@ -38,5 +38,34 @@ class Recu
      */
     private $donationid;
 
+    public function getRecuid(): ?int
+    {
+        return $this->recuid;
+    }
+
+    public function getDatepayement(): ?\DateTimeInterface
+    {
+        return $this->datepayement;
+    }
+
+    public function setDatepayement(\DateTimeInterface $datepayement): self
+    {
+        $this->datepayement = $datepayement;
+
+        return $this;
+    }
+
+    public function getDonationid(): ?Don
+    {
+        return $this->donationid;
+    }
+
+    public function setDonationid(?Don $donationid): self
+    {
+        $this->donationid = $donationid;
+
+        return $this;
+    }
+
 
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Don
  *
- * @ORM\Table(name="don", indexes={@ORM\Index(name="eventId", columns={"eventId"}), @ORM\Index(name="donorId", columns={"donorId"})})
+ * @ORM\Table(name="don")
  * @ORM\Entity
  */
 class Don
@@ -20,6 +20,20 @@ class Don
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $donid;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="donorId", type="integer", nullable=false)
+     */
+    private $donorid;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="eventId", type="integer", nullable=true)
+     */
+    private $eventid;
 
     /**
      * @var string
@@ -42,25 +56,70 @@ class Don
      */
     private $categorie;
 
-    /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="donorId", referencedColumnName="userId")
-     * })
-     */
-    private $donorid;
+    public function getDonid(): ?int
+    {
+        return $this->donid;
+    }
 
-    /**
-     * @var \Evenement
-     *
-     * @ORM\ManyToOne(targetEntity="Evenement")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="eventId", referencedColumnName="eventId")
-     * })
-     */
-    private $eventid;
+    public function getDonorid(): ?int
+    {
+        return $this->donorid;
+    }
+
+    public function setDonorid(int $donorid): self
+    {
+        $this->donorid = $donorid;
+
+        return $this;
+    }
+
+    public function getEventid(): ?int
+    {
+        return $this->eventid;
+    }
+
+    public function setEventid(?int $eventid): self
+    {
+        $this->eventid = $eventid;
+
+        return $this;
+    }
+
+    public function getDonationdate(): ?string
+    {
+        return $this->donationdate;
+    }
+
+    public function setDonationdate(string $donationdate): self
+    {
+        $this->donationdate = $donationdate;
+
+        return $this;
+    }
+
+    public function getMontant(): ?float
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(float $montant): self
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?string
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(string $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
 
 
 }
