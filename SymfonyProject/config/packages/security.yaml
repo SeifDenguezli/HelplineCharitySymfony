@@ -20,7 +20,7 @@ security:
             form_login:
                 login_path: security_login
                 check_path: security_login
-                default_target_path: test
+                default_target_path: /user
             logout:
                 path: security_logout
                 target: /connexion

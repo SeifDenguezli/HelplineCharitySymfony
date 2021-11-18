@@ -1,0 +1,74 @@
+{% extends 'backoffice.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+
+    <a href="{{ path('user_new') }}">Create new</a>
+
+
+    <div class="row">
+        {% for user in users %}
+            <div class="col-md-5 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-title"> {{ user.role }}</p>
+                        <div class="d-flex flex-wrap mb-5">
+                            <img class= "card-img-item" src="{{ user.photo }}" alt="Image">
+                        </div>
+                        <div class="d-flex flex-wrap mb-5">
+                            <div class="mr-5 mt-3">
+                                <p class="text-muted">Nom</p>
+                                <h3 class="text-primary fs-30 font-weight-medium">{{ user.username}}</h3>
+                            </div>
+
+                            <div class="mr-5 mt-3">
+                                <p class="text-muted">Adresse mail</p>
+                                <h3 class="text-primary fs-30 font-weight-medium">{{ user.mail }}</h3>
+                            </div>
+
+                            <div class="mr-5 mt-3">
+                                <p class="text-muted">Région</p>
+                                <h3 class="text-primary fs-30 font-weight-medium">{{ user.city  }}</h3>
+                            </div>
+
+                            <div class="mr-5 mt-3">
+                                <p class="text-muted">Gouvernorat</p>
+                                <h3 class="text-primary fs-30 font-weight-medium">{{ user.gouvernorat  }}</h3>
+                            </div>
+
+                            <div class="mr-5 mt-3">
+                                <p class="text-muted">Tél</p>
+                                <h3 class="text-primary fs-30 font-weight-medium">+216 {{ user.phone  }} </h3>
+                            </div>
+                        </div>
+                        <p class="font-weight-500">Montant donné:{{user.montantDonne }}TND</p>
+                        <br>
+
+
+                        <div class="d-flex flex-wrap mb-5">
+
+                            <div class="mr-5 mt-3">
+                                <a class="btn btn-success" href="{{path('user_show', {'userid': user.userid})  }}">Détails</a>
+                            </div>
+
+                            <div class="mr-5 mt-3">
+                                <a class="btn btn-warning" href="{{ path('user_edit', {'userid': user.userid}) }}">Modifier</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+    </div>
+
+
+
+{% endblock %}
