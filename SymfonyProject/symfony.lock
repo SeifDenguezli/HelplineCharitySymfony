@@ -115,21 +115,6 @@
     "knplabs/knp-paginator-bundle": {
         "version": "v5.7.0"
     },
-    "illuminate/collections": {
-        "version": "v8.72.0"
-    },
-    "illuminate/contracts": {
-        "version": "v8.72.0"
-    },
-    "illuminate/macroable": {
-        "version": "v8.72.0"
-    },
-    "illuminate/support": {
-        "version": "v8.72.0"
-    },
-    "jcrowe/bad-word-filter": {
-        "version": "v2.2.0"
-    },
     "laminas/laminas-code": {
         "version": "4.4.3"
     },

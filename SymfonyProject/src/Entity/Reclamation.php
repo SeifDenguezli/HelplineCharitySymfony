@@ -22,6 +22,13 @@ class Reclamation
     private $reclamationid;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="eventId", type="integer", nullable=false)
+     */
+    private $eventid;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateReclamation", type="date", nullable=false)
@@ -45,15 +52,58 @@ class Reclamation
      */
     private $userid;
 
-    /**
-     * @var \Evenement
-     *
-     * @ORM\ManyToOne(targetEntity="Evenement")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="eventId", referencedColumnName="eventId")
-     * })
-     */
-    private $eventid;
+    public function getReclamationid(): ?int
+    {
+        return $this->reclamationid;
+    }
+
+    public function getEventid(): ?int
+    {
+        return $this->eventid;
+    }
+
+    public function setEventid(int $eventid): self
+    {
+        $this->eventid = $eventid;
+
+        return $this;
+    }
+
+    public function getDatereclamation(): ?\DateTimeInterface
+    {
+        return $this->datereclamation;
+    }
+
+    public function setDatereclamation(\DateTimeInterface $datereclamation): self
+    {
+        $this->datereclamation = $datereclamation;
+
+        return $this;
+    }
+
+    public function getContenu(): ?string
+    {
+        return $this->contenu;
+    }
+
+    public function setContenu(string $contenu): self
+    {
+        $this->contenu = $contenu;
+
+        return $this;
+    }
+
+    public function getUserid(): ?User
+    {
+        return $this->userid;
+    }
+
+    public function setUserid(?User $userid): self
+    {
+        $this->userid = $userid;
+
+        return $this;
+    }
 
 
 }

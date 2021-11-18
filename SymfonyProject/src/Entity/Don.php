@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Don
- *
  * @ORM\Table(name="don", indexes={@ORM\Index(name="eventId", columns={"eventId"}), @ORM\Index(name="donorId", columns={"donorId"})})
  * @ORM\Entity
  */
@@ -20,6 +19,20 @@ class Don
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $donid;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="donorId", type="integer", nullable=false)
+     */
+    private $donorid;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="eventId", type="integer", nullable=true)
+     */
+    private $eventid;
 
     /**
      * @var string
@@ -88,15 +101,24 @@ class Don
         return $this->montant;
     }
 
-    /**
-     * @var \Evenement
-     *
-     * @ORM\ManyToOne(targetEntity="Evenement")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="eventId", referencedColumnName="eventId")
-     * })
-     */
-    private $eventid;
+    public function setMontant(float $montant): self
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?string
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(string $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
 
 
 }
