@@ -43,6 +43,8 @@ class AdminEvenementController extends AbstractController
     public function new(Request $request): Response
     {
         $evenement = new Evenement();
+        $evenement->setMontantCollecte(0);
+        $evenement->setNumParticipants(0);
         $form = $this->createForm(Evenement1Type::class, $evenement);
         $form->handleRequest($request);
 

@@ -103,8 +103,14 @@
     </div>
 
     <div class="mr-5 mt-3">
-        {{ include('evenement/admin_evenement/_delete_form.html.twig') }}
+
+        <form method="post" action="{{ path('admin_evenement_delete', {'eventId': evenement.eventId}) }}" onsubmit="return confirm('Etes-vous sûr(e) de vouloir supprimer cet évènement?');">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ evenement.eventId) }}">
+            <button class="btn btn-danger">Supprimer</button>
+        </form>
     </div>
+
+    <button type="button" class="btn btn-success btn-fw" onclick="showSuccessToast()">Success</button>
 
 
 
