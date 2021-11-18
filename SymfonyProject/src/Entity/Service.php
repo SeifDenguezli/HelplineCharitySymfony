@@ -24,23 +24,30 @@ class Service
     /**
      * @var string
      *
-     * @ORM\Column(name="typeService", type="string", length=255, nullable=false)
+     * @ORM\Column(name="TypeService", type="string", length=255, nullable=false)
      */
     private $typeservice;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Lieu", type="string", length=255, nullable=false)
+     * @ORM\Column(name="lieu", type="string", length=255, nullable=false)
      */
     private $lieu;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateDisponibilite", type="date", nullable=false)
+     * @ORM\Column(name="DateDisponibilite", type="date", nullable=false)
      */
     private $datedisponibilite;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255, nullable=false)
+     */
+    private $description;
 
     /**
      * @var \User
