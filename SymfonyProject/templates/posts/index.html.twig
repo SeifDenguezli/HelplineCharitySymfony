@@ -1,13 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block blog %}
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+{% block body %}
     <body style="background-color: rgba(0,2,7,0.85)"></body>
 
     <Center>
@@ -18,6 +10,7 @@
     <div class="container">
         <div class="row">
             {% for post in posts %}
+
                 <div class="col-sm-6 col-lg-4">
                     <div class="card h-100">
                         <img src={{ post.postpic }} class="card-img-top" alt="...">
@@ -29,6 +22,7 @@
                         </div>
                     </div>
                 </div>
+
             {% endfor %}
 
         </div>
@@ -36,8 +30,10 @@
     </div>
 
 
-<br>
     <br>
     <br>
+    <br>
+    {{ knp_pagination_render(posts, '@KnpPaginator/Pagination/twitter_bootstrap_v3_pagination.html.twig') }}
 
-{% endblock blog %}
+    </b>
+{% endblock body %}

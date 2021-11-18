@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block blog %}
+{% block body %}
 <div style="background-color: #4a4c70">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
@@ -14,4 +14,4 @@
     {{ include('posts/_form.html.twig') }}
     <a href="{{ path('posts_index') }}">back to list</a>
 </div>
-{% endblock blog %}
+{% endblock body %}

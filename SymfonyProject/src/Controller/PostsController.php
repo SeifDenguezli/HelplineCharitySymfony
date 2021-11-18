@@ -7,6 +7,7 @@ use App\Entity\Posts;
 use App\Entity\User;
 use App\Form\PostsType;
 use JCrowe\BadWordFilter\Facades\BadWordFilter;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,11 +19,17 @@ class PostsController extends AbstractController
     /**
      * @Route("/posthome", name="posts_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator,Request $request  ): Response
     {
         $posts = $this->getDoctrine()
             ->getRepository(Posts::class)
             ->findAll();
+
+        $posts= $paginator->paginate(
+            $posts,
+            $request->query->getInt('page',1),5
+        );
+
 
         return $this->render('posts/index.html.twig', [
             'posts' => $posts,

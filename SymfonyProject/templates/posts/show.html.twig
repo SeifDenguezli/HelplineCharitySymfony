@@ -2,7 +2,7 @@
 
 {% block title %}Posts{% endblock %}
 
-{% block blog %}
+{% block body %}
     {{ form_start(form,{attr: {'novalidate': 'novalidate'}}) }}
 
     <link rel="stylesheet" href="css/publication.css">
@@ -76,4 +76,4 @@
     {{ form_end(form) }}
 
     {{ include('posts/_delete_form.html.twig') }}
-{% endblock blog %}
+{% endblock body%}
