@@ -4,6 +4,15 @@
 
 {% block body %}
 
+    <div class="alert alert-fill-info clearfix col-md-12 alert-add">
+        <p class="mt-lg-3">Envie de créer un nouveau évènement manuellement ?</p>
+        <p>A vous la main !</p>
+        <a class="btn btn-primary float-right" href="{{ path('admin_evenement_new') }}">
+            <i class="mdi mdi-apple-keyboard-option"></i>
+            Créer un évènement
+        </a>
+    </div>
+
     <div class="row">
     {% for evenement in evenements %}
         <div class="col-md-6 grid-margin stretch-card">
@@ -71,5 +80,5 @@
 
 
 
-    <a href="{{ path('admin_evenement_new') }}">Create new</a>
+
 {% endblock %}

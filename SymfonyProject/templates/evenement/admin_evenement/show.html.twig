@@ -102,6 +102,8 @@
         <a class="btn btn-inverse-secondary" href="{{ path('admin_evenement_edit', {'eventId': evenement.eventId}) }}">Modifier</a>
     </div>
 
+
+
     <div class="mr-5 mt-3">
 
         <form method="post" action="{{ path('admin_evenement_delete', {'eventId': evenement.eventId}) }}" onsubmit="return confirm('Etes-vous sûr(e) de vouloir supprimer cet évènement?');">
@@ -110,7 +112,6 @@
         </form>
     </div>
 
-    <button type="button" class="btn btn-success btn-fw" onclick="showSuccessToast()">Success</button>
 
 
 
