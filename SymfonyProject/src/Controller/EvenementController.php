@@ -37,7 +37,7 @@ class EvenementController extends AbstractController
         );
 
 
-        return $this->render('backoffice.html.twig', [
+        return $this->render('evenement/index.html.twig', [
             'evenements' => $evenements,
         ]);
     }
@@ -78,11 +78,20 @@ class EvenementController extends AbstractController
         $faker = Factory::create('FR-fr');
 
         $users = [];
+        $genres = ['male', 'female'];
 
         //Generation Users
         for($i=1; $i <= 10; $i++) {
             $user = new User();
-            $user->setName($faker->name);
+            $genre = $faker->randomElement($genres);
+
+            $picture = 'https://randomuser.me/api/portraits/';
+            $pictureId = $faker->numberBetween(1,99) . '.jpg';
+
+            if ($genre == 'male') $picture = $picture . 'men/' . $pictureId;
+            else $picture = $picture . 'women/' . $pictureId;
+
+            $user->setName($faker->name($genre));
             $user->setPassword($faker->password);
             $user->setCity($faker->city);
             $user->setGouvernorat($faker->state);
@@ -90,6 +99,7 @@ class EvenementController extends AbstractController
             $user->setMail($faker->email);
             $user->setRole($faker->state);
             $user->setMontantDonne($faker->randomFloat());
+            $user->setPhoto($picture);
             $manager->persist($user);
             $users[] = $user;
 
@@ -98,12 +108,12 @@ class EvenementController extends AbstractController
         //Generation Evenements
         for($i=1; $i <= 10; $i++) {
 
-            $donCateg = $faker->sentence;
-            $cause = $faker->sentence;
+            $donCateg = $faker->sentence(1);
+            $cause = $faker->sentence();
             $region = $faker->country;
             $participants = mt_rand(20, 200);
             $dateCreation = $faker->dateTime;
-            $montantCollecte = $faker->randomFloat();
+            $montantCollecte = $faker->randomFloat(2, 0, 10000);
             $description = $faker->sentence;
             $coverImage = $faker->imageUrl(600,400);
             $user = $users[mt_rand(0,count($users)-1)];
