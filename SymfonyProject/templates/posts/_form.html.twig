@@ -3,9 +3,6 @@
 
 <center>
 
-    <div class="errorh">{{ form_errors(form.posttype) }}</div>
-    <div class="errorh"> {{ form_errors(form.posttitle) }}</div>
-    <div class="errorh"> {{ form_errors(form.postcontent) }}</div>
     <br>
     <div class="container1" >
         <div class="wrapper">
@@ -15,13 +12,19 @@
                         <p>Aymen Zaabar</p>
                     </div>
                 </div>
-                <div class="options">{{ form_label (form.posttitle,"Titre")}}
-                {{ form_widget(form.posttitle) }}
-                {{ form_label (form.posttype,"Sujet")}}
-                {{ form_widget(form.posttype) }}
+
+                <div class="options">
+                    {{ form_label (form.posttitle,"Titre")}}
+                    {{ form_widget(form.posttitle) }}
+                    <b class="errorh" style="align-content:center">{{ form_errors(form.posttitle) }}</b>
+                    {{ form_label (form.posttype,"Sujet")}}
+                    {{ form_widget(form.posttype) }}
+                    <b class="errorh" style="align-content:center">{{ form_errors(form.posttype) }}</b>
+
                 </div>
                 {{ form_label (form.postcontent,"Votre contenu")}}
                 {{ form_widget(form.postcontent) }}
+                <b class="errorh" style="align-content:center">{{ form_errors(form.postcontent) }}</b>
                 <div class="options">
                     <p>Add to Your Post</p>
                     <ul class="list">

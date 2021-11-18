@@ -2478,6 +2478,8 @@ form textarea:valid ~ button:hover{
 }
 .errorh{
     color: #ba3939;
-    background: #ffe0e0;
-
+    width: 120px;
+    height: 45px;
+    font-size: x-small;
+    align-content: center;
 }

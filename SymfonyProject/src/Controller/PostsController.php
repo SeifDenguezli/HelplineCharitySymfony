@@ -6,6 +6,7 @@ use App\Entity\Comments;
 use App\Entity\Posts;
 use App\Entity\User;
 use App\Form\PostsType;
+use JCrowe\BadWordFilter\Facades\BadWordFilter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,10 +38,15 @@ class PostsController extends AbstractController
         $post->setPostpic("https://cdn.vox-cdn.com/thumbor/OTaHOVtIR6t8L0doPD-Kq6XYqeA=/0x0:1754x1241/1200x800/filters:focal(737x481:1017x761)/cdn.vox-cdn.com/uploads/chorus_image/image/68040475/GettyImages_1060748862.0.jpg");
         $post->setPostdate(new \DateTime('now'));
         $post->setLikecount(0);
+
         $form = $this->createForm(PostsType::class, $post);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $filter = new \JCrowe\BadWordFilter\BadWordFilter();
+            $trash =$filter->clean($post->getPostcontent());
+            $post->setPostcontent($trash);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
             $entityManager->flush();
@@ -65,7 +71,6 @@ class PostsController extends AbstractController
         $user =  new User();
         $user->setName('hmed');
         $comment1 = new Comments();
-
         $comment1->setPostid($post);
         $comment1->setCommentdate(new \DateTime('now'));
         $comment1->setCommentauthor("hmayed");
@@ -76,6 +81,9 @@ class PostsController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $filter = new \JCrowe\BadWordFilter\BadWordFilter();
+            $trash =$filter->clean($comment1->getCommentcontent());
+            $comment1->setCommentcontent($trash);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($comment1);
             $entityManager->flush();

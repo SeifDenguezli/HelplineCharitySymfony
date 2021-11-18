@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vangrg\ProfanityBundle\Validator\Constraints as ProfanityAssert;
 
 /**
  * Posts
@@ -29,7 +30,7 @@ class Posts
      * @var string
      *
      * @ORM\Column(name="postTitle", type="string", length=255, nullable=false)
-     * @Assert\NotBlank(message="Veuillez donnez le titre du post")
+     * @Assert\NotBlank(message="Champ titre vide")
      */
     private $posttitle;
     /**
@@ -43,7 +44,7 @@ class Posts
      * @var string
      *
      * @ORM\Column(name="postType", type="string", length=255, nullable=false)
-     * @Assert\NotBlank(message="Veuillez donnez le sujet du post")
+     * @Assert\NotBlank(message="Champ sujet vide")
      */
     private $posttype;
 
@@ -65,7 +66,8 @@ class Posts
      * @var string
      *
      * @ORM\Column(name="postContent", type="text", length=65535, nullable=false)
-     * @Assert\NotBlank(message="Vous ne pouvez pas creer un post vide")
+     * @Assert\NotBlank(message="Contenu vide")
+     *
      */
     private $postcontent;
 

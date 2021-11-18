@@ -3,7 +3,8 @@
 {% block title %}Posts{% endblock %}
 
 {% block blog %}
-    {{ form_start(form) }}
+    {{ form_start(form,{attr: {'novalidate': 'novalidate'}}) }}
+
     <link rel="stylesheet" href="css/publication.css">
     <br>
     <br>
@@ -12,22 +13,23 @@
     <br>
     <body style="background-color: rgba(0,2,7,0.85)"></body>
     <div class="container mt-5 mb-5" >
+
         <div class="row d-flex align-items-center justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-11">
               <div class="card" >
                     <div class="d-flex justify-content-between p-2 px-3">
-                        <div class="d-flex flex-row align-items-center"> <img src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" width="50" class="rounded-circle">
-                            <div class="d-flex flex-column ml-2"> <span class="font-weight-bold">{{ user.name }}</span> <small class="text-primary">Collegues</small> </div>
+                        <div class="d-flex flex-row align-items-center"> <img src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png" width="50" class="rounded-circle">
+                            <div class="d-flex flex-column ml-2"> <span class="font-weight-bold">{{ user.name }}</span> <small class="text-primary">Membre VIP</small> </div>
                         </div>
                         <div class="d-flex flex-row mt-1 ellipsis"> <small class="mr-2">{{ post.postdate ? post.postdate|date('Y-m-d') : '' }}</small> <i class="fa fa-ellipsis-h"></i> </div>
                     </div> <img src={{ post.postpic  }} class="img-fluid">
-                    <div class="p-2">
-                        <h4>{{ post.posttitle }}</h4>
-                        <p class="text-justify">{{ post.postcontent }}</p>
+                    <div class="p-3">
+                        <h4 style="font-size:30px">    {{ post.posttitle }}</h4>
+                        <p class="text-justify" style="font-size:30px">{{ post.postcontent }}</p>
                         <hr>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex flex-row icons d-flex align-items-center">  </div>
-                            <div class="d-flex flex-row muted-color"> <span>2 commentaires</span>  </div>
+                            <div class="d-flex flex-row muted-color"> <span>4 commentaires</span>  </div>
                         </div>
                         <hr>
                         <div class="comments">
@@ -36,14 +38,15 @@
                             <table>
                            <tr>
                                <td>
-                                   <div class="d-flex flex-row mb-2"> <img src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" width="40" class="rounded-image">
-                                <div class="d-flex flex-column ml-2"> <span class="name">Daniel Frozer</span> <small class="comment-text">{{ comment.commentContent }}</small>
+                                   <div class="d-flex flex-row mb-2"> <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" width="40" class="rounded-image">
+                                <div class="d-flex flex-column ml-2"> <span class="name">{{ comment.commentauthor }}</span> <small class="comment-text" style="font-size:20px">{{ comment.commentContent }}</small>
                                     <div class="d-flex flex-row align-items-center status"> <small>Like</small>  <small>{{ comment.commentdate ? comment.commentdate|date('Y-m-d') : '' }}</small> </div>
                                 </div>
                                    </div>
                                </td>
                            </tr>
                             </table>
+                                <hr>
                                 <br>
                                 {% endfor %}
 
@@ -51,6 +54,8 @@
                             </div>
 
                   <div class="comment-input">
+                      <div class="errorh"> {{ form_errors(form.commentcontent) }}</div>
+
                        <div class="commentare">{{ form_widget(form.commentcontent) }}</div>
                       <button >{{ button_label|default('Post') }}</button>
                       <br>

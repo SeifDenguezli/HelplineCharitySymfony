@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Posts;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Comments
  *
@@ -46,6 +47,7 @@ class Comments
      * @var string
      *
      * @ORM\Column(name="commentContent", type="text", length=65535, nullable=false)
+     * @Assert\NotBlank (message="Veuillez Saisir votre commentaire")
      */
     private $commentcontent;
 
