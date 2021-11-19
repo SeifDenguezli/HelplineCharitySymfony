@@ -2150,8 +2150,8 @@ a:focus {
     background: #1a81ff;
 }
 .container1{
-    width: 900px;
-    height: 480px;
+    width: 1000px;
+    height: 450px;
     overflow: hidden;
     background: #fff;
     border-radius: 10px;
@@ -2159,10 +2159,10 @@ a:focus {
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
 .container1.active{
-    height: 900px;
+    height: 1000px;
 }
 .container1 .wrapper{
-    width: 1000px;
+    width: 1200px;
     display: flex;
 }
 .container1 .wrapper section{
@@ -2236,7 +2236,7 @@ form .content .details p{
     min-height: 100px;
 }
 form :where(textarea, button){
-    width: 100%;
+    width: 90%;
     outline: none;
     border: none;
 
@@ -2250,6 +2250,7 @@ form textarea{
 
 form textarea::placeholder{
     color: #858585;
+
 }
 form textarea:focus::placeholder{
     color: #b3b3b3;
@@ -2263,7 +2264,8 @@ form :where(.theme-emoji, .options){
     max-width: 24px;
 }
 form .options{
-    height: 57px;
+    height: 100px;
+    width : 800px;
     margin: 15px 0;
     padding: 0 15px;
     border-radius: 7px;

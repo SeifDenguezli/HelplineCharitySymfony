@@ -65,7 +65,7 @@ class AdminPostsController extends AbstractController
     }
 
     /**
-     * @Route("/{postid}", name="admin_posts_edit", methods={"GET", "POST"})
+     * @Route("/{postid}/edit", name="admin_posts_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Posts $post, EntityManagerInterface $entityManager): Response
     {
@@ -78,7 +78,7 @@ class AdminPostsController extends AbstractController
             return $this->redirectToRoute('admin_posts_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('admin_posts/edit.html.twig', [
+        return $this->render('posts/admin_posts/edit.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
         ]);

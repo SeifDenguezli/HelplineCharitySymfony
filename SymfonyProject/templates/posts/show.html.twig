@@ -6,11 +6,6 @@
     {{ form_start(form,{attr: {'novalidate': 'novalidate'}}) }}
 
     <link rel="stylesheet" href="css/publication.css">
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
     <body style="background-color: rgba(0,2,7,0.85)"></body>
     <div class="container mt-5 mb-5" >
 
@@ -51,21 +46,20 @@
                            </tr>
                             </table>
                                 <hr>
-                                <br>
                                 {% endfor %}
 
                             </div>
                             </div>
 
                   <div class="comment-input">
-                      <div class="errorh"> {{ form_errors(form.commentcontent) }}</div>
+                      <div > {{ form_errors(form.commentcontent) }}</div>
 
                        <div class="commentare">{{ form_widget(form.commentcontent) }}</div>
-                      <button >{{ button_label|default('Post') }}</button>
-                      <br>
+
+
 
                   </div>
-
+                 <center> <button >{{ button_label|default('Post') }}</button></center>
               </div>
 
                     </div>

@@ -5,28 +5,44 @@
 {% block body %}
 
 <link rel="stylesheet" href="/css/apost.css">
+    <link rel="stylesheet" href="/css/test/dist/notifications.css">
+    <script src="/css/test/dist/notifications.js"></script>
+    <script>const myNotification = window.createNotification({
+    theme : 'info'
+        });</script>
 
     <div id="gradient" >
 
-        <form method="post" action="{{ path('admin_posts_delete', {'postid': post.postid}) }}" onsubmit="return confirm('Voulez vous vraiment supprimer {{ post.posttitle }}');">
+        <form method="post" action="{{ path('admin_posts_delete', {'postid': post.postid}) }}">
             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.postid) }}">
-             <button  class="btn btn-inverse-dark" style="margin-left: 700px ; margin-top:10%" >Supprimer</button>
+            <button  class="btn btn-inverse-dark" style="margin-left: 580px ; margin-top:7%" onclick="myNotification({
+                    title: 'Post supprimé !',
+                    message: 'le post {{ post.posttitle }} est supprimé'
+                    });"  >Supprimer</button>
 
         </form>
-<p style="margin-left: 900px; margin-top:-140px"> Editeur : Hassan</p>
-        <p style="margin-left: 900px; margin-top:30px"> Nombre de Posts crée: 10</p>
+
     </div>
 
     <br>
     <br>
     <br>
     <div id="card">
+        <br><br><br>  <br>
         <img src="{{ post.postpic }}"/>
         <h2>{{ post.posttitle }}</h2>
         <p>{{ post.postdate ? post.postdate|date('Y-m-d') : '' }}</p>
         <br>
         <p>{{ post.postcontent }}</p>
 
+    </div>
+    <div id="card1" style="padding: 50px">
+        <img src="https://media.creativemornings.com/uploads/user/avatar/120448/profile-circle.png"/>
+
+       <br><br> <p > Editeur : Hassan</p>
+        <p > Nombre de Posts crée: 10</p>
+        <p> Les mots vulgaire utilisé : N/A </p>
+        <button  class="btn btn-outline-twitter"  >Suspendre</button>
     </div>
 
 

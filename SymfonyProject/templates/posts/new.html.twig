@@ -1,17 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<div style="background-color: #4a4c70">
+<div >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
+    </div>
 
     {{ include('posts/_form.html.twig') }}
-    <a href="{{ path('posts_index') }}">back to list</a>
+    <center> <a   href="{{ path('posts_index') }}">Retour</a></center>
 </div>
+
 {% endblock body %}
