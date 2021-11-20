@@ -1,0 +1,226 @@
+{% extends 'backoffice.html.twig' %}
+
+{% block title %} Admin Panel - Détails Profil {% endblock %}
+
+{% block body %}
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="border-bottom text-center pb-4">
+                        <img src="{{ evenement.associationId.photo }}" alt="profile" class="img-lg rounded-circle mb-3"/>
+                        <div class="mb-3">
+                            <h3>{{ evenement.associationId.name }}</h3>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <h5 class="mb-0 me-2 text-muted">{{ evenement.associationId.city }}</h5>
+                                <select id="profile-rating" name="rating" autocomplete="off">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <p class="w-75 mx-auto mb-3">{{ evenement.associationId.name }} est la personne résponsable de l'association organisatrice de cet évènement</p>
+                    </div>
+                    <div class="border-bottom py-4">
+                        <p>Skills</p>
+                        <div>
+                            <label class="badge badge-outline-dark">Chalk</label>
+                            <label class="badge badge-outline-dark">Hand lettering</label>
+                            <label class="badge badge-outline-dark">Information Design</label>
+                            <label class="badge badge-outline-dark">Graphic Design</label>
+                            <label class="badge badge-outline-dark">Web Design</label>
+                        </div>
+                    </div>
+                    <div class="border-bottom py-4">
+                        <div class="d-flex mb-3">
+                            <div class="progress progress-md flex-grow">
+                                <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="55" style="width: 55%" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="progress progress-md flex-grow">
+                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="75" style="width: 75%" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="py-4">
+                        <p class="clearfix">
+                          <span class="float-left">
+                            Status
+                          </span>
+                            <span class="float-right text-muted">
+                            Active
+                          </span>
+                        </p>
+                        <p class="clearfix">
+                          <span class="float-left">
+                            Identifiant de l'utilisateur
+                          </span>
+                            <span class="float-right text-muted">
+                            {{ evenement.associationId.userId }}
+                          </span>
+                        </p>
+
+                        <p class="clearfix">
+                          <span class="float-left">
+                            Ville
+                          </span>
+                            <span class="float-right text-muted">
+                            {{ evenement.associationId.gouvernorat }}
+                          </span>
+                        </p>
+
+                        <p class="clearfix">
+                          <span class="float-left">
+                            Phone
+                          </span>
+                            <span class="float-right text-muted">
+                            {{ evenement.associationId.phone }}
+                          </span>
+                        </p>
+                        <p class="clearfix">
+                          <span class="float-left">
+                            Mail
+                          </span>
+                            <span class="float-right text-muted">
+                            {{ evenement.associationId.mail }}
+                          </span>
+                        </p>
+                        <p class="clearfix">
+                          <span class="float-left">
+                            Facebook
+                          </span>
+                            <span class="float-right text-muted">
+                            <a href="#">{{ evenement.associationId.name }}</a>
+                          </span>
+                        </p>
+
+                    </div>
+                    <button class="btn btn-primary btn-block mb-2">Gérer cet utilisateur</button>
+                </div>
+                <div class="col-lg-8">
+                    <div class="d-block d-md-flex justify-content-between mt-4 mt-md-0">
+                        <div class="text-center mt-4 mt-md-0">
+                            <button class="btn btn-outline-primary">Modifier l'évènement</button>
+                            <button class="btn btn-primary">Supprimer l'évènement</button>
+                        </div>
+                    </div>
+                    {% block historique %}
+                    <div class="mt-4 py-2 border-top border-bottom">
+                        <ul class="nav profile-navbar">
+
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{ path('admin_evenement_show', {'eventId': evenement.eventId}) }}">
+                                    <i class="ti-receipt"></i>
+                                    Détails de l'évènement
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('admin_evenement_show_history') }}">
+                                    <i class="ti-user"></i>
+                                    Historique
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="profile-feed">
+
+                        <div class="profile-feed-item cover-img-event">
+                            <div class="ms-4">
+                                <img src="{{ evenement.coverImage }}" alt="sample" class="rounded mw-100"/>
+                            </div>
+                        </div>
+                        <div class="align-items-start">
+                            <div class="py-4">
+                                <p class="clearfix">
+                          <span class="float-left">
+                            Identifiant de l'évènement
+                          </span>
+                                    <span class="float-right text-muted">
+                            {{ evenement.eventId }}
+                          </span>
+                                </p>
+                                <p class="clearfix">
+                          <span class="float-left">
+                            Région
+                          </span>
+                                    <span class="float-right text-muted">
+                            {{ evenement.Region }}
+                          </span>
+                                </p>
+
+                                <p class="clearfix">
+                          <span class="float-left">
+                            Date
+                          </span>
+                                    <span class="float-right text-muted">
+                            {{ evenement.dateCreation ? evenement.dateCreation|date('Y-m-d') : '' }}
+                          </span>
+                                </p>
+
+                                <p class="clearfix">
+                          <span class="float-left">
+                            Objectif
+                          </span>
+                                    <span class="float-right text-muted">
+                            {{ evenement.cause }}
+                          </span>
+                                </p>
+
+                                <p class="clearfix">
+                          <span class="float-left">
+                            Participants
+                          </span>
+                                    <span class="float-right text-muted">
+                            {{ evenement.numParticipants }}
+                          </span>
+                                </p>
+                                <p class="clearfix">
+                          <span class="float-left">
+                            Montant collecté
+                          </span>
+                                    <span class="float-right text-muted">
+                            {{ evenement.montantCollecte }} DT
+                          </span>
+                                </p>
+                                <p class="clearfix">
+                          <span class="float-left">
+                            Nombre de commentaires
+                          </span>
+                                    <span class="float-right text-muted">
+                            8
+                          </span>
+                                </p>
+                                <p class="clearfix">
+                          <span class="float-left">
+                            Description
+                          </span>
+                                    <span class="float-right text-muted">
+                            {{ evenement.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam autem culpa debitis dignissimos dolores ducimus eos est exercitationem explicabo harum, mollitia, quia recusandae temporibus, ullam veniam vero voluptas. Earum?
+                          </span>
+                                </p>
+                            <br>
+                                <div id="night-mode-map" class="google-map">
+                                    <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1OlFj1UFQyAf7wdW4RSUCBT4A47joMsQn" width="100%" height="500px"></iframe>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        {% endblock %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'evenement/admin_evenement/show2.html.twig' %}
+
+{% block historique %}
+
+    <div class="mt-4 py-2 border-top border-bottom">
+        <ul class="nav profile-navbar">
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin_evenement_show', {'eventId': evenement.eventId}) }}">
+                    <i class="ti-receipt"></i>
+                    Détails de l'évènement
+                </a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ path('admin_evenement_show_history') }}">
+                    <i class="ti-user"></i>
+                    Historique
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="d-flex align-items-start profile-feed-item">
+        <div class="ms-4">
+            <h6>
+                {{ evenement.cause }}
+                <small class="ms-4 text-muted"><i class="ti-time me-1"></i> &nbsp; {{ evenement.dateCreation ? evenement.dateCreation|date('Y-m-d') : '' }}</small>
+            </h6>
+
+        </div>
+    </div>
+
+{% endblock %}

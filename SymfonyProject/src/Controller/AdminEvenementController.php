@@ -63,11 +63,22 @@ class AdminEvenementController extends AbstractController
     }
 
     /**
+     * @Route("/history", name="admin_evenement_show_history")
+     */
+    public function show3(): Response
+    {
+        #$evenements = $this->getDoctrine()->getRepository(Evenement::class)->findBy()
+        return $this->render('evenement/admin_evenement/show3.html.twig', [
+            'evenement' => $evenement,
+        ]);
+    }
+
+    /**
      * @Route("/{eventId}", name="admin_evenement_show", methods={"GET"})
      */
     public function show(Evenement $evenement): Response
     {
-        return $this->render('evenement/admin_evenement/show.html.twig', [
+        return $this->render('evenement/admin_evenement/show2.html.twig', [
             'evenement' => $evenement,
         ]);
     }
