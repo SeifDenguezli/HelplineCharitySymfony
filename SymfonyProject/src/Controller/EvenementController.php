@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Evenement;
+use App\Entity\EventUser;
 use App\Entity\User;
 use App\Form\EvenementType;
 use App\Repository\EvenementRepository;
@@ -131,9 +132,28 @@ class EvenementController extends AbstractController
             $event->setAssociationId($user);
             $event->setCoverImage($coverImage);
 
+
+            //Gestion de participations aux evenements
+            for($j=1; $j<= mt_rand(0,10); $j++){
+                $participation = new EventUser();
+                $joinedAt = $faker->dateTimeBetween('-6 months');
+                $amount = $faker->$montantCollecte = $faker->randomFloat(2, 0, 10000);
+                $userJoined = $users[mt_rand(0, count($users)-1)];
+
+                $participation->setEventId($event);
+                $participation->setUserId($userJoined);
+                $participation->setJoinDate($joinedAt);
+                $participation->setAmount($amount);
+                $manager->persist($participation);
+            }
+
+
             $manager->persist($event);
             $manager->flush();
         }
+
+
+
 
         return $this->redirectToRoute('evenement_index', []);
     }

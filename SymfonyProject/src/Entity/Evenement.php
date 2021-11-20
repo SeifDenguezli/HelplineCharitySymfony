@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EvenementRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -70,6 +72,16 @@ class Evenement
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $coverImage;
+
+    /**
+     * @ORM\OneToMany(targetEntity=EventUser::class, mappedBy="eventId")
+     */
+    private $eventUsers;
+
+    public function __construct()
+    {
+        $this->eventUsers = new ArrayCollection();
+    }
 
 
 
@@ -196,4 +208,41 @@ class Evenement
 
         return $this;
     }
+
+    /**
+     * @return Collection|EventUser[]
+     */
+    public function getEventUsers(): Collection
+    {
+        return $this->eventUsers;
+    }
+
+    public function addEventUser(EventUser $eventUser): self
+    {
+        if (!$this->eventUsers->contains($eventUser)) {
+            $this->eventUsers[] = $eventUser;
+            $eventUser->setEventId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventUser(EventUser $eventUser): self
+    {
+        if ($this->eventUsers->removeElement($eventUser)) {
+            // set the owning side to null (unless already changed)
+            if ($eventUser->getEventId() === $this) {
+                $eventUser->setEventId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getCause();
+    }
+
+
 }

@@ -90,9 +90,15 @@ class User
      */
     private $evenements;
 
+    /**
+     * @ORM\OneToMany(targetEntity=EventUser::class, mappedBy="userId")
+     */
+    private $eventUsers;
+
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
+        $this->eventUsers = new ArrayCollection();
     }
 
     /**
@@ -288,6 +294,36 @@ class User
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * @return Collection|EventUser[]
+     */
+    public function getEventUsers(): Collection
+    {
+        return $this->eventUsers;
+    }
+
+    public function addEventUser(EventUser $eventUser): self
+    {
+        if (!$this->eventUsers->contains($eventUser)) {
+            $this->eventUsers[] = $eventUser;
+            $eventUser->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventUser(EventUser $eventUser): self
+    {
+        if ($this->eventUsers->removeElement($eventUser)) {
+            // set the owning side to null (unless already changed)
+            if ($eventUser->getUserId() === $this) {
+                $eventUser->setUserId(null);
+            }
+        }
+
+        return $this;
     }
 
 
