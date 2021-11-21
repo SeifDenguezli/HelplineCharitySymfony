@@ -19,6 +19,14 @@ class EventUserRepository extends ServiceEntityRepository
         parent::__construct($registry, EventUser::class);
     }
 
+    public function findJoinedEventByUser($id)
+    {
+        return $this->createQueryBuilder('eu')
+            ->where('eu.eventId=:id')
+            ->setParameter('id',$id)
+            ->getQuery()->getResult();
+    }
+
 
     // /**
     //  * @return EventUser[] Returns an array of EventUser objects

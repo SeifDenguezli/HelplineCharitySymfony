@@ -78,9 +78,15 @@ class Evenement
      */
     private $eventUsers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=EventComment::class, mappedBy="event")
+     */
+    private $eventComments;
+
     public function __construct()
     {
         $this->eventUsers = new ArrayCollection();
+        $this->eventComments = new ArrayCollection();
     }
 
 
@@ -242,6 +248,36 @@ class Evenement
     public function __toString()
     {
         return $this->getCause();
+    }
+
+    /**
+     * @return Collection|EventComment[]
+     */
+    public function getEventComments(): Collection
+    {
+        return $this->eventComments;
+    }
+
+    public function addEventComment(EventComment $eventComment): self
+    {
+        if (!$this->eventComments->contains($eventComment)) {
+            $this->eventComments[] = $eventComment;
+            $eventComment->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventComment(EventComment $eventComment): self
+    {
+        if ($this->eventComments->removeElement($eventComment)) {
+            // set the owning side to null (unless already changed)
+            if ($eventComment->getEvent() === $this) {
+                $eventComment->setEvent(null);
+            }
+        }
+
+        return $this;
     }
 
 

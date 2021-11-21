@@ -2,32 +2,33 @@
 
 namespace App\Repository;
 
-use App\Entity\Evenement;
+use App\Entity\EventComment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Evenement|null find($id, $lockMode = null, $lockVersion = null)
- * @method Evenement|null findOneBy(array $criteria, array $orderBy = null)
- * @method Evenement[]    findAll()
- * @method Evenement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method EventComment|null find($id, $lockMode = null, $lockVersion = null)
+ * @method EventComment|null findOneBy(array $criteria, array $orderBy = null)
+ * @method EventComment[]    findAll()
+ * @method EventComment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EvenementRepository extends ServiceEntityRepository
+class EventCommentRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Evenement::class);
+        parent::__construct($registry, EventComment::class);
     }
 
-
-
-
-
-
-
+    public function findAllCommentsByEvent($id)
+    {
+        return $this->createQueryBuilder('ec')
+            ->where('ec.event=:id')
+            ->setParameter('id',$id)
+            ->getQuery()->getResult();
+    }
 
     // /**
-    //  * @return Evenement[] Returns an array of Evenement objects
+    //  * @return EventComment[] Returns an array of EventComment objects
     //  */
     /*
     public function findByExampleField($value)
@@ -44,7 +45,7 @@ class EvenementRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Evenement
+    public function findOneBySomeField($value): ?EventComment
     {
         return $this->createQueryBuilder('e')
             ->andWhere('e.exampleField = :val')

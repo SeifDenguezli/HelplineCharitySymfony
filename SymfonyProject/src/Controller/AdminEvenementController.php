@@ -6,6 +6,7 @@ use App\Entity\Evenement;
 use App\Entity\EventUser;
 use App\Form\Evenement1Type;
 use App\Repository\EvenementRepository;
+use App\Repository\EventUserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
@@ -68,14 +69,17 @@ class AdminEvenementController extends AbstractController
     /**
      * @Route("/{eventId}/history", name="admin_evenement_show_history", methods={"GET"})
      */
-    public function showHistory(Evenement $evenement, EntityManagerInterface $manager): Response
+    public function showHistory(Evenement $evenement, EventUserRepository $eventRepo): Response
     {
 
-        $participation = $manager->getRepository(EventUser::class)->findBy(array(
-           'userId'=>143
-        ));
+       // $participation = $manager->getRepository(EventUser::class)->findBy(array(
+       //    'userId'=>143
+       // ));
+
+        $participation = $eventRepo->findJoinedEventByUser($evenement->getEventId());
 
         dump($participation);
+
 
         return $this->render('evenement/admin_evenement/show3.html.twig', [
             'participation' => $participation,

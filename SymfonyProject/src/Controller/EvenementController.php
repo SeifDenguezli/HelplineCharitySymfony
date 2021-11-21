@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Evenement;
+use App\Entity\EventComment;
 use App\Entity\EventUser;
 use App\Entity\User;
 use App\Form\EvenementType;
 use App\Repository\EvenementRepository;
+use App\Repository\EventCommentRepository;
 use Faker\Factory;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -115,7 +117,7 @@ class EvenementController extends AbstractController
             $participants = mt_rand(20, 200);
             $dateCreation = $faker->dateTime;
             $montantCollecte = $faker->randomFloat(2, 0, 10000);
-            $description = $faker->sentence;
+            $description = $faker->paragraph(3);
             $coverImage = $faker->imageUrl(600,400);
             $user = $users[mt_rand(0,count($users)-1)];
 
@@ -144,6 +146,18 @@ class EvenementController extends AbstractController
                 $participation->setUserId($userJoined);
                 $participation->setJoinDate($joinedAt);
                 $participation->setAmount($amount);
+
+                //Faire quelques commentaires sur des événements
+                if (mt_rand(0, 1)){ //50% chance de faire un commentaires aléatoire
+                    $comment = new EventComment();
+                    $comment->setContent($faker->paragraph());
+                    $comment->setRating(mt_rand(1,5));
+                    $comment->setUser($userJoined); //Relier le commentaire à l'utilisateur qui a partciper à cet event
+                    $comment->setEvent($event); // Relier le comment à l'évenement participé
+                    $manager->persist($comment);
+
+                }
+
                 $manager->persist($participation);
             }
 
@@ -162,10 +176,13 @@ class EvenementController extends AbstractController
     /**
      * @Route("/{eventId}", name="evenement_show", methods={"GET"})
      */
-    public function show(Evenement $evenement): Response
+    public function show(Evenement $evenement, EventCommentRepository $repo): Response
     {
+        $comments = $repo->findAllCommentsByEvent($evenement->getEventId());
+
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
+            'comments' => $comments
         ]);
     }
 
