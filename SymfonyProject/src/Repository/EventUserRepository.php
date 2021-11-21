@@ -2,38 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Evenement;
+use App\Entity\EventUser;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Evenement|null find($id, $lockMode = null, $lockVersion = null)
- * @method Evenement|null findOneBy(array $criteria, array $orderBy = null)
- * @method Evenement[]    findAll()
- * @method Evenement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method EventUser|null find($id, $lockMode = null, $lockVersion = null)
+ * @method EventUser|null findOneBy(array $criteria, array $orderBy = null)
+ * @method EventUser[]    findAll()
+ * @method EventUser[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EvenementRepository extends ServiceEntityRepository
+class EventUserRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Evenement::class);
+        parent::__construct($registry, EventUser::class);
     }
-
-
-
-    public function listEventByUser()
-    {
-        return $this->createQueryBuilder('e')->join('e.associationId', 'u')
-            ->addSelect('u')
-            ->where('u.userId:=143')
-            ->getQuery()->getResult();
-    }
-
-
 
 
     // /**
-    //  * @return Evenement[] Returns an array of Evenement objects
+    //  * @return EventUser[] Returns an array of EventUser objects
     //  */
     /*
     public function findByExampleField($value)
@@ -50,7 +38,7 @@ class EvenementRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Evenement
+    public function findOneBySomeField($value): ?EventUser
     {
         return $this->createQueryBuilder('e')
             ->andWhere('e.exampleField = :val')

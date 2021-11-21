@@ -13,22 +13,30 @@
             </li>
 
             <li class="nav-item active">
-                <a class="nav-link" href="{{ path('admin_evenement_show_history') }}">
+                <a class="nav-link active" href="{{ path('admin_evenement_show', {'eventId': evenement.eventId}) }}">
                     <i class="ti-user"></i>
                     Historique
                 </a>
             </li>
         </ul>
     </div>
-
+    {% for parti in participation %}
     <div class="d-flex align-items-start profile-feed-item">
+        <img src="{{ parti.userId.photo }}" alt="profile" class="img-sm rounded-circle"/>
         <div class="ms-4">
             <h6>
-                {{ evenement.cause }}
-                <small class="ms-4 text-muted"><i class="ti-time me-1"></i> &nbsp; {{ evenement.dateCreation ? evenement.dateCreation|date('Y-m-d') : '' }}</small>
+                {{ parti.eventId }}
+                <small class="ms-4 text-muted"><i class="ti-time me-1"></i>{{ parti.joinDate ? parti.joinDate|date('Y-m-d') : '' }}</small>
             </h6>
+            <p>
+                Identifiant de l'évènement : {{ parti.eventId.eventId }}
+            </p>
+            <p>
+                Montant du don : {{ parti.amount }} DT
+            </p>
 
         </div>
-    </div>
 
+    </div>
+    {% endfor %}
 {% endblock %}
