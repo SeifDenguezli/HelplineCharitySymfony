@@ -10,6 +10,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+
 class PostsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -20,8 +22,10 @@ class PostsType extends AbstractType
             //->add('postdate',DateType::HTML5_FORMAT)
             //->add('likecount')
             ->add('postcontent',TextareaType::class)
+            ->add('imageFile', VichImageType::class);
 
-        ;
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

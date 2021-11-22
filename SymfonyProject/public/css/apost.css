@@ -71,6 +71,35 @@ body {
     box-shadow: -20px 0 35px -25px black, 20px 0 35px -25px black;
     z-index: 5;
 }
+#card3 {
+    position: absolute;
+    width: 250px;
+    height: 100px;
+    padding: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    left: 50%;
+    top: 500px;
+    margin-left: -370px;
+    background: rgb(231, 177, 78);
+    box-shadow: -20px 0 35px -25px black, 20px 0 35px -25px black;
+    z-index: 5;
+}
+#card4 {
+    position: absolute;
+    width: 250px;
+    height: 100px;
+    padding: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    left: 50%;
+    top: 550px;
+    margin-left: -140px;
+    background: rgb(77, 119, 164);
+    box-shadow: -20px 0 35px -25px black, 20px 0 35px -25px black;
+    z-index: 5;
+}
+
 #card img {
     width: 105px;
     float: left;

@@ -11,6 +11,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\CommentsType;
 
@@ -42,7 +43,7 @@ class PostsController extends AbstractController
     public function new(Request $request): Response
     {
         $post = new Posts();
-        $post->setPostpic("https://cdn.vox-cdn.com/thumbor/OTaHOVtIR6t8L0doPD-Kq6XYqeA=/0x0:1754x1241/1200x800/filters:focal(737x481:1017x761)/cdn.vox-cdn.com/uploads/chorus_image/image/68040475/GettyImages_1060748862.0.jpg");
+        $post->setUser($this->getUser());
         $post->setPostdate(new \DateTime('now'));
         $post->setLikecount(0);
 
@@ -70,7 +71,7 @@ class PostsController extends AbstractController
     /**
      * @Route("/{postid}", name="posts_show", methods={"GET","POST"})
      */
-    public function show(Posts $post,Request $request,$postid): Response
+    public function show(Posts $post,Request $request,$postid):Response
     {    /* Pour la session actuelle : $user = $this->getDoctrine()
         ->getRepository(UserConnected::class)
         ->findOneBy([]);*/
@@ -85,8 +86,6 @@ class PostsController extends AbstractController
         $form = $this->createForm(CommentsType::class,$comment1 );
 
         $form->handleRequest($request);
-
-
         if ($form->isSubmitted() && $form->isValid()) {
             $filter = new \JCrowe\BadWordFilter\BadWordFilter();
             $trash =$filter->clean($comment1->getCommentcontent());
@@ -94,11 +93,13 @@ class PostsController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($comment1);
             $entityManager->flush();
-            return $this->redirectToRoute('posts_index', [], Response::HTTP_SEE_OTHER);
+
+            return $this->redirectToRoute('posts_index',[], Response::HTTP_SEE_OTHER);
         }
         return $this->render('posts/show.html.twig', [
-            'post' => $post,'user'=>$user,'comment'=>$comment,'form' => $form->createView(),
+           'post' => $post,'user'=>$user,'comment'=>$comment,'form' => $form->createView()
         ]);
+
     }
 
     /**
@@ -134,4 +135,5 @@ class PostsController extends AbstractController
 
         return $this->redirectToRoute('posts_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

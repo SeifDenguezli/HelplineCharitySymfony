@@ -15,7 +15,7 @@
 
         <form method="post" action="{{ path('admin_posts_delete', {'postid': post.postid}) }}">
             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.postid) }}">
-            <button  class="btn btn-inverse-dark" style="margin-left: 580px ; margin-top:7%" onclick="myNotification({
+            <button  class="btn btn-inverse-dark" style="margin-left: 780px ; margin-top:7%" onclick="myNotification({
                     title: 'Post supprimé !',
                     message: 'le post {{ post.posttitle }} est supprimé'
                     });"  >Supprimer</button>
@@ -39,11 +39,29 @@
     <div id="card1" style="padding: 50px">
         <img src="https://media.creativemornings.com/uploads/user/avatar/120448/profile-circle.png"/>
 
-       <br><br> <p > Editeur : Hassan</p>
+       <br><br> <p > {{ user.userId}}</p>
+        <p>{{ user.name }}</p>
         <p > Nombre de Posts crée: 10</p>
         <p> Les mots vulgaire utilisé : N/A </p>
         <button  class="btn btn-outline-twitter"  >Suspendre</button>
     </div>
+
+    <div id="card3"style="padding:15px" >
+        <center><h style="font-family:'JetBrains Mono Medium'; font-size: 25px"> Nombre de j'aime</h>
+        <br>
+        <h style="font-family:'JetBrains Mono Medium'; font-size: 25px">{{ post.likecount }}</h>
+        </center>
+    </div>
+    <div id="card4"style="padding:15px" >
+        <center><h style="font-family:'JetBrains Mono Medium'; font-size: 25px"> Nombre de vu</h>
+            <br>
+            <h style="font-family:'JetBrains Mono Medium'; font-size: 25px">{{ post.likecount }}</h>
+        </center>
+    </div>
+
+
+
+
 
 
 {% endblock %}

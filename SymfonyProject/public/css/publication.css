@@ -55,7 +55,8 @@ hr {
 }
 
 .name {
-    font-weight: 600
+    font-weight: 600;
+    color: #d06d1c;
 }
 
 .comment-text {
@@ -64,7 +65,7 @@ hr {
 
 .status small {
     margin-right: 10px;
-    color: blue
+    color: #d0a01c
 }
 
 .form-control {

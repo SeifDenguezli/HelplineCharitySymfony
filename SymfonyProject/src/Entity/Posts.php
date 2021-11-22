@@ -7,10 +7,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vangrg\ProfanityBundle\Validator\Constraints as ProfanityAssert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * Posts
- *
+ * @Vich\Uploadable
  * @ORM\Table(name="posts")
  * @ORM\Entity
  */
@@ -70,6 +71,45 @@ class Posts
      *
      */
     private $postcontent;
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User",inversedBy="postsLiked")
+     * @ORM\JoinTable(name="post_likes",
+     *     joinColumns={@ORM\JoinColumn(name="post_id",referencedColumnName="postId")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id",referencedColumnName="userId")}
+     * )
+     */
+    private $likedBy;
+    /**
+     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="postid",cascade={"remove"})
+     */
+    private $comments;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User",inversedBy="posts")
+     * @ORM\JoinColumn(name="user_id",referencedColumnName="userId")
+     */
+    private $user;
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
+    /**
+     * @return Collection|comments[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+    public function removeComment(Comments $comments): self
+    {
+        if ($this->comments->removeElement($comments)) {
+            if ($comments->getPostid()=== $this) {
+                $comments->setPostid(null);
+            }
+        }
+
+        return $this;
+    }
+
 
     /**
      * @return int | null
@@ -187,5 +227,74 @@ class Posts
     {
         $this->postpic = $postpic;
     }
+
+    /**
+     * @return Collection
+     */
+    public function getLikedBy()
+    {
+        return $this->likedBy;
+    }
+
+    public function like(User $user){
+        if($this->likedBy->contains($user)){
+            return;
+        }
+        $this->likedBy->add($user);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
+    /**
+     * @Vich\UploadableField(mapping="posts" , fileNameProperty="postpic")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+
+    public function setImageFile(File $postpic = null)
+    {
+        $this->imageFile = $postpic;
+        if ($postpic) {
+
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImage($postpic)
+    {
+        $this->postpic = $postpic;
+    }
+
+    public function getImage()
+    {
+        return $this->postpic;
+    }
+
+
 
 }

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Posts;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -35,6 +37,19 @@ class Comments
      * @ORM\Column(name="commentDate", type="date", nullable=false)
      */
     private $commentdate;
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User",inversedBy="commentsLiked")
+     * @ORM\JoinTable(name="allcomments_likes",
+     *     joinColumns={@ORM\JoinColumn(name="comment_id",referencedColumnName="commentId")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id",referencedColumnName="userId")}
+     * )
+     */
+    private $likedBy;
+
+    public function __construct()
+    {
+        $this->likedBy = new ArrayCollection();
+    }
 
     /**
      * @var int
@@ -53,7 +68,7 @@ class Comments
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Posts")
+     * @ORM\ManyToOne(targetEntity="Posts",inversedBy="comments",cascade={"remove"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="postId", referencedColumnName="postId")
      * })
@@ -125,6 +140,18 @@ class Comments
         return $this;
     }
 
-
+    /**
+     * @return Collection
+     */
+    public function getLikedBy()
+    {
+        return $this->likedBy;
+    }
+    public function like(User $user){
+        if($this->likedBy->contains($user)){
+            return;
+        }
+        $this->likedBy->add($user);
+    }
 
 }

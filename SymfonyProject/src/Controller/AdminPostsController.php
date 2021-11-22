@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Posts;
+use App\Entity\User;
 use App\Form\Posts1Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,9 +59,10 @@ class AdminPostsController extends AbstractController
      * @Route("/{postid}", name="admin_posts_show", methods={"GET"})
      */
     public function show(Posts $post): Response
-    {
+    {    $user = $this->getDoctrine()->getRepository(User::class)->find($post->getUser());
+
         return $this->render('posts/admin_posts/show.html.twig', [
-            'post' => $post,
+            'post' => $post,'user'=>$user
         ]);
     }
 

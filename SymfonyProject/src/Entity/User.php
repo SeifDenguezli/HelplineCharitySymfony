@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Illuminate\Support\Arr;
 
 /**
  * User
@@ -77,6 +78,14 @@ class User
      * @ORM\Column(name="role", type="string", length=255, nullable=false)
      */
     private $role;
+    /**
+     * @ORM\ManyToMany (targetEntity="App\Entity\Posts",mappedBy="likedBy")
+     */
+    private $postsLiked;
+    /**
+     * @ORM\ManyToMany (targetEntity="App\Entity\Comments",mappedBy="likedBy",fetch="LAZY")
+     */
+    private $commentsLiked;
 
     /**
      * @var float|null
@@ -93,8 +102,15 @@ class User
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
+        $this->postsLiked = new ArrayCollection();
+        $this->commentsLiked = new ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
+    /**
+     * @ORM\OneToMany (targetEntity="App\Entity\Posts",mappedBy="user")
+     */
+    private $posts;
     /**
      * @return Collection|Evenement[]
      */
@@ -289,6 +305,39 @@ class User
     {
         return $this->getName();
     }
+
+    /**
+     * @return Collection
+     */
+    public function getPostsLiked()
+    {
+        return $this->postsLiked;
+    }
+    /**
+     * @return Collection
+     */
+    public function getcommentsLiked()
+    {
+        return $this->commentsLiked;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPosts(): ArrayCollection
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @param ArrayCollection $posts
+     */
+    public function setPosts(ArrayCollection $posts): void
+    {
+        $this->posts->add();
+    }
+
+
 
 
 }
