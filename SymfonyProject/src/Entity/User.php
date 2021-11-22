@@ -5,13 +5,14 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
  * @ORM\Table(name="user")
  * @ORM\Entity
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -188,7 +189,7 @@ class User
     /**
      * @return string
      */
-    public function getPassword(): string
+    public function getPass(): string
     {
         return $this->password;
     }
@@ -196,7 +197,7 @@ class User
     /**
      * @param string $password
      */
-    public function setPassword(string $password): void
+    public function setPass(string $password): void
     {
         $this->password = $password;
     }
@@ -363,4 +364,27 @@ class User
     }
 
 
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getPassword(){
+        return $this->password;
+    }
+
+    public function getSalt()
+    {
+
+    }
+
+    public function getUsername()
+    {
+        return $this->mail;
+    }
+
+    public function eraseCredentials()
+    {
+
+    }
 }

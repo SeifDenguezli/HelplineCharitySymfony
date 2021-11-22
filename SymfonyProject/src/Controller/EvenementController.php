@@ -7,6 +7,7 @@ use App\Entity\EventComment;
 use App\Entity\EventUser;
 use App\Entity\User;
 use App\Form\EvenementType;
+use App\Form\EventCommentType;
 use App\Repository\EvenementRepository;
 use App\Repository\EventCommentRepository;
 use Faker\Factory;
@@ -15,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/evenement")
@@ -75,8 +77,10 @@ class EvenementController extends AbstractController
     /**
      * @Route("/getFakeData", name="getFakeData")
      */
-    public function getFakeData(): Response
+    public function getFakeData(UserPasswordEncoderInterface $encoder): Response
     {
+
+
         $manager = $this->getDoctrine()->getManager();
         $faker = Factory::create('FR-fr');
 
@@ -93,9 +97,10 @@ class EvenementController extends AbstractController
 
             if ($genre == 'male') $picture = $picture . 'men/' . $pictureId;
             else $picture = $picture . 'women/' . $pictureId;
+            $hash = $encoder->encodePassword($user, 'password');
 
             $user->setName($faker->name($genre));
-            $user->setPassword($faker->password);
+            $user->setPass($hash);
             $user->setCity($faker->city);
             $user->setGouvernorat($faker->state);
             $user->setPhone($faker->phoneNumber);
@@ -166,25 +171,36 @@ class EvenementController extends AbstractController
             $manager->flush();
         }
 
-
-
-
         return $this->redirectToRoute('evenement_index', []);
     }
 
 
     /**
-     * @Route("/{eventId}", name="evenement_show", methods={"GET"})
+     * @Route("/{eventId}", name="evenement_show")
      */
-    public function show(Evenement $evenement, EventCommentRepository $repo): Response
+    public function show(Evenement $evenement, EventCommentRepository $repo, Request $request): Response
     {
+        $eventComment = new EventComment();
         $comments = $repo->findAllCommentsByEvent($evenement->getEventId());
+        $form = $this->createForm(EventCommentType::class, $eventComment);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $eventComment->setUser($this->getUser());
+            $eventComment->setEvent($evenement);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($eventComment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('evenement_show', ['eventId' => $evenement->getEventId()]);
+        }
 
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
-            'comments' => $comments
+            'comments' => $comments,
+            'form' => $form->createView()
         ]);
     }
+
 
     /**
      * @Route("/{eventId}/edit", name="evenement_edit", methods={"GET","POST"})

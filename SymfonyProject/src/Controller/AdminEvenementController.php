@@ -35,7 +35,6 @@ class AdminEvenementController extends AbstractController
 
         );
 
-
         return $this->render('evenement/admin_evenement/index.html.twig', [
             'evenements' => $evenements,
         ]);

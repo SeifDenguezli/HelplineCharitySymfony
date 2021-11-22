@@ -24,6 +24,8 @@ class EventCommentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('ec')
             ->where('ec.event=:id')
             ->setParameter('id',$id)
+            ->orderBy('ec.createdAt', 'DESC')
+            ->setMaxResults(6)
             ->getQuery()->getResult();
     }
 

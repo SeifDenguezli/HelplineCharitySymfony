@@ -24,6 +24,8 @@ class EventUserRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('eu')
             ->where('eu.eventId=:id')
             ->setParameter('id',$id)
+            ->orderBy('eu.joinDate', 'DESC')
+            ->setMaxResults(10)
             ->getQuery()->getResult();
     }
 

@@ -26,7 +26,7 @@
         <div class="ms-4">
             <h6>
                 {{ parti.userId.name }}
-                <small class="ms-4 text-muted"><i class="ti-time me-1"></i> &nbsp;{{ parti.joinDate ? parti.joinDate|date('Y-m-d') : '' }}</small>
+                <small class="ms-4 text-muted"><i class="ti-time me-1"></i> &nbsp;{{ parti.joinDate ? parti.joinDate|date('d-m-Y') : '' }}</small>
             </h6>
             <p>
                 Montant du don : {{ parti.amount }} DT

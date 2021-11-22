@@ -21,7 +21,7 @@ class ParticipationController extends AbstractController
     public function joinEvent(Evenement $event, Request $request): Response
     {
         $participation = new EventUser();
-        $user = $this->getDoctrine()->getRepository(User::class)->find(143);
+        $user = $this->getUser();
         $participation->setUserId($user);
         $participation->setEventId($event);
         $participation->setJoinDate(new \DateTime());

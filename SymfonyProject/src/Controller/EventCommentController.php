@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Evenement;
 use App\Entity\EventComment;
 use App\Form\EventCommentType;
 use App\Repository\EventCommentRepository;
@@ -20,9 +21,11 @@ class EventCommentController extends AbstractController
     /**
      * @Route("/new", name="event_comment_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Evenement $event, Request $request): Response
     {
         $eventComment = new EventComment();
+        $eventComment->setEvent($event);
+        $eventComment->setUser($this->getUser());
         $form = $this->createForm(EventCommentType::class, $eventComment);
         $form->handleRequest($request);
 
