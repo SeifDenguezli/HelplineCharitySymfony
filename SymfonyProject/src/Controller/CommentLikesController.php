@@ -13,29 +13,31 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentLikesController extends AbstractController
 {
     /**
-     * @Route("/clike/{postid}",name="clikes_like")
+     * @Route("/clike/{commentid}",name="clikes_like")
      */
     public function like(Comments $comment){
-        $user = $this->getDoctrine()->getRepository(User::class)->find(133);
-        $comment->like($user);
-        $comment->setLikecount($comment->getLikecount()+1);
+        $user = $this->getDoctrine()->getRepository(User::class)->find(134);
+        $comment1 = $this->getDoctrine()->getRepository(Comments::class)->find($comment);
+        $comment1->like($user);
+        $comment1->setLikecount($comment1->getLikecount()+1);
         $this->getDoctrine()->getManager()->flush();
         return new JsonResponse([
-            'count'=>$comment->getLikedBy()->count()
+            'count'=>$comment1->getLikedBy()->count()
         ]);
 
     }
 
     /**
-     * @Route("/cunlike/{postid}",name="clikes_unlike")
+     * @Route("/cunlike/{commentid}",name="clikes_unlike")
      */
-    public function unlike(Comments $comment){
-        $user = $this->getDoctrine()->getRepository(User::class)->find(1);
-        $comment->setLikecount($comment->getLikecount()-1);
-        $comment->getLikedBy()->removeElement($user);
-        $this->getDoctrine()->getManager()->flush();
-        return new JsonResponse([
-            'count'=>$comment->getcommentLikedBy()->count()
-        ]);
-    }
+        public function unlike(Comments $comment){
+            $user = $this->getDoctrine()->getRepository(User::class)->find(133);
+            $comment->setLikecount($comment->getLikecount()-1);
+            $comment->getLikedBy()->removeElement($user);
+            $this->getDoctrine()->getManager()->flush();
+            return new JsonResponse([
+                'count'=>$comment->getLikedBy()->count()
+            ]);
+        }
+
 }
