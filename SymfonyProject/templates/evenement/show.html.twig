@@ -35,35 +35,36 @@
                     <div class="single-content">
                         <img src="{{ evenement.coverImage }}" />
                         <h2>Informations</h2>
-
                         <div class="mr-5 mt-3">
                             <h5>Catégorie</h5>
                             <p class="text-info">{{ evenement.donCategorie }}</p>
                         </div>
-
+                        <hr>
                         <div class="mr-5 mt-3">
                             <h5>Region</h5>
                             <p class="text-info">{{ evenement.region }}</p>
                         </div>
-
+                        <hr>
                         <div class="mr-5 mt-3">
                             <h5>Objectif</h5>
                             <p class="text-info">{{ evenement.cause }}</p>
                         </div>
-
+                        <hr>
                         <div class="mr-5 mt-3">
                             <h5>Nombre De Participants</h5>
                             <p class="text-info">{{ evenement.numParticipants }}</p>
                         </div>
-
+                        <hr>
                         <div class="mr-5 mt-3">
                             <h5>Montant Collecté</h5>
                             <p class="text-info">{{ evenement.montantCollecte }} DT</p>
                         </div>
+                        <hr>
                         <h4>Description de l'évènement</h4>
                         <p>
                             {{ evenement.description }}
                         </p>
+                        <hr>
                     </div>
                     <div class="single-tags">
                         <a href="">National</a>
@@ -94,54 +95,21 @@
                     <div class="single-related">
                         <h2>Autres évènements relatifs à l'association</h2>
                         <div class="owl-carousel related-slider">
+
+                            {% for relatifEvent in relatifEvents %}
                             <div class="post-item">
                                 <div class="post-img">
-                                    <img src="img/post-1.jpg" />
+                                    <img src="{{ relatifEvent.coverImage }}" />
                                 </div>
                                 <div class="post-text">
-                                    <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                    <a href="">{{ relatifEvent.cause }}</a>
                                     <div class="post-meta">
-                                        <p>By<a href="">Admin</a></p>
-                                        <p>In<a href="">Web Design</a></p>
+                                        <p>By<a href="">{{ relatifEvent.associationId.name }}</a></p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="post-item">
-                                <div class="post-img">
-                                    <img src="img/post-2.jpg" />
-                                </div>
-                                <div class="post-text">
-                                    <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                    <div class="post-meta">
-                                        <p>By<a href="">Admin</a></p>
-                                        <p>In<a href="">Web Design</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="post-item">
-                                <div class="post-img">
-                                    <img src="img/post-3.jpg" />
-                                </div>
-                                <div class="post-text">
-                                    <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                    <div class="post-meta">
-                                        <p>By<a href="">Admin</a></p>
-                                        <p>In<a href="">Web Design</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="post-item">
-                                <div class="post-img">
-                                    <img src="img/post-4.jpg" />
-                                </div>
-                                <div class="post-text">
-                                    <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                    <div class="post-meta">
-                                        <p>By<a href="">Admin</a></p>
-                                        <p>In<a href="">Web Design</a></p>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
+
                         </div>
                     </div>
 
@@ -185,7 +153,9 @@
                         </div>
                         <div class="form-group">
                             <label for="message">Rating *</label>
+
                             {{ form_widget(form.rating) }}
+
                         </div>
                         <div>
                             <button class="btn btn-custom" type="submit">Valider le commentaire</button>
@@ -208,66 +178,19 @@
                         <div class="sidebar-widget">
                             <h2 class="widget-title">Donneurs récents</h2>
                             <div class="recent-post">
+                            {% for donneur in donneurs %}
                                 <div class="post-item">
                                     <div class="post-img">
-                                        <img src="img/post-1.jpg" />
+                                        <img src="{{ donneur.userId.photo }}" />
                                     </div>
                                     <div class="post-text">
-                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
+                                        <a href="#">{{ donneur.userId.name }}</a>
                                         <div class="post-meta">
-                                            <p>By<a href="">Admin</a></p>
-                                            <p>In<a href="">Web Design</a></p>
+                                            <p><i class="fas fa-euro-sign"></i><a href="">{{ donneur.amount }}</a></p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="post-item">
-                                    <div class="post-img">
-                                        <img src="img/post-2.jpg" />
-                                    </div>
-                                    <div class="post-text">
-                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                        <div class="post-meta">
-                                            <p>By<a href="">Admin</a></p>
-                                            <p>In<a href="">Web Design</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="post-item">
-                                    <div class="post-img">
-                                        <img src="img/post-3.jpg" />
-                                    </div>
-                                    <div class="post-text">
-                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                        <div class="post-meta">
-                                            <p>By<a href="">Admin</a></p>
-                                            <p>In<a href="">Web Design</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="post-item">
-                                    <div class="post-img">
-                                        <img src="img/post-4.jpg" />
-                                    </div>
-                                    <div class="post-text">
-                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                        <div class="post-meta">
-                                            <p>By<a href="">Admin</a></p>
-                                            <p>In<a href="">Web Design</a></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="post-item">
-                                    <div class="post-img">
-                                        <img src="img/post-5.jpg" />
-                                    </div>
-                                    <div class="post-text">
-                                        <a href="">Lorem ipsum dolor sit amet consec adipis elit</a>
-                                        <div class="post-meta">
-                                            <p>By<a href="">Admin</a></p>
-                                            <p>In<a href="">Web Design</a></p>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
 

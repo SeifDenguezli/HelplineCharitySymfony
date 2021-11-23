@@ -10,6 +10,7 @@ use App\Form\EvenementType;
 use App\Form\EventCommentType;
 use App\Repository\EvenementRepository;
 use App\Repository\EventCommentRepository;
+use App\Repository\EventUserRepository;
 use Faker\Factory;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -178,10 +179,21 @@ class EvenementController extends AbstractController
     /**
      * @Route("/{eventId}", name="evenement_show")
      */
-    public function show(Evenement $evenement, EventCommentRepository $repo, Request $request): Response
+    public function show(Evenement $evenement, EventCommentRepository $repo, EventUserRepository $eventUserRepo, EvenementRepository $eventRepository, Request $request): Response
     {
-        $eventComment = new EventComment();
+
+        //Extraire tous les commentaires postulés durant l'évènements
         $comments = $repo->findAllCommentsByEvent($evenement->getEventId());
+
+        //Extraire les donneurs recents de l'évènement
+
+        $donneurs = $eventUserRepo->findJoinedEventByUser($evenement->getEventId());
+
+        //Extraire les autres èvenements créer par l'association organisatrice de l'évènement
+        $relatifEvents = $eventRepository->findEventsByAssociationId($evenement->getAssociationId());
+
+        //Création du formulaire de commentaire et enregistrement du commentaire
+        $eventComment = new EventComment();
         $form = $this->createForm(EventCommentType::class, $eventComment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -197,6 +209,8 @@ class EvenementController extends AbstractController
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
             'comments' => $comments,
+            'donneurs' => $donneurs,
+            'relatifEvents' => $relatifEvents,
             'form' => $form->createView()
         ]);
     }
@@ -235,4 +249,5 @@ class EvenementController extends AbstractController
 
         return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

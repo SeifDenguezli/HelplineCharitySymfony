@@ -19,7 +19,15 @@ class EvenementRepository extends ServiceEntityRepository
         parent::__construct($registry, Evenement::class);
     }
 
-
+    public function findEventsByAssociationId($id)
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.associationId=:id')
+            ->setParameter('id',$id)
+            ->orderBy('e.date_creation', 'DESC')
+            ->setMaxResults(4)
+            ->getQuery()->getResult();
+    }
 
 
 
