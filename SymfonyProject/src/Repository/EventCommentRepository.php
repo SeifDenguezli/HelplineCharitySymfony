@@ -29,6 +29,16 @@ class EventCommentRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
+    public function findAvgCommentRatingByEvent($id){
+        $test =  $this->createQueryBuilder('ec')
+            ->select('AVG(ec.rating) as avgRating')
+            ->where('ec.event=:id')
+            ->setParameter('id',$id)
+            ->getQuery()->getResult();
+        return $test[0];
+
+    }
+
     // /**
     //  * @return EventComment[] Returns an array of EventComment objects
     //  */

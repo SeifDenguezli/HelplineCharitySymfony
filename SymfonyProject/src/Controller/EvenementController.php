@@ -192,8 +192,12 @@ class EvenementController extends AbstractController
         //Extraire les autres èvenements créer par l'association organisatrice de l'évènement
         $relatifEvents = $eventRepository->findEventsByAssociationId($evenement->getAssociationId());
 
+        //Extraire la moyenne des ratings
+        $avgRating = $repo->findAvgCommentRatingByEvent($evenement->getEventId());
+
         //Création du formulaire de commentaire et enregistrement du commentaire
         $eventComment = new EventComment();
+
         $form = $this->createForm(EventCommentType::class, $eventComment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -211,6 +215,7 @@ class EvenementController extends AbstractController
             'comments' => $comments,
             'donneurs' => $donneurs,
             'relatifEvents' => $relatifEvents,
+            'avgRatings' => $avgRating,
             'form' => $form->createView()
         ]);
     }
@@ -249,5 +254,6 @@ class EvenementController extends AbstractController
 
         return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
     }
+
 
 }

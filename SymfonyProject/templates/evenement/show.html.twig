@@ -34,7 +34,11 @@
                 <div class="col-lg-8">
                     <div class="single-content">
                         <img src="{{ evenement.coverImage }}" />
-                        <h2>Informations</h2>
+                        {% if comments|length > 0 %}
+                        <h2>Rating : {% include 'shared/rating.html.twig' with {'rating' : avgRatings.avgRating} %}</h2>
+                        {% else %}
+                        <h2>Cet évènement n'a pas de rating en ce moment</h2>
+                        {% endif %}
                         <div class="mr-5 mt-3">
                             <h5>Catégorie</h5>
                             <p class="text-info">{{ evenement.donCategorie }}</p>
@@ -178,6 +182,7 @@
                         <div class="sidebar-widget">
                             <h2 class="widget-title">Donneurs récents</h2>
                             <div class="recent-post">
+                                {% if donneurs|length > 0 %}
                             {% for donneur in donneurs %}
                                 <div class="post-item">
                                     <div class="post-img">
@@ -191,6 +196,9 @@
                                     </div>
                                 </div>
                                 {% endfor %}
+                                {% else %}
+                                    <h4>Aucun don effectué au profit de cet évènement en ce moment</h4>
+                                {% endif %}
                             </div>
                         </div>
 
