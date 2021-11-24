@@ -6,6 +6,7 @@ use App\Entity\Comments;
 use App\Entity\Posts;
 use App\Entity\User;
 use App\Form\PostsType;
+use App\Repository\PostsRepository;
 use JCrowe\BadWordFilter\Facades\BadWordFilter;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,6 +37,7 @@ class PostsController extends AbstractController
             'posts' => $posts,
         ]);
     }
+
 
     /**
      * @Route("/newpost", name="posts_new", methods={"GET","POST"})
@@ -71,7 +73,7 @@ class PostsController extends AbstractController
     /**
      * @Route("/{postid}", name="posts_show", methods={"GET","POST"})
      */
-    public function show(Posts $post,Request $request,$postid):Response
+    public function show(Posts $post,Request $request,PostsRepository $postsrep):Response
     {    /* Pour la session actuelle : $user = $this->getDoctrine()
         ->getRepository(UserConnected::class)
         ->findOneBy([]);*/
@@ -85,6 +87,7 @@ class PostsController extends AbstractController
         $comment1->setLikecount(0);
         $form = $this->createForm(CommentsType::class,$comment1 );
 
+        $bost = $postsrep->findByLikeCount(10,false);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $filter = new \JCrowe\BadWordFilter\BadWordFilter();
@@ -97,7 +100,7 @@ class PostsController extends AbstractController
             return $this->redirectToRoute('posts_index',[], Response::HTTP_SEE_OTHER);
         }
         return $this->render('posts/show.html.twig', [
-           'post' => $post,'user'=>$user,'comment'=>$comment,'form' => $form->createView()
+           'post' => $post,'user'=>$user,'comment'=>$comment,'form' => $form->createView(),'bost'=>$bost
         ]);
 
     }
