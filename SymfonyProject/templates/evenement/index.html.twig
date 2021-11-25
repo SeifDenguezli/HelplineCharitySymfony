@@ -76,7 +76,16 @@
                 {% for evenement in evenements %}
                     <div class="col-lg-6">
                         <div class="event-item">
-                            <img src="{{ evenement.coverImage }}" alt="Image">
+                            {#
+                            If statement used to display either uploaded image with VichUpload or Random image from the FakerBundle
+                                To remove after stop using FixtureBundle
+                                Only keep :::::   <img src="{{ vich_uploader_asset(evenement) }}">
+                            #}
+                            {% if evenement.updatedAt is not null %}
+                                <img src="{{ vich_uploader_asset(evenement) }}">
+                            {% else %}
+                                <img src="{{ evenement.coverImage }}" alt="Image">
+                            {% endif %}
                             <div class="event-content">
                                 <div class="event-meta">
                                     <p><i class="fa fa-calendar-alt"></i>{{ evenement.dateCreation ? evenement.dateCreation|date('Y-m-d') : '' }}</p>

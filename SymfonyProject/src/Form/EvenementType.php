@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class EvenementType extends AbstractType
 {
@@ -34,7 +35,14 @@ class EvenementType extends AbstractType
             ->add('Region',TextType::class, $this->getConfiguration("Région", "Région de l'évènement"))
             ->add('date_creation', DateType::class, $this->getConfiguration("Date de l'évènement", "Date de l'évènement"))
             ->add('description', TextareaType::class, $this->getConfiguration("Description", "Briéve description de votre évènement"))
-            ->add('coverImage', TextType::class, $this->getConfiguration("Image", "Insérer une image représentative de l'évènement"))
+            ->add('imageFile', VichImageType::class, [
+                'required' => true,
+                'delete_label' => false,
+                'download_label' => false,
+                'download_uri' => false,
+                'image_uri' => false,
+                'asset_helper' => false,
+            ])
             ->add('associationId')
         ;
     }
