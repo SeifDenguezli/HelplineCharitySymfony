@@ -1,121 +1,47 @@
-{% extends 'backoffice.html.twig' %}
+{% extends 'evenement/admin_evenement/show2.html.twig' %}
 
-{% block title %}Event Details{% endblock %}
+{% block historique %}
 
-{% block body %}
+    <div class="mt-4 py-2 border-top border-bottom">
+        <ul class="nav profile-navbar">
 
-    <div class="row">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin_evenement_show', {'eventId': evenement.eventId}) }}">
+                    <i class="ti-receipt"></i>
+                    Détails de l'évènement
+                </a>
+            </li>
 
-            <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="card-title">Responsable : {{ evenement.associationId.name }}</p>
-                        <div class="d-flex flex-wrap mb-5">
-                            <img class="img-avatar" src="{{ evenement.associationId.photo }}" alt="Avatar">
-                        </div>
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ path('admin_evenement_show_history', {'eventId': evenement.eventId}) }}">
+                    <i class="ti-calendar"></i>
+                    Don Effectués
+                </a>
+            </li>
 
-                        <div class="d-flex flex-wrap mb-5">
-                            <div class="mr-5 mt-3">
-                                <p class="text-muted">Identifiant de l'association</p>
-                                <h3 class="text-primary fs-12 font-weight-medium">{{ evenement.associationId.userId }}</h3>
-                            </div>
-
-                            <div class="mr-5 mt-3">
-                                <p class="text-muted">Ville</p>
-                                <h3 class="text-primary fs-12 font-weight-medium">{{ evenement.associationId.city }}</h3>
-                            </div>
-
-                            <div class="mr-5 mt-3">
-                                <p class="text-muted">Gouvernerat</p>
-                                <h3 class="text-primary fs-12 font-weight-medium">{{ evenement.associationId.gouvernorat }}</h3>
-                            </div>
-
-                            <div class="mr-5 mt-3">
-                                <p class="text-muted">Telephone</p>
-                                <h3 class="text-primary fs-12 font-weight-medium">{{ evenement.associationId.phone }}</h3>
-                            </div>
-
-                            <div class="mr-5 mt-3">
-                                <p class="text-muted">Adresse e-mail</p>
-                                <h3 class="text-primary fs-12 font-weight-medium">{{ evenement.associationId.mail }}</h3>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-        <div class="col-md-8 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-
-                    <div class="d-flex flex-wrap mb-5">
-                        <img class="card-img-item" src="{{ evenement.coverImage }}" alt="Avatar">
-                    </div>
-
-                    <div class="mr-5 mt-3">
-                        <p class="text-muted">Identifiant de l'évènement</p>
-                        <h3 class="text-primary fs-12 font-weight-medium">{{ evenement.eventId }}</h3>
-                    </div>
-
-                    <div class="mr-5 mt-3">
-                        <p class="text-muted">Région</p>
-                        <h3 class="text-primary fs-12 font-weight-medium">{{ evenement.Region }}</h3>
-                    </div>
-
-                    <div class="mr-5 mt-3">
-                        <p class="text-muted">Cause</p>
-                        <h3 class="text-primary fs-12 font-weight-medium">{{ evenement.cause }}</h3>
-                    </div>
-
-                    <div class="mr-5 mt-3">
-                        <p class="text-muted">Participants</p>
-                        <h3 class="text-primary fs-12 font-weight-medium">{{ evenement.numParticipants }}</h3>
-                    </div>
-
-                    <div class="mr-5 mt-3">
-                        <p class="text-muted">Montant Collecté</p>
-                        <h3 class="text-primary fs-12 font-weight-medium">{{ evenement.montantCollecte }}</h3>
-                    </div>
-
-                    <div class="mr-5 mt-3">
-                        <p class="text-muted">Description</p>
-                        <h3 class="text-primary fs-12 font-weight-medium">{{ evenement.description }}</h3>
-                    </div>
-
-
-                </div>
+            <li class="nav-item">
+                <a class="nav-link active" href="{{ path('admin_evenement_show_comments', {'eventId': evenement.eventId}) }}">
+                    <i class="ti-user"></i>
+                    Commentaires postés
+                </a>
+            </li>
+        </ul>
+    </div>
+    {% for comment in comments %}
+        <div class="d-flex align-items-start profile-feed-item">
+            <img src="{{ comment.user.photo }}" alt="profile" class="img-sm rounded-circle"/>
+            <div class="ms-4">
+                <h6>
+                    {{ comment.user.name }}
+                    <small class="ms-4 text-muted"><i class="ti-time me-1"></i> &nbsp;{{ comment.createdAt ? comment.createdAt|date('d-m-Y') : '' }} </small>
+                </h6>
+                <p class="small text-muted mt-2 mb-0">
+                    {{ comment.content }}
+                </p>
+                <p class="small text-muted mt-2 mb-0">
+                    {% include 'shared/rating.html.twig' with {'rating' : comment.rating} %}
+                </p>
             </div>
         </div>
-
-    </div>
-
-<div class="col-md-12 grid-margin stretch-card">
-    <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1OlFj1UFQyAf7wdW4RSUCBT4A47joMsQn" width="100%" height="500px"></iframe>
-</div>
-
-    <div class="mr-5 mt-3">
-        <a class = "btn btn-primary" href="{{ path('admin_evenement_index') }}">Retourner vers la liste</a>
-    </div>
-
-    <div class="mr-5 mt-3">
-        <a class="btn btn-inverse-secondary" href="{{ path('admin_evenement_edit', {'eventId': evenement.eventId}) }}">Modifier</a>
-    </div>
-
-    <div class="mr-5 mt-3">
-        <button type="button" class="btn btn-warning btn-fw" onclick="showWarningToast()">Warning</button>
-    </div>
-
-    <div class="mr-5 mt-3">
-
-        <form method="post" action="{{ path('admin_evenement_delete', {'eventId': evenement.eventId}) }}" onsubmit="return confirm('Etes-vous sûr(e) de vouloir supprimer cet évènement?');">
-            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ evenement.eventId) }}">
-            <button class="btn btn-danger">Supprimer</button>
-        </form>
-    </div>
-
-
-
-
-
+    {% endfor %}
 {% endblock %}

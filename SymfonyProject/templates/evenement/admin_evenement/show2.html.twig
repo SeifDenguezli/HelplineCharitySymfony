@@ -14,13 +14,6 @@
                             <h3>{{ evenement.associationId.name }}</h3>
                             <div class="d-flex align-items-center justify-content-center">
                                 <h5 class="mb-0 me-2 text-muted">{{ evenement.associationId.city }}</h5>
-                                <select id="profile-rating" name="rating" autocomplete="off">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
                             </div>
                         </div>
                         <p class="w-75 mx-auto mb-3">{{ evenement.associationId.name }} est la personne résponsable de l'association organisatrice de cet évènement</p>
@@ -122,8 +115,15 @@
 
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('admin_evenement_show_history', {'eventId': evenement.eventId}) }}">
+                                    <i class="ti-calendar"></i>
+                                    Dons Effectués
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('admin_evenement_show_comments', {'eventId': evenement.eventId}) }}">
                                     <i class="ti-user"></i>
-                                    Historique Des Dons
+                                    Commentaires postés
                                 </a>
                             </li>
                         </ul>
@@ -193,7 +193,7 @@
                             Nombre de commentaires
                           </span>
                                     <span class="float-right text-muted">
-                            8
+                            {{ comments|length }}
                           </span>
                                 </p>
                                 <p class="clearfix">

@@ -121,7 +121,7 @@ class EvenementController extends AbstractController
             $cause = $faker->sentence();
             $region = $faker->country;
             $participants = mt_rand(20, 200);
-            $dateCreation = $faker->dateTime;
+            $dateCreation = $faker->dateTimeBetween('-6 months');
             $montantCollecte = $faker->randomFloat(2, 0, 10000);
             $description = $faker->paragraph(3);
             $coverImage = $faker->imageUrl(600,400);

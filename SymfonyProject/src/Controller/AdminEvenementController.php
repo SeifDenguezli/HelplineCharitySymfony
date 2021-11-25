@@ -6,6 +6,7 @@ use App\Entity\Evenement;
 use App\Entity\EventUser;
 use App\Form\Evenement1Type;
 use App\Repository\EvenementRepository;
+use App\Repository\EventCommentRepository;
 use App\Repository\EventUserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -71,13 +72,9 @@ class AdminEvenementController extends AbstractController
     public function showHistory(Evenement $evenement, EventUserRepository $eventRepo): Response
     {
 
-       // $participation = $manager->getRepository(EventUser::class)->findBy(array(
-       //    'userId'=>143
-       // ));
 
         $participation = $eventRepo->findJoinedEventByUser($evenement->getEventId());
 
-        dump($participation);
 
 
         return $this->render('evenement/admin_evenement/show3.html.twig', [
@@ -87,12 +84,28 @@ class AdminEvenementController extends AbstractController
     }
 
     /**
+     * @Route("/{eventId}/comments", name="admin_evenement_show_comments", methods={"GET"})
+     */
+    public function showComments(Evenement $evenement, EventCommentRepository $commentRepo): Response
+    {
+        $comments = $commentRepo->findAllCommentsByEvent($evenement->getEventId());
+
+        return $this->render('evenement/admin_evenement/show.html.twig', [
+            'evenement' => $evenement,
+            'comments' => $comments
+        ]);
+    }
+
+    /**
      * @Route("/{eventId}", name="admin_evenement_show", methods={"GET"})
      */
-    public function show(Evenement $evenement): Response
+    public function show(Evenement $evenement, EventCommentRepository $commentRepo): Response
     {
+        $comments = $commentRepo->findAllCommentsByEvent($evenement->getEventId());
+
         return $this->render('evenement/admin_evenement/show2.html.twig', [
             'evenement' => $evenement,
+            'comments' => $comments
         ]);
     }
 
