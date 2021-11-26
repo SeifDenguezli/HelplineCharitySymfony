@@ -167,13 +167,13 @@
                     </form>
                     <div class="comment-input">
 
-                        <div class="bo-rad-10 size29 bo2 txt10 p-l-20 p-t-15 m-b-10 m-t-40" name="commentent">
+
                             {{ form_start(form,{attr: {'novalidate': 'novalidate'}}) }}
 
                             <div > {{ form_errors(form.commentcontent) }}</div>
                             <div >{{ form_widget(form.commentcontent) }}</div>
                             {{ form_end(form) }}
-                        </div>
+
                     </div>
 
                 </div>
@@ -231,6 +231,7 @@
                         </h4>
 
                         <ul>
+
                             {% for bot in bost %}
                             <li class="flex-w m-b-25">
                                 <div class="size16 bo-rad-10 wrap-pic-w of-hidden m-r-18">

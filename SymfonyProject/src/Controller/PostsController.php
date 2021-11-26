@@ -7,6 +7,7 @@ use App\Entity\Posts;
 use App\Entity\User;
 use App\Form\PostsType;
 use App\Repository\PostsRepository;
+use Illuminate\Support\Facades\Notification;
 use JCrowe\BadWordFilter\Facades\BadWordFilter;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -74,9 +75,7 @@ class PostsController extends AbstractController
      * @Route("/{postid}", name="posts_show", methods={"GET","POST"})
      */
     public function show(Posts $post,Request $request,PostsRepository $postsrep):Response
-    {    /* Pour la session actuelle : $user = $this->getDoctrine()
-        ->getRepository(UserConnected::class)
-        ->findOneBy([]);*/
+    {
         $comment = $this->getDoctrine()->getRepository(Comments::class)->findBypostid($post->getPostid());
         $user =  new User();
         $user->setName('hmed');
@@ -86,21 +85,23 @@ class PostsController extends AbstractController
         $comment1->setCommentauthor("hmayed");
         $comment1->setLikecount(0);
         $form = $this->createForm(CommentsType::class,$comment1 );
-
         $bost = $postsrep->findByLikeCount(10,false);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $filter = new \JCrowe\BadWordFilter\BadWordFilter();
+
             $trash =$filter->clean($comment1->getCommentcontent());
             $comment1->setCommentcontent($trash);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($comment1);
             $entityManager->flush();
 
+
+
             return $this->redirectToRoute('posts_index',[], Response::HTTP_SEE_OTHER);
         }
         return $this->render('posts/show.html.twig', [
-           'post' => $post,'user'=>$user,'comment'=>$comment,'form' => $form->createView(),'bost'=>$bost
+           'post' => $post,'user'=>$user,'comment'=>$comment,'form' => $form->createView(),'bost'=>$bost,
         ]);
 
     }
@@ -114,6 +115,7 @@ class PostsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('posts_index', [], Response::HTTP_SEE_OTHER);

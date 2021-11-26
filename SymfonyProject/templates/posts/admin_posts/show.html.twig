@@ -3,62 +3,175 @@
 {% block title %}Posts{% endblock %}
 
 {% block body %}
+  <link rel="stylesheet" href="/css/apost.css" xmlns="http://www.w3.org/1999/html">
 
-<link rel="stylesheet" href="/css/apost.css">
-    <link rel="stylesheet" href="/css/test/dist/notifications.css">
-    <script src="/css/test/dist/notifications.js"></script>
-    <script>const myNotification = window.createNotification({
-    theme : 'info'
-        });</script>
+    <!--<title> Responsiive Admin Dashboard | CodingLab </title>-->
+    <link rel="stylesheet" href="style.css">
 
-    <div id="gradient" >
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="{{ asset('/css/test/dist/notifications.js') }}"></script>
 
-        <form method="post" action="{{ path('admin_posts_delete', {'postid': post.postid}) }}">
-            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.postid) }}">
-            <button  class="btn btn-inverse-dark" style="margin-left: 780px ; margin-top:7%" onclick="myNotification({
-                    title: 'Post supprimé !',
-                    message: 'le post {{ post.posttitle }} est supprimé'
-                    });"  >Supprimer</button>
 
-        </form>
+  <section class="home-section">
+    <div class="home-content">
+      <div class="overview-boxes">
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Auteur </div>
+            <div class="number">{{ user.name }}</div>
+            <div class="indicator">
+              <i class='bx mdi-mailbox-up-outline'></i>
+              <span class="text">{{ user.role }}</span>
+            </div>
+          </div>
+          <img src="https://media.creativemornings.com/uploads/user/avatar/120448/profile-circle.png" width="75px">
+        </div>
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Date publication</div>
+            <div class="number">{{ post.postdate ? post.postdate|date('Y-m-d') : '' }}</div>
+            <div class="indicator">
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Nombre de j'aime</div>
+            <div class="number">{{ post.likecount }}</div>
+            <div class="indicator">
 
+            </div>
+          </div>
+          <i class='bx bx-cart cart three' ></i>
+        </div>
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Vus</div>
+            <div class="number">11,086</div>
+            <div class="indicator">
+
+            </div>
+          </div>
+          <i class='bx bxs-cart-download cart four' ></i>
+        </div>
+      </div>
+
+      <div class="sales-boxes">
+        <div class="recent-sales box">
+          <div class="title">{{ post.posttitle }}</div>
+          <div class="sales-details">
+            <ul class="details">
+              <li class="topic">Contenu :</li>
+              <li>
+                <p>{{ post.postcontent }}</p>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+        <div class="top-sales box">
+          <div class="title">Boite a outil</div>
+          <ul class="top-sales-details">
+            <li>
+              <form method="post" action="{{ path('admin_posts_delete', {'postid': post.postid}) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.postid) }}">
+                <script>const myNotification = window.createNotification({
+                    theme : 'info'
+                  });
+                </script>
+               <button  class="btn btn-inverse-danger"  onclick="myNotification({
+
+                        title: 'Post supprimé !',
+                        message: 'le post {{ post.posttitle }} est supprimé'
+                        });"  >Supprimer publication</button>
+              </form>
+            </li>
+            <li>
+              <button  class="btn btn-inverse-danger"  onclick="myNotification({
+
+                      title: 'utilisateur suspendu !',
+                      message: 'le post {{ user.name }} est supprimé'
+                      });"  >Suspendre l'utilisateur</button>
+              </form>
+            </li>
+            <li>
+              <button  class="btn btn-inverse-info"  >Evenement associé</button>
+              </form>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+<br>
+      <div class="sales-boxes">
+        <div class="recent-sales box">
+          <div class="title">Commentaires associés</div>
+          <div class="sales-details">
+            <ul class="details">
+
+              {% for comments in comment %}
+
+                <table>
+                  <tr>
+                    <td>
+                      <div > <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" width="40" class="rounded-image">
+                        <div class="d-flex flex-column ml-2">
+                          <span class="name">{{ comments.commentauthor }} </span>
+                          <span class="name"><small style="margin-left: revert">{{ comments.commentdate ? comments.commentdate|date('Y-m-d') : '' }}</small></span>
+                          <small class="comment-text" style="font-size:20px">{{ comments.commentContent }}</small>
+
+                          <div class="d-flex flex-row align-items-center status"></div>
+
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+                <hr>
+              {% endfor %}
+
+            </ul>
+
+          </div>
+        </div>
     </div>
+      <br>
+      <div class="sales-boxes">
+        <div class="recent-sales box">
+          <div class="title">Post créé par cet utilisateur</div>
+          <div class="sales-details">
+            <ul class="details">
 
-    <br>
-    <br>
-    <br>
-    <div id="card">
-        <br><br><br>  <br>
-        <img src="{{ post.postpic }}"/>
-        <h2>{{ post.posttitle }}</h2>
-        <p>{{ post.postdate ? post.postdate|date('Y-m-d') : '' }}</p>
-        <br>
-        <p>{{ post.postcontent }}</p>
+              {% for bost in bost2 %}
 
+                <table>
+                  <tr>
+                    <td>
+
+                        <div class="d-flex flex-column ml-2">
+                          <span class="name"><a href="{{ path('posts_show', {'postid': bost.postid}) }}">{{ bost.posttitle }}</a> </span>
+                          <span class="name"><small style="margin-left: revert">{{ bost.postdate ? bost.postdate|date('Y-m-d') : '' }}</small></span>
+
+                          <div class="d-flex flex-row align-items-center status"></div>
+
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+                <hr>
+              {% endfor %}
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="card1" style="padding: 50px">
-        <img src="https://media.creativemornings.com/uploads/user/avatar/120448/profile-circle.png"/>
-
-       <br><br> <p > {{ user.userId}}</p>
-        <p>{{ user.name }}</p>
-        <p > Nombre de Posts crée: 10</p>
-        <p> Les mots vulgaire utilisé : N/A </p>
-        <button  class="btn btn-outline-twitter"  >Suspendre</button>
-    </div>
-
-    <div id="card3"style="padding:15px" >
-        <center><h style="font-family:'JetBrains Mono Medium'; font-size: 25px"> Nombre de j'aime</h>
-        <br>
-        <h style="font-family:'JetBrains Mono Medium'; font-size: 25px">{{ post.likecount }}</h>
-        </center>
-    </div>
-    <div id="card4"style="padding:15px" >
-        <center><h style="font-family:'JetBrains Mono Medium'; font-size: 25px"> Nombre de vu</h>
-            <br>
-            <h style="font-family:'JetBrains Mono Medium'; font-size: 25px">{{ post.likecount }}</h>
-        </center>
-    </div>
-
+  </section>
 
 
 

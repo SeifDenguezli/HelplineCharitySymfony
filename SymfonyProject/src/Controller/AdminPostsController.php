@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Comments;
 use App\Entity\Posts;
 use App\Entity\User;
 use App\Form\Posts1Type;
+use App\Repository\PostsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use JCrowe\BadWordFilter\Facades\BadWordFilter;
 
 /**
  * @Route("/admin/posts")
@@ -58,11 +61,12 @@ class AdminPostsController extends AbstractController
     /**
      * @Route("/{postid}", name="admin_posts_show", methods={"GET"})
      */
-    public function show(Posts $post): Response
+    public function show(Posts $post,PostsRepository $postsrep): Response
     {    $user = $this->getDoctrine()->getRepository(User::class)->find($post->getUser());
-
+        $comment = $this->getDoctrine()->getRepository(Comments::class)->findBypostid($post->getPostid());
+        $bost2 = $postsrep->findPostsofuser($post->getUser());
         return $this->render('posts/admin_posts/show.html.twig', [
-            'post' => $post,'user'=>$user
+            'post' => $post,'user'=>$user,'comment'=>$comment,'bost2'=>$bost2,
         ]);
     }
 
@@ -87,13 +91,14 @@ class AdminPostsController extends AbstractController
     }
 
     /**
-     * @Route("/{postid}", name="admin_posts_delete", methods={"POST"})
+     * @Route("/{postid}", name="admin_posts_delete", methods={"GET","POST"})
      */
     public function delete(Request $request, Posts $post, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$post->getPostid(), $request->request->get('_token'))) {
             $entityManager->remove($post);
             $entityManager->flush();
+
         }
 
         return $this->redirectToRoute('admin_posts_index', [], Response::HTTP_SEE_OTHER);

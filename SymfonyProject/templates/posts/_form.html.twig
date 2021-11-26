@@ -1,46 +1,22 @@
-{{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-
-<center>
-    <div class="card" style="background-color: ghostwhite">
-        <center>
-    <div class="container1" >
-        <div class="wrapper">
-            <section class="post">
-                <div class="content">
-                    <div class="details">
-                        <p>Aymen Zaabar</p>
-                    </div>
-                </div>
-
-                <div class="options">
-                    {{ form_label (form.posttitle,"Titre")}}
-                    {{ form_widget(form.posttitle) }}
-
-                    {{ form_label (form.posttype,"Sujet")}}
-                    {{ form_widget(form.posttype) }}
-
-                </div>
-                {{ form_label (form.postcontent,"Votre contenu")}}
-                {{ form_widget(form.postcontent) }}
-
-                <div class="options">
-                    <p>Add to Your Post</p>
-                    <ul class="list">
-                        <li><img src="icons/gallery.svg" alt="gallery"></li>
-                        <li><img src="icons/emoji.svg" alt="gallery"></li>
-
-                    </ul>
-                    <button>{{ button_label|default('Post') }}</button>
-                </div>
-
-
-            </section>
-        </div>
+<div class="container">
+    <br>
+    <div class="section-header text-center">
+        <h4>Ajouter un nouveau post</h4>
     </div>
-        </center>
+    <br>
+    {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
+    {{ form_widget(form) }}
+
+    <div>
+
+
     </div>
-</center>
-{{ form_end(form) }}
+    <button class="btn btn-outline-google">{{ button_label|default('Ajouter') }}</button>
+    {{ form_end(form) }}
+    <br>
+
+</div>
 
 

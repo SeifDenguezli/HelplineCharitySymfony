@@ -14,10 +14,16 @@
      <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
      <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
  {% endblock %}
+
 {% block body %}
 
-    {{ include('posts/_form.html.twig', {'button_label': 'Moddifier'}) }}
+            {{ include('posts/_form.html.twig', {'button_label': 'Update'}) }}
 
-   <center> <a href="{{ path('posts_index') }}">Retour</a></center>
+            <center> <a class="btn btn-outline-secondary" href="{{ path('posts_index') }}">Retour</a></center>
+
+        </div>
+
+    </div>
+
 
 {% endblock %}

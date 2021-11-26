@@ -47,6 +47,7 @@ class PostsRepository extends ServiceEntityRepository
         ;
     }
     */
+
     public function findByLikeCount($limit=10,$asArray=false){
         $subqb = $this->createQueryBuilder('p');
 
@@ -55,6 +56,14 @@ class PostsRepository extends ServiceEntityRepository
                   ->getQuery()
                     ->setMaxResults($limit)
                     ->getResult();
+
+
+    }
+    public function findPostsofuser($id){
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery("SELECT p FROM APP\Entity\Posts p JOIN p.user u WHERE u.userid=:id")
+                                ->setParameter('id',$id);
+        return $query->getResult();
 
 
     }

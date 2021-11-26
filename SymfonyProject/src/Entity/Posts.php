@@ -222,9 +222,9 @@ class Posts
     }
 
     /**
-     * @param string $postpic
+     * @param string | null $postpic
      */
-    public function setPostpic(string $postpic): void
+    public function setPostpic($postpic): void
     {
         $this->postpic = $postpic;
     }
