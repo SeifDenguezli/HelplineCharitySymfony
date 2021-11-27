@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Faker\Factory;
+
 
 /**
  * @Route("/user")
@@ -49,6 +52,49 @@ class UserController extends AbstractController
             'user' => $user,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/fake", name="user_fake")
+     */
+    public function load(): Response
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $faker = Factory::create('FR-fr');
+
+        $users = [100];
+        $genres = ['male', 'female'];
+
+        //Generation Users
+        for($i=1; $i <= 10; $i++) {
+            $user = new User();
+            $genre = $faker->randomElement($genres);
+
+            $picture = 'https://randomuser.me/api/portraits/';
+            $pictureId = $faker->numberBetween(1,99) . '.jpg';
+
+            if ($genre == 'male') $picture = $picture . 'men/' . $pictureId;
+            else $picture = $picture . 'women/' . $pictureId;
+
+            $user->setUsername($faker->name($genre));
+            $user->setPassword($faker->password);
+            $user->setCity($faker->city);
+            $user->setGouvernorat($faker->city);
+            $user->setPhone($faker->phoneNumber);
+            $user->setMail($faker->email);
+            $user->setRole($faker->name);
+            $user->setMontantDonne($faker->randomFloat());
+            $user->setPhoto($picture);
+            $manager->persist($user);
+            $users[] = $user;
+
+
+
+            $manager->persist($users[$i]);
+        }
+
+        $manager->flush();
+        return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
     }
 
     /**
@@ -94,4 +140,6 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }

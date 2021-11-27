@@ -34,11 +34,11 @@ class User implements UserInterface
     private $userid;
 
     /**
-     * @var string
+     * @var string | null
      *
-     * @ORM\Column(name="username", type="string", length=255, nullable=false)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    private $username;
+    private $name;
     /**
      * @var string|null
      *
@@ -149,17 +149,17 @@ class User implements UserInterface
     /**
      * @return string|null
      */
-    public function getUsername(): ?string
+    public function getName(): ?string
     {
-        return $this->username;
+        return $this->name;
     }
 
     /**
-     * @param string $username
+     * @param string $name
      */
-    public function setUsername(?string $username): void
+    public function setName(?string $name): void
     {
-        $this->username = $username;
+        $this->name= $name;
     }
 
     /**
@@ -312,6 +312,11 @@ class User implements UserInterface
     return ['ROLE_USER'];
 }
 
-
-
+    /**
+     * @return string|null
+     */
+    public function getUsername()
+    {
+        return $this->name;
+    }
 }
