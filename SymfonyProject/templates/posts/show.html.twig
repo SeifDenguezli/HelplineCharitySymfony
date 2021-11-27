@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 {% set isLiked = post.getLikedBy.contains(app.user) %}
+{% set acuser = post.getUser.contains(app.user) %}
 <!--===============================================================================================-->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 <!--===============================================================================================-->
@@ -108,6 +109,7 @@
                                                     <span class="name"><small style="margin-left: revert">{{ comments.commentdate ? comments.commentdate|date('Y-m-d') : '' }}</small></span>
                                                     <small class="comment-text" style="font-size:20px">{{ comments.commentContent }}</small>
                                                     <div class="d-flex flex-row align-items-center status"></div>
+
                                                     <span>
                                              <button style="display: {% if not iscLiked %}block {% else %}none{% endif %}; margin-left: 700px;width: 110px" class="btn btn-outline-secondary" id="clike{{ comments.commentid }}">J'aime
                                                   <span class="badge badge-light" id="clikes-like">{{ comments.getLikedBy.count }}</span>

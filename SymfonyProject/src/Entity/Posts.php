@@ -62,6 +62,28 @@ class Posts
      * @ORM\Column(name="likeCount", type="integer", nullable=false)
      */
     private $likecount;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="viewCount", type="integer", nullable=true)
+     */
+    private $viewcount;
+
+    /**
+     * @return int
+     */
+    public function getViewcount(): int
+    {
+        return $this->viewcount;
+    }
+
+    /**
+     * @param int $viewcount
+     */
+    public function setViewcount(int $viewcount): void
+    {
+        $this->viewcount = $viewcount;
+    }
 
     /**
      * @var string

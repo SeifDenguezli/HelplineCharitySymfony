@@ -69,6 +69,7 @@
             </ul>
 
           </div>
+          <canvas id="graph1" width="300" height="100"></canvas>
         </div>
         <div class="top-sales box">
           <div class="title">Boite a outil</div>
@@ -157,7 +158,7 @@
                           <div class="d-flex flex-row align-items-center status"></div>
 
                         </div>
-                      </div>
+
                     </td>
                   </tr>
                 </table>
@@ -166,16 +167,43 @@
               {% endfor %}
 
             </ul>
-
+          </div>
           </div>
         </div>
       </div>
+
+    </div>
     </div>
   </section>
 
 
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.js" integrity="sha512-CWVDkca3f3uAWgDNVzW+W4XJbiC3CH84P2aWZXj+DqI6PNbTzXbl1dIzEHeNJpYSn4B6U8miSZb/hCws7FnUZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  let ctx = document.querySelector("#graph1")
+  let graph= new Chart(ctx,{
+    type: 'bar',
+    data: {
+      labels: ['Les j\'aime','Commentaires','Vus'],
+      datasets: [
+        {
+          label: ['Resumé de cette publication'],
+          data: [{{ post.likecount }}, {{ comment | length }},25],
+          fill: true,
+          backgroundColor:  [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.5)',
+            'rgba(255, 205, 86, 0.4)',],
+          borderColor: 'rgb(255, 99, 132)',
+          pointBackgroundColor: 'rgb(175,25,57)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgb(255, 99, 132)'
+        }
+      ]
+    }
+  })
+</script>
 
 {% endblock %}
 {% block footer %}

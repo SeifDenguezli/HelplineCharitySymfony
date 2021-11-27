@@ -4,9 +4,46 @@
 
 {% block body %}
 
+<link rel="stylesheet" href="/css/apost.css" xmlns="http://www.w3.org/1999/html">
+
+<!--<title> Responsiive Admin Dashboard | CodingLab </title>-->
+<link rel="stylesheet" href="style.css">
+
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="{{ asset('/css/test/dist/notifications.js') }}"></script>
 
 
+<section class="home-section">
+    <div class="home-content">
+        <div class="overview-boxes">
+            <div class="box" style="background-color: lightcyan;">
+                <div class="right-side">
+                    <div class="box-topic"><center>Nombre de publications </center></div>
+                   <center> <div class="number" ><center>{{ posts | length }}</center></div></center>
+                </div>
 
+            </div>
+            <div class="box" style="background-color: lightblue; width: 400px;height: 400px">
+                <div class="right-side">
+                    <div class="box-topic"><center>Publications%Likes </center></div>
+                    <div class="charts-data"> <canvas id="graph1" width="400" height="200"></canvas></div>
+                </div>
+
+            </div>
+            <div class="box" style="background-color: lightcyan;">
+                <div class="left-side">
+                    <div class="box-topic"><center>Interactions total </center></div>
+                    {% set sum=0 %}
+                    {% for post in posts %}
+                        {% set sum = sum + post.likecount %}
+                    {% endfor %}
+                    <center> <div class="facts-text"  ><h3 class="facts-dollar" data-toggle="counter-up">{{ sum }}</h3></div></center>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
     <br>
@@ -32,7 +69,7 @@
                         <a href="{{ path('admin_posts_show', {'postid': post.postid}) }}" class="btn btn-facebook" style="justify-content: flex-end">Voir le post</a>
 
 
-                        <hr>
+                        <hr style="background-color: ghostwhite">
                     </div>
 
                 </div>
@@ -49,4 +86,48 @@
         <br>
         <br>
         </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.js" integrity="sha512-CWVDkca3f3uAWgDNVzW+W4XJbiC3CH84P2aWZXj+DqI6PNbTzXbl1dIzEHeNJpYSn4B6U8miSZb/hCws7FnUZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+
+
+
+        let ctx = document.querySelector("#graph1")
+        let graph= new Chart(ctx,{
+            type: 'line',
+            data: {
+                labels: [{% for pos in posts %} '{{ pos.posttitle }}',{% endfor %}],
+                datasets: [
+                    {
+                        label: ['Resumé de cette publication'],
+                        data: [ {% for pos in posts %} '{{ pos.likecount }}',{% endfor %} ],
+                        fill: true,
+                        backgroundColor:  [
+                            'rgba(99,148,255,0.2)',
+                            'rgba(255, 159, 64, 0.5)',
+                            'rgba(255, 205, 86, 0.4)',],
+                        borderColor: 'rgb(41,64,180)',
+                        pointBackgroundColor: 'rgb(175,25,57)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(99,107,255)'
+                    },{
+                        label: ['Vus'],
+                        data: [{% for pos in posts %} '{{ pos.viewcount }}',{% endfor %}],
+                        fill: true,
+                        backgroundColor:  [
+                            'rgba(99,148,255,0.2)',
+                            'rgba(128,255,64,0.5)',
+                            'rgba(255, 205, 86, 0.4)',],
+                        borderColor: 'rgb(41,180,48)',
+                        pointBackgroundColor: 'rgb(175,25,57)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(70,252,155,0.92)'
+                    }
+                ]
+            }
+        })
+    </script>
+
 {% endblock %}

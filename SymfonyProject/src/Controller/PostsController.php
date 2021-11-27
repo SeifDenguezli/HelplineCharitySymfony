@@ -75,14 +75,17 @@ class PostsController extends AbstractController
      * @Route("/{postid}", name="posts_show", methods={"GET","POST"})
      */
     public function show(Posts $post,Request $request,PostsRepository $postsrep):Response
-    {
+    {   $post->setViewcount($post->getViewcount()+1);
+        $entityManager1 = $this->getDoctrine()->getManager();
+        $entityManager1->persist($post);
+        $entityManager1->flush();
         $comment = $this->getDoctrine()->getRepository(Comments::class)->findBypostid($post->getPostid());
         $user =  new User();
         $user->setName('hmed');
         $comment1 = new Comments();
         $comment1->setPostid($post);
         $comment1->setCommentdate(new \DateTime('now'));
-        $comment1->setCommentauthor("hmayed");
+        $comment1->setCommentauthor($this->getUser()->getUsername());
         $comment1->setLikecount(0);
         $form = $this->createForm(CommentsType::class,$comment1 );
         $bost = $postsrep->findByLikeCount(10,false);
