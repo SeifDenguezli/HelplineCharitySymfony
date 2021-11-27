@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 {% set isLiked = post.getLikedBy.contains(app.user) %}
-{% set acuser = post.getUser.contains(app.user) %}
+
 <!--===============================================================================================-->
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 <!--===============================================================================================-->
@@ -67,7 +67,7 @@
 
                             <div class="txt32 flex-w p-b-24">
 									<span>
-										by {{ user.name }}
+										by h
 										<span class="m-r-6 m-l-4">|</span>
 									</span>
 

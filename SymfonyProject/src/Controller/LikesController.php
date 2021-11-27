@@ -15,7 +15,7 @@ class LikesController extends Controller
      * @Route("/like/{postid}",name="likes_like")
      */
     public function like(Posts $post){
-        $user = $this->getDoctrine()->getRepository(User::class)->find(133);
+        $user = $this->getUser();
       $post->like($user);
       $post->setLikecount($post->getLikecount()+1);
       $this->getDoctrine()->getManager()->flush();
@@ -28,7 +28,7 @@ class LikesController extends Controller
      * @Route("/unlike/{postid}",name="likes_unlike")
      */
     public function unlike(Posts $post){
-        $user = $this->getDoctrine()->getRepository(User::class)->find(1);
+        $user = $this->getUser();
         $post->setLikecount($post->getLikecount()-1);
         $post->getLikedBy()->removeElement($user);
         $this->getDoctrine()->getManager()->flush();

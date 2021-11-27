@@ -16,7 +16,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\CommentsType;
-
+/**
+ * @Route("/p1")
+ */
 class PostsController extends AbstractController
 {
     /**
@@ -80,8 +82,6 @@ class PostsController extends AbstractController
         $entityManager1->persist($post);
         $entityManager1->flush();
         $comment = $this->getDoctrine()->getRepository(Comments::class)->findBypostid($post->getPostid());
-        $user =  new User();
-        $user->setName('hmed');
         $comment1 = new Comments();
         $comment1->setPostid($post);
         $comment1->setCommentdate(new \DateTime('now'));
@@ -104,7 +104,7 @@ class PostsController extends AbstractController
             return $this->redirectToRoute('posts_index',[], Response::HTTP_SEE_OTHER);
         }
         return $this->render('posts/show.html.twig', [
-           'post' => $post,'user'=>$user,'comment'=>$comment,'form' => $form->createView(),'bost'=>$bost,
+           'post' => $post,'comment'=>$comment,'form' => $form->createView(),'bost'=>$bost,
         ]);
 
     }

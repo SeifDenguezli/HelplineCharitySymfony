@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 
@@ -146,13 +147,7 @@ class User implements UserInterface
      * @ORM\OneToMany (targetEntity="App\Entity\Posts",mappedBy="user")
      */
     private $posts;
-    /**
-     * @return Collection|Evenement[]
-     */
-    public function getEvenements(): Collection
-    {
-        return $this->evenements;
-    }
+
 
     public function addEvenement(Evenement $evenement): self
     {
