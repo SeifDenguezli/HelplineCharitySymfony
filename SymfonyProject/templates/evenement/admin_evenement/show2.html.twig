@@ -132,7 +132,16 @@
 
                         <div class="profile-feed-item cover-img-event">
                             <div class="ms-4">
-                                <img src="{{ evenement.coverImage }}" alt="sample" class="rounded mw-100"/>
+                                {#
+                                If statement used to display either uploaded image with VichUpload or Random image from the FakerBundle
+                                    To remove after stop using FixtureBundle
+                                    Only keep :::::   <img src="{{ vich_uploader_asset(evenement) }}">
+                                #}
+                                {% if evenement.updatedAt is not null %}
+                                    <img src="{{ vich_uploader_asset(evenement) }}" alt="sample" class="rounded mw-100"/>
+                                {% else %}
+                                    <img src="{{ evenement.coverImage }}" alt="sample" class="rounded mw-100"/>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="align-items-start">

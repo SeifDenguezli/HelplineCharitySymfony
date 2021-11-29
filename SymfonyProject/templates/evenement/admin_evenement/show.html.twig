@@ -30,6 +30,7 @@
     {% for comment in comments %}
         <div class="d-flex align-items-start profile-feed-item">
             <img src="{{ comment.user.photo }}" alt="profile" class="img-sm rounded-circle"/>
+
             <div class="ms-4">
                 <h6>
                     {{ comment.user.name }}

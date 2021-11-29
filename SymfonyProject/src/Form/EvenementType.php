@@ -23,7 +23,8 @@ class EvenementType extends AbstractType
         return[
             'label' => $label,
             'attr' => [
-                'placeholder' => $placeholder
+                'placeholder' => $placeholder,
+                'class' => "form-control"
             ]
         ];
     }
@@ -33,7 +34,7 @@ class EvenementType extends AbstractType
             ->add('donCategorie', TextType::class, $this->getConfiguration("Catégorie de l'évènement", "Catégorie de l'évènement"))
             ->add('cause', TextType::class, $this->getConfiguration("Objectif", "Objectif à atteindre de cet évènement"))
             ->add('Region',TextType::class, $this->getConfiguration("Région", "Région de l'évènement"))
-            ->add('date_creation', DateType::class, $this->getConfiguration("Date de l'évènement", "Date de l'évènement"))
+            #->add('date_creation', DateType::class, $this->getConfiguration("Date de l'évènement", "Date de l'évènement"))
             ->add('description', TextareaType::class, $this->getConfiguration("Description", "Briéve description de votre évènement"))
             ->add('imageFile', VichImageType::class, [
                 'required' => true,
@@ -43,7 +44,6 @@ class EvenementType extends AbstractType
                 'image_uri' => false,
                 'asset_helper' => false,
             ])
-            ->add('associationId')
         ;
     }
 

@@ -37,10 +37,12 @@ class ParticipationController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
 
             /*
-             * Cette Partie consiste à recuperer l'evenement de modifier le montant colecté total chaque fois un don est lancé
+             * Cette Partie consiste à recuperer l'evenement de modifier le montant colecté total et le num de participants
+             * chaque fois un don est lancé
              */
             $ev = $manager->getRepository(Evenement::class)->find($event->getEventId());
             $ev->setMontantCollecte($event->getMontantCollecte() + $amount);
+            $ev->setNumParticipants($ev->getNumParticipants() + 1);
             ///////////////////////////////////
 
             $manager->persist($participation);

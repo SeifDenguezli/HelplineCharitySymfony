@@ -51,26 +51,31 @@ class EvenementController extends AbstractController
 
 
     /**
-     * @Route("/new", name="evenement_new", methods={"GET","POST"})
+     * @Route("/new", name="evenement_new")
      */
     public function new(Request $request): Response
     {
+        $currentUser = $this->getUser();
         $evenement = new Evenement();
         $evenement->setMontantCollecte(0);
         $evenement->setNumParticipants(0);
+        $evenement->setAssociationId($currentUser);
+        $evenement->setDateCreation(new \DateTime());
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($evenement);
             $entityManager->flush();
 
-            return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
+            //return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('evenement/new.html.twig', [
             'evenement' => $evenement,
+            'user' => $currentUser,
             'form' => $form->createView(),
         ]);
     }
@@ -226,6 +231,7 @@ class EvenementController extends AbstractController
      */
     public function edit(Request $request, Evenement $evenement): Response
     {
+        $user = $this->getUser();
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
 
@@ -237,6 +243,7 @@ class EvenementController extends AbstractController
 
         return $this->render('evenement/edit.html.twig', [
             'evenement' => $evenement,
+            'user' => $user,
             'form' => $form->createView(),
         ]);
     }

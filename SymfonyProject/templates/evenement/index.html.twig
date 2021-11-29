@@ -82,7 +82,7 @@
                                 Only keep :::::   <img src="{{ vich_uploader_asset(evenement) }}">
                             #}
                             {% if evenement.updatedAt is not null %}
-                                <img src="{{ vich_uploader_asset(evenement) }}">
+                                <img src="{{ vich_uploader_asset(evenement) }}" width = "600" height = "400">
                             {% else %}
                                 <img src="{{ evenement.coverImage }}" alt="Image">
                             {% endif %}
