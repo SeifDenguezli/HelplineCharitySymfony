@@ -17,7 +17,8 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('name',TextType::class,['attr'=>['placeholder'=>'Entrer votre Nom et Prénom...','class'=>'w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium'],])
-            ->add('photo', FileType::class,['attr'=>['class'=>"cursor-pointer inine-flex justify-between items-center focus:outline-none border py-2 px-4 rounded-lg shadow-sm text-left text-gray-600 bg-white hover:bg-gray-100 font-medium"],])
+            ->add('photo', FileType::class,['attr'=>['type'=>'file','name'=>'photo','id'=>'fileInput','accept'=>'image/*','@change'=>'let file = document.getElementById("fileInput").files[0]; 
+								var reader = new FileReader();reader.onload = (e) => image = e.target.result;reader.readAsDataURL(file);','class'=>"cursor-pointer inine-flex justify-between items-center focus:outline-none border py-2 px-4 rounded-lg shadow-sm text-left text-gray-600 bg-white hover:bg-gray-100 font-medium"],])
             ->add('password',PasswordType::class,['attr'=>['@keydown'=>'checkPasswordStrength()','placeholder'=>'Votre fort mot de passe...','x-model'=>'password','type'=>'togglePassword ? text : password','class'=>'w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium'],])
             ->add('city',TextType::class,['attr'=>['placeholder'=>'Entrer votre Ville...','class'=>'w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium'],])
             ->add('gouvernorat',TextType::class,['attr'=>['placeholder'=>'Entrer votre Gouvernorat...','class'=>'w-full px-4 py-3 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600 font-medium'],])

@@ -1,0 +1,53 @@
+<head>
+    <!-- Favicon -->
+    <link href="{{ asset('img/favicon.ico') }}" rel="icon">
+
+    <!-- Google Font -->
+    <link href="{{ asset('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap') }}" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link href="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/flaticon/font/flaticon.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <link href="{{ asset('lib/flaticon/font/flaticon.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+
+
+        <!-- Template Stylesheet -->
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+
+
+
+
+</head>
+<body style="background-color: #FDBE33">
+
+<div class="container ">
+    <div class="row">
+        <div class="col-md-3">&nbsp;</div>
+        <div class="col-md-6">
+            <div class="bg-light py-3 px-3 test ">
+                {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
+                <h2 style="text-align: center">Mot de passe oublié ?</h2>
+                <p>Demandez à réinitialiser votre mot de passe en renseignant votre mail.</p>
+                <div class="form-group">
+
+                    {{form_row(form.email)}}
+                    <button  type="submit" class="btn btn-success"style="" >Envoyer</button>
+                    {{form_end(form)}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>

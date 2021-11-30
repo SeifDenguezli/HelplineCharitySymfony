@@ -37,6 +37,7 @@ class User implements UserInterface
      * @var string | null
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="le Nom est obligatoire !")
      */
     private $name;
     /**
@@ -121,6 +122,19 @@ class User implements UserInterface
      * )
      */
     private $eventid;
+
+    /**
+     * @ORM\Column(name="passwordRequestedAt", type="datetime", nullable=true)
+     * @var \DateTime
+     */
+    private $passwordRequestedAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="token", type="string", length=255, nullable=true)
+     */
+    private $token;
 
     /**
      * Constructor
@@ -318,5 +332,42 @@ class User implements UserInterface
     public function getUsername()
     {
         return $this->name;
+    }
+
+    // ...
+
+
+    /*
+     * Get passwordRequestedAt
+     */
+    public function getPasswordRequestedAt()
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    /*
+     * Set passwordRequestedAt
+     */
+    public function setPasswordRequestedAt($passwordRequestedAt)
+    {
+        $this->passwordRequestedAt = $passwordRequestedAt;
+        return $this;
+    }
+
+    /*
+     * Get token
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /*
+     * Set token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+        return $this;
     }
 }
