@@ -36,4 +36,5 @@ class LikesController extends Controller
             'count'=>$post->getLikedBy()->count()
         ]);
     }
+
 }

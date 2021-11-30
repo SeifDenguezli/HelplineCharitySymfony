@@ -1,35 +1,49 @@
 {% extends 'base.html.twig' %}
-{% block body %}
-{% set isLiked = post.getLikedBy.contains(app.user) %}
 
-<!--===============================================================================================-->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-<!--===============================================================================================-->
-<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="{{ asset('vendors/vendor/bootstrap/css/bootstrap.min.css') }}">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="{{ asset('fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="{{ asset('fonts/themify/themify-icons.css') }}">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="{{ asset('vendors/vendor/animate/animate.css') }}">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="{{ asset('vendors/vendor/css-hamburgers/hamburgers.min.css') }}">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="{{ asset('vendors/vendor/animsition/css/animsition.min.css') }}">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="{{ asset('vendors/vendor/select2/select2.min.css') }}">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="{{ asset('vendors/vendor/daterangepicker/daterangepicker.css') }}">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="{{ asset('vendors/vendor/slick/slick.css') }}">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="{{ asset('vendors/vendor/lightbox2/css/lightbox.min.css') }}">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="{{ asset('css/pat/util.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/pat/main.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+{% block head %}
+
+
+    <!--===============================================================================================-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/favicon.png"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendors/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('fonts/themify/themify-icons.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendors/vendor/animate/animate.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendors/vendor/css-hamburgers/hamburgers.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendors/vendor/animsition/css/animsition.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendors/vendor/select2/select2.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendors/vendor/slick/slick.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendors/vendor/lightbox2/css/lightbox.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/pat/util.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/pat/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+
+{% block body %}
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        let js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+{% set isLiked = post.getLikedBy.contains(app.user)%}
+
 <!--===============================================================================================-->
 <body class="animsition">
 
@@ -62,12 +76,12 @@
                         <div class="text-blo4 p-t-33">
                             <h4 class="p-b-16">
                                 <a  class="tit9">{{ post.posttitle }}</a>
-                                <button class="btn btn-outline-secondary"> <a href="{{ path('posts_edit', {'postid': post.postid}) }}" >Modifier publication</a></button>
+                                <button class="btn btn-outline-secondary" style="display: {% if  post.getUser == app.user %}block {% else %}none{% endif %}"> <a href="{{ path('posts_edit', {'postid': post.postid}) }}" >Modifier publication</a></button>
                             </h4>
 
                             <div class="txt32 flex-w p-b-24">
 									<span>
-										by h
+										{{ app.user.username }}
 										<span class="m-r-6 m-l-4">|</span>
 									</span>
 
@@ -76,13 +90,17 @@
 										<span class="m-r-6 m-l-4">|</span>
 									</span>
                                 <span>
-										8 Comments
+										{{ comment | length }} Comments
 									</span>
+
+                                <span class="fb-share-button"
+                                     data-layout="button_count">
+                                </span>
                             </div>
 
-                            <p>
-                                {{ post.postcontent }}
-                            </p>
+
+                            <!-- Your share button code -->
+
                         </div>
                         <div >
                              <span>
@@ -103,10 +121,11 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <div > <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" width="40" class="rounded-image">
+                                            <div > <img src="{{ comments.postid.user.photo }}" width="50" class="rounded-image">
+                                                <span class="name" style="font-weight: bold">{{ comments.commentauthor }} </span>
                                                 <div class="d-flex flex-column ml-2">
-                                                    <span class="name">{{ comments.commentauthor }} </span>
-                                                    <span class="name"><small style="margin-left: revert">{{ comments.commentdate ? comments.commentdate|date('Y-m-d') : '' }}</small></span>
+
+                                                    <span class="name"><small>{{ comments.commentdate ? comments.commentdate|date('Y-m-d') : '' }}</small></span>
                                                     <small class="comment-text" style="font-size:20px">{{ comments.commentContent }}</small>
                                                     <div class="d-flex flex-row align-items-center status"></div>
 

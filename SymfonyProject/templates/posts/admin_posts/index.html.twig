@@ -26,7 +26,7 @@
             </div>
             <div class="box" style="background-color: lightblue; width: 400px;height: 400px">
                 <div class="right-side">
-                    <div class="box-topic"><center>Publications%Likes </center></div>
+                    <div class="box-topic"><center>Publications </center></div>
                     <div class="charts-data"> <canvas id="graph1" width="400" height="200"></canvas></div>
                 </div>
 
@@ -36,7 +36,7 @@
                     <div class="box-topic"><center>Interactions total </center></div>
                     {% set sum=0 %}
                     {% for post in posts %}
-                        {% set sum = sum + post.likecount %}
+                        {% set sum = sum + post.likecount + post.viewcount %}
                     {% endfor %}
                     <center> <div class="facts-text"  ><h3 class="facts-dollar" data-toggle="counter-up">{{ sum }}</h3></div></center>
                 </div>
@@ -99,7 +99,7 @@
                 labels: [{% for pos in posts %} '{{ pos.posttitle }}',{% endfor %}],
                 datasets: [
                     {
-                        label: ['Resumé de cette publication'],
+                        label: ['J\'aime'],
                         data: [ {% for pos in posts %} '{{ pos.likecount }}',{% endfor %} ],
                         fill: true,
                         backgroundColor:  [

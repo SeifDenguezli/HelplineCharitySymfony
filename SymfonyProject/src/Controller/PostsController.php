@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\CommentsType;
+use ChrisKonnertz\OpenGraph\OpenGraph;
 /**
  * @Route("/p1")
  */
@@ -89,6 +90,9 @@ class PostsController extends AbstractController
         $comment1->setLikecount(0);
         $form = $this->createForm(CommentsType::class,$comment1 );
         $bost = $postsrep->findByLikeCount(10,false);
+
+
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $filter = new \JCrowe\BadWordFilter\BadWordFilter();
@@ -103,8 +107,15 @@ class PostsController extends AbstractController
 
             return $this->redirectToRoute('posts_index',[], Response::HTTP_SEE_OTHER);
         }
+        $og = new OpenGraph(false);
+        $og->clear();
+        $og->title('Apple Cookie');
+        $og->type('article');
+        $og->description('Welcome to the best apple cookie recipe never created.');
+        $og->image('https://www.capital.fr/imgre/fit/http.3A.2F.2Fprd2-bone-image.2Es3-website-eu-west-1.2Eamazonaws.2Ecom.2Fcap.2F2020.2F09.2F11.2F34e10496-9e84-46c5-b0a4-884f84d7db72.2Ejpeg/790x395/background-color/ffffff/quality/10/man-le-constructeur-de-poids-lourds-veut-supprimer-9-500-emplois-1380212.jpg');
+        $og->url('127.0.0.1:8000/posts/show.html.twig');
         return $this->render('posts/show.html.twig', [
-           'post' => $post,'comment'=>$comment,'form' => $form->createView(),'bost'=>$bost,
+           'post' => $post,'comment'=>$comment,'form' => $form->createView(),'bost'=>$bost,$og->renderTags(),
         ]);
 
     }

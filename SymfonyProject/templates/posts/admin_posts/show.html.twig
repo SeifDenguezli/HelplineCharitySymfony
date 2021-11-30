@@ -1,10 +1,12 @@
 {% extends 'backoffice.html.twig' %}
 
 {% block title %}Posts{% endblock %}
-
+{% block stylesheet %}
+{% endblock %}
 {% block body %}
-  <link rel="stylesheet" href="/css/apost.css" xmlns="http://www.w3.org/1999/html">
 
+  <link rel="stylesheet" href="/css/apost.css" xmlns="http://www.w3.org/1999/html">
+  <link rel="stylesheet" href="/css/test/dist/notifications.css" >
     <!--<title> Responsiive Admin Dashboard | CodingLab </title>-->
     <link rel="stylesheet" href="style.css">
 
@@ -25,7 +27,7 @@
               <span class="text">{{ user.role }}</span>
             </div>
           </div>
-          <img src="https://media.creativemornings.com/uploads/user/avatar/120448/profile-circle.png" width="75px">
+          <img src="{{ vich_uploader_asset(user) }}" alt="puser" width="75px" class="rounded-image">
         </div>
         <div class="box">
           <div class="right-side">
@@ -37,23 +39,23 @@
         </div>
         <div class="box">
           <div class="right-side">
-            <div class="box-topic">Nombre de j'aime</div>
-            <div class="number">{{ post.likecount }}</div>
+            <center><div class="box-topic"> J'aimes </div>
+            <div class="number">{{ post.likecount }}</div></center>
             <div class="indicator">
 
             </div>
           </div>
-          <i class='bx bx-cart cart three' ></i>
+
         </div>
         <div class="box">
           <div class="right-side">
-            <div class="box-topic">Vus</div>
-            <div class="number">11,086</div>
+            <center><div class="box-topic">Vus</div>
+            <div class="number">{{ post.viewcount }}</div></center>
             <div class="indicator">
 
             </div>
           </div>
-          <i class='bx bxs-cart-download cart four' ></i>
+
         </div>
       </div>
 
@@ -161,6 +163,7 @@
 
                     </td>
                   </tr>
+
                 </table>
 
                 <hr>
@@ -174,6 +177,7 @@
 
     </div>
     </div>
+
   </section>
 
 
