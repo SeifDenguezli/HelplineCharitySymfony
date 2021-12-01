@@ -3,6 +3,7 @@
 /*******************************/
 .test{
     margin-top: 250px;
+    border-radius: 50px;
 }
 body {
     color: #777777;

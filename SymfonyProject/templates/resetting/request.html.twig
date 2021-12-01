@@ -1,53 +1,104 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en" >
 <head>
-    <!-- Favicon -->
-    <link href="{{ asset('img/favicon.ico') }}" rel="icon">
-
-    <!-- Google Font -->
-    <link href="{{ asset('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap') }}" rel="stylesheet">
-
-    <!-- CSS Libraries -->
-    <link href="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('lib/flaticon/font/flaticon.css') }}" rel="stylesheet">
-    <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-
-    <link href="{{ asset('lib/flaticon/font/flaticon.css') }}" rel="stylesheet">
-    <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-
-
-        <!-- Template Stylesheet -->
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
-
-
+    <meta charset="UTF-8">
+    <title>CodePen - animated form</title>
+    <link href="{{ asset('css/stylelogin.css') }}" rel="stylesheet">
 
 
 </head>
-<body style="background-color: #FDBE33">
-
-<div class="container ">
+<body>
+<!-- partial:index.partial.html -->
+<div id="container" class="container">
+    <!-- FORM SECTION -->
     <div class="row">
-        <div class="col-md-3">&nbsp;</div>
-        <div class="col-md-6">
-            <div class="bg-light py-3 px-3 test ">
-                {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
-                <h2 style="text-align: center">Mot de passe oublié ?</h2>
-                <p>Demandez à réinitialiser votre mot de passe en renseignant votre mail.</p>
-                <div class="form-group">
+        <!-- SIGN UP -->
+        <div class="col align-items-center flex-col sign-up">
+            <div class="form-wrapper align-items-center">
+                <div class="form sign-up">
+                    <iframe src={{ asset('inscription') }}> </iframe>
 
-                    {{form_row(form.email)}}
-                    <button  type="submit" class="btn btn-success"style="" >Envoyer</button>
-                    {{form_end(form)}}
+
+                    <p style="margin-top: -10px">
+							<span>
+								Vous avez déjà un compte?
+							</span>
+                        <b onclick="toggle()" class="pointer">
+                            Se connecter ici
+                        </b>
+                    </p>
                 </div>
+            </div>
+
+        </div>
+        <!-- END SIGN UP -->
+        <!-- SIGN IN -->
+        <div class="col align-items-center flex-col sign-in">
+            <div class="form-wrapper align-items-center">
+
+                    <div class="form sign-in">
+                        {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
+                        <div class="input-group">
+                            <i class='bx bxs-user'></i>
+                            <h3>Demandez à réinitialiser votre mot de passe en renseignant votre Email </h3>
+                            <br>
+                            <div class="form-group">
+                                {{form_row(form.email)}}
+                            </div>
+                        </div>
+
+                        <div align="center" class="form-group">
+                            <button  type="submit" class="btn btn-success">Envoyer </button>
+                        </div>
+                        {{form_end(form)}}
+
+                    </div>
+                </form>
+            </div>
+            <div class="form-wrapper">
 
             </div>
         </div>
+        <!-- END SIGN IN -->
     </div>
+    <!-- END FORM SECTION -->
+    <!-- CONTENT SECTION -->
+    <div class="row content-row">
+        <!-- SIGN IN CONTENT -->
+        <div class="col align-items-center flex-col">
+            <div class="text sign-in">
+                <h2 style="font-size:45px;  color:red" >
+                    Mot de passe oublié ?
+                </h2>
+
+            </div>
+            <div class="img sign-in">
+
+            </div>
+        </div>
+        <!-- END SIGN IN CONTENT -->
+        <!-- SIGN UP CONTENT -->
+
+        <!-- END SIGN UP CONTENT -->
+    </div>
+    <!-- END CONTENT SECTION -->
 </div>
+<!-- partial -->
+<script>let container = document.getElementById('container')
+
+    toggle = () => {
+        container.classList.toggle('sign-in')
+        container.classList.toggle('sign-up')
+    }
+
+    setTimeout(() => {
+        container.classList.add('sign-in')
+    }, 200)</script>
+
 </body>
+</html>
+
+
