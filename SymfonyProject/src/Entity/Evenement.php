@@ -34,19 +34,19 @@ class Evenement
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Veillez spécifier la catégorie de l'évènement")
+     * @Assert\NotBlank(message="Veuillez spécifier la catégorie de l'évènement")
      */
     private $donCategorie;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Veillez spécifier l'objctif de l'évènement")
+     * @Assert\NotBlank(message="Veuillez spécifier l'objctif de l'évènement")
      */
     private $cause;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Veillez spécifier la région de l'évènement")
+     * @Assert\NotBlank(message="Veuillez spécifier la région de l'évènement")
      */
     private $Region;
 
@@ -57,7 +57,7 @@ class Evenement
 
     /**
      * @ORM\Column(type="date")
-     * @Assert\NotBlank(message="Veillez spécifier la date de l'évènement")
+     * @Assert\NotBlank(message="Veuillez spécifier la date de l'évènement")
      */
     private $date_creation;
 
@@ -67,7 +67,7 @@ class Evenement
     private $montant_collecte;
     /**
      * @ORM\Column(type="string", length=1024)
-     * @Assert\NotBlank(message="Veillez spécifier une déscription de l'évènement")
+     * @Assert\NotBlank(message="Veuillez spécifier une déscription de l'évènement")
      */
     private $description;
 
@@ -75,6 +75,7 @@ class Evenement
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="events", fileNameProperty="coverImage")
+     * @Assert\NotBlank(message="Veuillez importer une image pour votre évènement")
      *
      * @var File|null
      */
@@ -101,6 +102,8 @@ class Evenement
      * @ORM\OneToMany(targetEntity=EventComment::class, mappedBy="event")
      */
     private $eventComments;
+
+    protected $captchaCode;
 
     public function __construct()
     {
@@ -331,6 +334,19 @@ class Evenement
 
         return $this;
     }
+
+
+    public function getCaptchaCode()
+    {
+        return $this->captchaCode;
+    }
+
+    public function setCaptchaCode($captchaCode)
+    {
+        $this->captchaCode = $captchaCode;
+    }
+
+
 
 
 }

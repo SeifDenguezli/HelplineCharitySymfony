@@ -5,6 +5,9 @@
     <title>CodePen - Multistep Form with TailwindCSS and AlpineJS</title>
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
+    <link href="{{ asset('css/eventStyle.css') }}" rel="stylesheet">
+
+
 
     <style>
         [x-cloak] {
@@ -73,8 +76,18 @@
 <body class="antialiased sans-serif bg-gray-200">
 <div x-data="app()" x-cloak>
     {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
+    {% set formErrors = form.vars.errors.form.getErrors(true) %}
     <div class="max-w-3xl mx-auto px-4">
+        {% if formErrors|length %}
+        <div class="alert alert-danger">
+            <ul class="listStyle">
+                {% for error in formErrors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
 
+        {% else %}
         <div x-show.transition="step === 'complete'">
             <div class="bg-white rounded-lg p-10 flex items-center shadow justify-between">
                 <div>
@@ -93,6 +106,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
 
         <div x-show.transition="step != 'complete'">
             <!-- Top Navigation -->
@@ -140,6 +154,11 @@
                     <div class="mb-5">
                         <label for="pw" class="font-bold mb-1 text-gray-700 block">Mot de Passe</label>
                         <input type="password" name="email" class="form-control" placeholder="Mot de Passe">
+                    </div>
+
+                    <div class="mb-5">
+                        <label for="pw" class="font-bold mb-1 text-gray-700 block">Vérifier que vous n'êtes pas un robot</label>
+                        <center>{{ form_widget(form.captchaCode, {'attr' : { 'class' : 'form-control' } }) }}</center>
                     </div>
 
                 </div>

@@ -27,3 +27,7 @@
 .alert-add{
     border-radius: 20px;
 }
+
+ul.listStyle{
+    list-style-type: disc;
+}

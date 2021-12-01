@@ -25,35 +25,27 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class EvenementController extends AbstractController
 {
 
-
-
     /**
      * @Route("/", name="evenement_index", methods={"GET"})
      */
     public function index(EvenementRepository $evenementRepository, Request $request, PaginatorInterface $paginator): Response
     {
-
         $donnees = $evenementRepository->findAll();
 
         $evenements = $paginator->paginate(
             $donnees,
             $request->query->getInt('page',1),
             4
-
         );
-
-
         return $this->render('evenement/index.html.twig', [
             'evenements' => $evenements,
         ]);
     }
 
-
-
     /**
      * @Route("/new", name="evenement_new")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, \Swift_Mailer $mailer): Response
     {
         $currentUser = $this->getUser();
         $evenement = new Evenement();
@@ -70,7 +62,14 @@ class EvenementController extends AbstractController
             $entityManager->persist($evenement);
             $entityManager->flush();
 
-            //return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
+            $message = (new \Swift_Message('Hello Message Test'))
+                ->setFrom('helplinecharityapp@gmail.com')
+                ->setTo('seifeddine.denguezli@esprit.tn')
+                ->setBody(
+                    $this->renderView('shared/emailEvent.html.twig'), 'text/html'
+                );
+            $mailer->send($message);
+            return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('evenement/new.html.twig', [
@@ -85,8 +84,6 @@ class EvenementController extends AbstractController
      */
     public function getFakeData(UserPasswordEncoderInterface $encoder): Response
     {
-
-
         $manager = $this->getDoctrine()->getManager();
         $faker = Factory::create('FR-fr');
 

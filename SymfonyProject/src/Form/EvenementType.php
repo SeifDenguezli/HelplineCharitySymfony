@@ -3,18 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Evenement;
-use Doctrine\DBAL\Types\ObjectType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType;
+use Captcha\Bundle\CaptchaBundle\Validator\Constraints\ValidCaptcha;
 
 class EvenementType extends AbstractType
 {
@@ -44,7 +40,12 @@ class EvenementType extends AbstractType
                 'image_uri' => false,
                 'asset_helper' => false,
             ])
-        ;
+            ->add('captchaCode', CaptchaType::class,[
+                'captchaConfig' => 'CaptchaEventCreation',
+                'constraints' => [
+                    new ValidCaptcha(['message' => 'Priére de vérifier le Captcha'])
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
