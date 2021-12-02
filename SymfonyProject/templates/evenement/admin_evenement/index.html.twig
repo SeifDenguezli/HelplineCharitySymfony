@@ -47,8 +47,18 @@
                     </div>
                     <p class="font-weight-500">{{ evenement.description }}</p>
                     <br>
+
                     <div class="d-flex flex-wrap mb-5">
-                            <img class= "card-img-item" src="{{ evenement.coverImage }}" alt="Image">
+                        {#
+                        If statement used to display either uploaded image with VichUpload or Random image from the FakerBundle
+                            To remove after stop using FixtureBundle
+                            Only keep :::::   <img src="{{ vich_uploader_asset(evenement) }}">
+                        #}
+                        {% if evenement.updatedAt is not null %}
+                            <img src="{{ vich_uploader_asset(evenement) }}" width="480" height="300">
+                        {% else %}
+                            <img src="{{ evenement.coverImage }}" alt="Image" width="480" height="300">
+                        {% endif %}
                     </div>
 
                     <div class="d-flex flex-wrap mb-5">

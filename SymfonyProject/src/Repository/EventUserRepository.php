@@ -29,6 +29,23 @@ class EventUserRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
+    //Retrouver les participations durant les 30 derniers jours
+    public function findLastParticipations()
+    {
+        $year = (int) date('Y');
+        $month = (int) date('m');
+
+        $startDate = new \DateTimeImmutable("$year-$month-01T00:00:00");
+        $endDate = $startDate->modify('last day of this month')->setTime(23, 59, 59);
+
+        return $this->createQueryBuilder('eu')
+            ->where('eu.joinDate BETWEEN :start AND :end')
+            ->setParameter('start', $startDate->format('Y-m-d H:i:s'))
+            ->setParameter('end', $endDate->format('Y-m-d H:i:s'))
+            ->orderBy('eu.joinDate', 'DESC')
+            ->getQuery()->getResult();
+    }
+
 
     // /**
     //  * @return EventUser[] Returns an array of EventUser objects

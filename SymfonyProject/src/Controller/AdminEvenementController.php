@@ -27,17 +27,45 @@ class AdminEvenementController extends AbstractController
     public function index(EvenementRepository $evenementRepository, Request $request, PaginatorInterface $paginator): Response
     {
 
+        $user = $this->getUser();
         $donnees = $evenementRepository->findAll();
 
         $evenements = $paginator->paginate(
             $donnees,
             $request->query->getInt('page',1),
             4
-
         );
 
         return $this->render('evenement/admin_evenement/index.html.twig', [
             'evenements' => $evenements,
+            'user' => $user,
+        ]);
+    }
+
+
+    /**
+     * @Route("/statistiques", name="admin_evenement_stats", methods={"GET"})
+     */
+    public function getStatistiques(EvenementRepository $evenementRepository, EventUserRepository $eventUserRepo, Request $request): Response
+    {
+
+
+        $user = $this->getUser();
+        $todayDate = new \DateTime();
+
+        $allEvents = $evenementRepository->findAll();
+        $lastEvents = $evenementRepository->findLastCreatedEvents();
+
+        $allParticipations = $eventUserRepo->findAll();
+        $lastParticipations = $eventUserRepo->findLastParticipations();
+
+        return $this->render('evenement/admin_evenement/stats.html.twig', [
+            'user' => $user,
+            'todayDate' => $todayDate,
+            'allEvents' => $allEvents,
+            'lastEvents' => $lastEvents,
+            'allParticipations' => $allParticipations,
+            'lastParticipations' => $lastParticipations,
         ]);
     }
 

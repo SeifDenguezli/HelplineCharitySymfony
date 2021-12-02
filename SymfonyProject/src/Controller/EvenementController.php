@@ -52,7 +52,8 @@ class EvenementController extends AbstractController
         $evenement->setMontantCollecte(0);
         $evenement->setNumParticipants(0);
         $evenement->setAssociationId($currentUser);
-        $evenement->setDateCreation(new \DateTime());
+        $nowDate = new \DateTime();
+        $evenement->setDateCreation($nowDate);
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
 
@@ -62,12 +63,13 @@ class EvenementController extends AbstractController
             $entityManager->persist($evenement);
             $entityManager->flush();
 
-            $message = (new \Swift_Message('Hello Message Test'))
+            $message = (new \Swift_Message('Création Evenement avec Succées'))
+                ->setContentType('text/html')
                 ->setFrom('helplinecharityapp@gmail.com')
-                ->setTo('seifeddine.denguezli@esprit.tn')
-                ->setBody(
-                    $this->renderView('shared/emailEvent.html.twig'), 'text/html'
-                );
+                ->setTo('seifeddine.denguezli@esprit.tn');
+            $message->setBody(
+                $this->render('shared/emailEvent.html.twig', ['evenement' => $evenement, 'date' =>$nowDate])
+            );
             $mailer->send($message);
             return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
         }

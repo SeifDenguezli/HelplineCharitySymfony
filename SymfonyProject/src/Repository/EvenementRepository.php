@@ -29,6 +29,23 @@ class EvenementRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
+    //Retrouver les evenements qui ont été créer durant les 30 derniers jours
+    public function findLastCreatedEvents()
+    {
+        $year = (int) date('Y');
+        $month = (int) date('m');
+
+        $startDate = new \DateTimeImmutable("$year-$month-01T00:00:00");
+        $endDate = $startDate->modify('last day of this month')->setTime(23, 59, 59);
+
+        return $this->createQueryBuilder('e')
+            ->where('e.date_creation BETWEEN :start AND :end')
+            ->setParameter('start', $startDate->format('Y-m-d H:i:s'))
+            ->setParameter('end', $endDate->format('Y-m-d H:i:s'))
+            ->orderBy('e.date_creation', 'DESC')
+            ->getQuery()->getResult();
+    }
+
 
 
 

@@ -29,6 +29,7 @@
 
 <body>
 <div class="container-scroller">
+    {% block navbar %}
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -127,6 +128,7 @@
         </div>
     </nav>
     <!-- partial -->
+    {% endblock %}
     <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_settings-panel.html -->
         <div class="theme-setting-wrapper">
@@ -316,10 +318,17 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('admin_evenement_index') }}">
-                        <i class="mdi mdi-chemical-weapon"></i>
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                        <i class="icon-layout menu-icon"></i>
                         <span class="menu-title">Evenements</span>
+                        <i class="menu-arrow"></i>
                     </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('admin_evenement_index') }}">Index</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('admin_evenement_stats') }}">Statistiques</a></li>
+                        </ul>
+                    </div>
                 </li>
 
                 <li class="nav-item">
