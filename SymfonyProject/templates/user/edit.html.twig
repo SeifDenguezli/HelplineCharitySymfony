@@ -1,13 +1,14 @@
-{% extends 'backoffice.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
 
 
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('security/registration.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('user_index') }}">back to list</a>
+
+    <a class="btn btn-success" href=""{{ path('acceuil') }}">Retour vers Acceuil</a>
 
     {{ include('user/_delete_form.html.twig') }}
 {% endblock %}

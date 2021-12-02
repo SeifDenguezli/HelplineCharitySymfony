@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +24,7 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="user_index", methods={"GET"})
      */
-    public function index(Request $request, PaginatorInterface $paginator): Response
+    public function index(Request $request, PaginatorInterface $paginator, UserRepository $userRepository): Response
     {
         $donnees = $this->getDoctrine()
             ->getRepository(User::class)
@@ -33,9 +34,14 @@ class UserController extends AbstractController
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
             6 // Nombre de résultats par page
         );
-
+        $admins = $userRepository->findUsersByRole('Admin');
+        $associations = $userRepository->findUsersByRole('Association');
+        $donneurs = $userRepository->findUsersByRole('Donneur');
         return $this->render('user/index.html.twig', [
             'users' => $users,
+            'admins' => $admins,
+            'associations' => $associations,
+            'donneurs' => $donneurs,
         ]);
     }
 

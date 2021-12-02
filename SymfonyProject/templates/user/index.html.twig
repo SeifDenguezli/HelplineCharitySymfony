@@ -5,9 +5,14 @@
 {% block body %}
 
     <a href="{{ path('user_new') }}">Create new Admin</a>
+        <div>
 
+
+        </div>
 
     <div class="row">
+
+        Admins = {{ admins|length }} -- Associations = {{ associations|length }} -- Donneurs = {{ donneurs|length }}
         {% for user in users %}
             <div class="col-md-5 grid-margin stretch-card">
                 <div class="card">
@@ -62,14 +67,10 @@
             </div>
 
 
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        {{ knp_pagination_render(users) }}
-    </div>
+    {% endfor %}
 
+    </div>
+    {{ knp_pagination_render(users) }}
 
 
 {% endblock %}

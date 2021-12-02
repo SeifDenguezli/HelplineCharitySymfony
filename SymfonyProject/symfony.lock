@@ -103,6 +103,9 @@
     "egulias/email-validator": {
         "version": "3.1.2"
     },
+    "fluffy-factory/user-stats-bundle": {
+        "version": "1.2"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },

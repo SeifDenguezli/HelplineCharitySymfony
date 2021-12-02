@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -56,11 +58,14 @@ class User implements UserInterface
     {
         return $this->imageFile;
     }
+    public function setImageFile(file $photo = null)
+    {
+        $this->imageFile=$photo;
+    }
 
 
     /**
      * @var string
-     *
      * @ORM\Column(name="password", type="string", length=255, nullable=false)
      * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimum 8 caractères")
      */
@@ -68,28 +73,28 @@ class User implements UserInterface
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="la ville est obligatoire !")
      * @ORM\Column(name="city", type="string", length=255, nullable=false)
      */
     private $city;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="le Gouvernorat est obligatoire !")
      * @ORM\Column(name="gouvernorat", type="string", length=255, nullable=false)
      */
     private $gouvernorat;
 
     /**
      * @var string
-     *
+     * @Assert\Length(min="8", minMessage="Votre numéro tel doit faire minimum 8 caractères")
      * @ORM\Column(name="phone", type="string", length=255, nullable=false)
      */
     private $phone;
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message="le Mail est obligatoire !")
      * @ORM\Column(name="mail", type="string", length=255, nullable=false)
      */
     private $mail;
@@ -135,6 +140,7 @@ class User implements UserInterface
      * @ORM\Column(name="token", type="string", length=255, nullable=true)
      */
     private $token;
+
 
     /**
      * Constructor
@@ -368,6 +374,29 @@ class User implements UserInterface
     public function setToken($token)
     {
         $this->token = $token;
+        return $this;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function addEventid(Evenement $eventid): self
+    {
+        if (!$this->eventid->contains($eventid)) {
+            $this->eventid[] = $eventid;
+        }
+
+        return $this;
+    }
+
+    public function removeEventid(Evenement $eventid): self
+    {
+        $this->eventid->removeElement($eventid);
+
         return $this;
     }
 }

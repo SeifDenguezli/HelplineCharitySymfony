@@ -84,7 +84,7 @@
                     <h2 class="text-2xl mb-4 text-gray-800 text-center font-bold">Inscription réussie</h2>
 
                     <div class="text-gray-600 mb-8">
-                        Merci. Nous vous avons envoyé un e-mail de confirmation à demo@demo.test. Bienvenue ! .
+                        Inscription Avec Succés . Merci de nous rejoindre et Bienvenue ! .
                     </div>
 
                     <button
@@ -133,8 +133,8 @@
                         </div>
 
                         <div>
-
-                            {{ form_widget(form.photo) }}</div>
+                            {{ form_widget(form.imageFile) }}
+                            </div>
                         <div class="mx-auto w-48 text-gray-500 text-xs text-center mt-1">Cliquez pour ajouter une photo de profil</div>
                     </div>
 
@@ -208,7 +208,7 @@
                         {{ form_widget(form.gouvernorat) }}
                     </div>
                     <button type="submit"
-                            style="background-color: #FDBE33"
+                            style="margin-top: -25px; background-color: #FDBE33 "
                             @click="step = 'complete'"
                             x-show="step === 3"
                             class="w-32 focus:outline-none border border-transparent py-2 px-5 rounded-lg shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-medium"
