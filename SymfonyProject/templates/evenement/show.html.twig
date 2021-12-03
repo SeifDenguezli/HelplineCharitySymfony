@@ -112,8 +112,16 @@
                             {% for relatifEvent in relatifEvents %}
                             <div class="post-item">
                                 <div class="post-img">
-
-                                    <img src="{{ relatifEvent.coverImage }}" />
+                                    {#
+                                    If statement used to display either uploaded image with VichUpload or Random image from the FakerBundle
+                                        To remove after stop using FixtureBundle
+                                        Only keep :::::   <img src="{{ vich_uploader_asset(evenement) }}">
+                                    #}
+                                    {% if evenement.updatedAt is not null %}
+                                        <img src="{{ vich_uploader_asset(relatifEvent) }}">
+                                    {% else %}
+                                        <img src="{{ relatifEvent.coverImage }}" alt="Image">
+                                    {% endif %}
                                 </div>
                                 <div class="post-text">
                                     <a href="">{{ relatifEvent.cause }}</a>

@@ -59,6 +59,23 @@ class AdminEvenementController extends AbstractController
         $allParticipations = $eventUserRepo->findAll();
         $lastParticipations = $eventUserRepo->findLastParticipations();
 
+        $bestParticipations = $eventUserRepo->findAllParticipations();
+
+        $recentParticipations = $eventUserRepo->findRecentParticipations();
+
+
+        $montantTotal = 0;
+        $montantCurrentMonth = 0;
+
+        foreach ($allParticipations as $i){
+            $montantTotal = $montantTotal + $i->getAmount();
+    }
+
+        foreach ($lastParticipations as $i){
+            $montantCurrentMonth = $montantCurrentMonth + $i->getAmount();
+        }
+
+
         return $this->render('evenement/admin_evenement/stats.html.twig', [
             'user' => $user,
             'todayDate' => $todayDate,
@@ -66,6 +83,10 @@ class AdminEvenementController extends AbstractController
             'lastEvents' => $lastEvents,
             'allParticipations' => $allParticipations,
             'lastParticipations' => $lastParticipations,
+            'montantTotal' => $montantTotal,
+            'montantCurrentMonth' => $montantCurrentMonth,
+            'bestParticipations' => $bestParticipations,
+            'recentParticipations' => $recentParticipations,
         ]);
     }
 

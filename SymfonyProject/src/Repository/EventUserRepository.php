@@ -29,6 +29,33 @@ class EventUserRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
+    public function findRecentParticipations(){
+
+        return $this->createQueryBuilder('eu')
+            ->orderBy('eu.joinDate', 'DESC')
+            ->setMaxResults(4)
+            ->getQuery()->getResult();
+    }
+
+    public function findAllParticipations()
+    {
+        return $this->createQueryBuilder('eu')
+            ->orderBy('eu.amount', 'DESC')
+            ->distinct()
+            ->setMaxResults(6)
+            ->getQuery()->getResult();
+    }
+
+    public function test()
+    {
+        return $this->createQueryBuilder('eu')
+            ->select('SUM(eu.amount) as sumAmount')
+            //->orderBy('eu.amount', 'DESC')
+            //->distinct()
+            //->setMaxResults(6)
+            ->getQuery()->getResult();
+    }
+
     //Retrouver les participations durant les 30 derniers jours
     public function findLastParticipations()
     {
