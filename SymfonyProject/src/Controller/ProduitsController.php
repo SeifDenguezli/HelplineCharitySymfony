@@ -94,4 +94,20 @@ class ProduitsController extends AbstractController
 
         return $this->redirectToRoute('produits_index', [], Response::HTTP_SEE_OTHER);
     }
+    
+    /**
+     * @Route ("/rechercheproduit",name="rechercheproduit")
+     * @param ProduitRepository $repository
+     * @param Request $request
+     * @param $produit
+     * @return Response
+     */
+    public function recherche(ProduitRepository $repository , Request $request, $produit)
+    {
+        $data=$request->get('search');
+        $article=$repository->SearchName($data);
+        $repo=$this->getDoctrine()->getRepository(Categorie::class);
+        $listecat=$repo->findAll();
+        return $this->render('produit/Search.html.twig',array('produit'=>$produit,'cat' => $listecat));
+    }
 }
