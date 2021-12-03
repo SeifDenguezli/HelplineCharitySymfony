@@ -46,6 +46,27 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/stats", name="user_stats", methods={"GET"})
+     */
+    public function getStats(UserRepository $userRepository,  Request $request): Response
+    {
+
+        $users = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findAll();
+
+        $admins = $userRepository->findUsersByRole('Admin');
+        $associations = $userRepository->findUsersByRole('Association');
+        $donneurs = $userRepository->findUsersByRole('Donneur');
+        return $this->render('user/stats.html.twig', [
+            'users' => $users,
+            'admins' => $admins,
+            'associations' => $associations,
+            'donneurs' => $donneurs,
+        ]);
+    }
+
+    /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -154,6 +175,5 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
     }
-
 
 }
