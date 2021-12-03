@@ -67,5 +67,12 @@ class PostsRepository extends ServiceEntityRepository
 
 
     }
+    public function findPhotoOfUser($name){
+       $conn = $this->getEntityManager()->getConnection();
+       $sql= 'SELECT photo FROM `comments` JOIN user where comments.commentAuthor=user.name AND user.name=:name LIMIT 1';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['name' => $name]);
+        return $stmt->executeStatement();
+    }
 
 }

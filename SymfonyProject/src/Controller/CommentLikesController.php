@@ -1,12 +1,16 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Posts;
 use App\Entity\User;
 use App\Entity\Comments;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Json;
+
 /**
  * @Route("/clikes")
  */
@@ -30,7 +34,7 @@ class CommentLikesController extends AbstractController
     /**
      * @Route("/cunlike/{commentid}",name="clikes_unlike")
      */
-        public function unlike(Comments $comment){
+        public function unlike(Comments $comment) {
             $user = $this->getUser();
             $comment->setLikecount($comment->getLikecount()-1);
             $comment->getLikedBy()->removeElement($user);
@@ -39,5 +43,6 @@ class CommentLikesController extends AbstractController
                 'count'=>$comment->getLikedBy()->count()
             ]);
         }
+
 
 }

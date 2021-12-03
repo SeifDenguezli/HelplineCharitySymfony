@@ -40,9 +40,11 @@ return $this->render('posts/admin_posts/index.html.twig', [
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $post = new Posts();
+        $post->setUser($this->getUser());
         $post->setPostpic("https://cdn.vox-cdn.com/thumbor/OTaHOVtIR6t8L0doPD-Kq6XYqeA=/0x0:1754x1241/1200x800/filters:focal(737x481:1017x761)/cdn.vox-cdn.com/uploads/chorus_image/image/68040475/GettyImages_1060748862.0.jpg");
         $post->setPostdate(new \DateTime('now'));
         $post->setLikecount(0);
+        $post->setViewcount(0);
         $form = $this->createForm(Posts1Type::class, $post);
         $form->handleRequest($request);
 

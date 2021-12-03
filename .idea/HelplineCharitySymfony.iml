@@ -78,7 +78,6 @@
       <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/symfony/security-csrf" />
       <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/symfony/security-guard" />
       <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/symfony/security-http" />
-      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/symfony/serializer" />
       <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/symfony/service-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/symfony/stopwatch" />
       <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/symfony/translation" />
@@ -134,6 +133,33 @@
       <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/psr/cache" />
       <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/psr/container" />
       <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/psr/link" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/cebe/markdown" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/ezyang/htmlpurifier" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/chriskonnertz/open-graph" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/tenolo/open-graph-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/euskadi31/opengraph" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/symfony/serializer" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/endroid/qr-code" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/endroid/qr-code-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/endroid/installer" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/bacon/bacon-qr-code" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/dasprid/enum" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/react/stream" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/react/promise-timer" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/react/socket" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/react/event-loop" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/react/promise" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/react/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/react/dns" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/mpociot/pipeline" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/opis/closure" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/botman/botman" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/evenement/evenement" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/tightenco/collect" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/spatie/macroable" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/botman/driver-facebook" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/botman/driver-web" />
+      <excludeFolder url="file://$MODULE_DIR$/SymfonyProject/vendor/botman/driver-telegram" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

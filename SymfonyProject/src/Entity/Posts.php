@@ -70,9 +70,9 @@ class Posts
     private $viewcount;
 
     /**
-     * @return int
+     * @return int |null
      */
-    public function getViewcount(): int
+    public function getViewcount(): ?int
     {
         return $this->viewcount;
     }

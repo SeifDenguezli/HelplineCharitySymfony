@@ -27,7 +27,7 @@
               <span class="text">{{ user.role }}</span>
             </div>
           </div>
-          <img src="{{ vich_uploader_asset(user) }}" alt="puser" width="75px" class="rounded-image">
+          <img src="{{ user.photo }}" alt="puser" width="75px" class="rounded-image">
         </div>
         <div class="box">
           <div class="right-side">
@@ -191,19 +191,20 @@
       labels: ['Les j\'aime','Commentaires','Vus'],
       datasets: [
         {
-          label: ['Resumé de cette publication'],
-          data: [{{ post.likecount }}, {{ comment | length }},25],
+          label: ['Total'],
+          data: [{{ post.likecount }}, {{ comment | length }}, {{ post.viewcount }}],
           fill: true,
           backgroundColor:  [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.5)',
-            'rgba(255, 205, 86, 0.4)',],
+            'rgba(255, 99, 132, 0.9)',
+            'rgba(70,252,155,0.92)',
+            'rgba(86,241,255,0.76)',],
           borderColor: 'rgb(255, 99, 132)',
           pointBackgroundColor: 'rgb(175,25,57)',
-          pointBorderColor: '#fff',
+          pointBorderColor: '#e00606',
           pointHoverBackgroundColor: '#fff',
           pointHoverBorderColor: 'rgb(255, 99, 132)'
         }
+
       ]
     }
   })

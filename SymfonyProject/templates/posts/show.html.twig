@@ -30,6 +30,24 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/pat/main.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 {% endblock %}
+{% block carousel %}
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Blog</h2>
+                </div>
+                <div class="col-12">
+                    <a href="">Home</a>
+                    <a href="">Publications</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
 
 
 {% block body %}
@@ -46,6 +64,7 @@
 
 <!--===============================================================================================-->
 <body class="animsition">
+
 
 <!-- Content page -->
 <section>
@@ -81,7 +100,7 @@
 
                             <div class="txt32 flex-w p-b-24">
 									<span>
-										{{ app.user.username }}
+										{{ post.user.username }}
 										<span class="m-r-6 m-l-4">|</span>
 									</span>
 
@@ -97,46 +116,51 @@
                                      data-layout="button_count">
                                 </span>
                             </div>
-
-
+                            <p>{{ post.postcontent }}</p>
+                            <img src="{{ qr_code_path(app.request.schemeAndHttpHost ~ app.request.requestUri) }}" width="100" />
                             <!-- Your share button code -->
 
                         </div>
                         <div >
                              <span>
-                                    <button style="display: {% if not isLiked %}block {% else %}none{% endif %}" class="btn btn-outline-secondary" id="like">J'aime
+                                    <button style="display: {% if not isLiked %}block {% else %}none{% endif %} " class="btn btn-outline-secondary" id="like" >J'aime
                             <span class="badge badge-light" id="likes-like">{{ post.getLikedBy.count }}</span>
                                  </button>
-                        <button style="display: {% if  isLiked %}block {% else %}none{% endif %}" class="btn btn-outline-danger" id="unlike">J'aime plus
+                        <button style="display: {% if  isLiked %}block {% else %}none{% endif %} " class="btn btn-outline-danger " id="unlike" >J'aime plus
                             <span class="badge badge-light" id="likes-unlike">{{ post.getLikedBy.count }}</span>
                         </button>
 
                                 </span>
 
                         </div>
-                        <div class="tit12" style="font-weight: bold"> Commentaires :</div>
-                        <div class="leave-comment p-t-10">
+                        <hr style="background-color: lightgray">
+                        <div class="p-b-16" style="font-weight: bold"> Commentaires :</div>
+                        <div class="leave-comment p-t-10" >
                             {% for comments in comment %}
+
                             {% set iscLiked = comments.getLikedBy.contains(app.user) %}
                                 <table>
                                     <tr>
                                         <td>
-                                            <div > <img src="{{ comments.postid.user.photo }}" width="50" class="rounded-image">
-                                                <span class="name" style="font-weight: bold">{{ comments.commentauthor }} </span>
+                                            <div > <img src="{{ app.user.photo }}" width="50" class="rounded-image">
+                                                <span class="name" style="font-weight: bold ; color: orange">{{ comments.commentauthor }} </span>
+                                                <span class="name"><small>{{ comments.commentdate ? comments.commentdate|date('Y-m-d') : '' }}</small></span>
                                                 <div class="d-flex flex-column ml-2">
 
-                                                    <span class="name"><small>{{ comments.commentdate ? comments.commentdate|date('Y-m-d') : '' }}</small></span>
-                                                    <small class="comment-text" style="font-size:20px">{{ comments.commentContent }}</small>
-                                                    <div class="d-flex flex-row align-items-center status"></div>
 
-                                                    <span>
-                                             <button style="display: {% if not iscLiked %}block {% else %}none{% endif %}; margin-left: 700px;width: 110px" class="btn btn-outline-secondary" id="clike{{ comments.commentid }}">J'aime
+                                                    <br>
+                                                    <small class="comment-text" style="font-size:20px">{{ comments.commentContent }}</small>
+                                                    <pre> </pre> <span>
+                                             <button style="display: {% if not iscLiked %}block {% else %}none{% endif %}; " class="btn btn-outline-secondary" id="clike{{ comments.commentid }}">J'aime
                                                   <span class="badge badge-light" id="clikes-like">{{ comments.getLikedBy.count }}</span>
                                              </button>
-                                             <button style="display: {% if  iscLiked %}block {% else %}none{% endif %}; margin-left: 700px;width: 110px" class="btn btn-outline-danger" id="cunlike{{ comments.commentid }}">J'aime plus
+                                             <button style="display: {% if  iscLiked %}block {% else %}none{% endif %}; " class="btn btn-outline-danger" id="cunlike{{ comments.commentid }}">J'aime plus
                                                  <span class="badge badge-light" id="clikes-unlike">{{ comments.getLikedBy.count }}</span>
                                              </button>
                                         </span>
+                                                    <div class="d-flex flex-row align-items-center status"> </div>
+
+
                                                 </div>
                                             </div>
                                         </td>
@@ -171,7 +195,7 @@
                                         });
                                     }
                                 </script>
-                                <hr>
+                                <hr style="background-color: lightgray">
                             {% endfor %}
 
                         </div>
@@ -301,23 +325,7 @@
 <!--===============================================================================================-->
 <script type="text/javascript" src="{{ asset('vendors/vendor/select2/select2.min.js') }}"></script>
 <!--===============================================================================================-->
-<script type="text/javascript" src="{{ asset('vendors/vendor/daterangepicker/moment.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendors/vendor/daterangepicker/daterangepicker.js') }}"></script>
-<!--===============================================================================================-->
-<script type="text/javascript" src="{{ asset('vendors/vendor/slick/slick.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/slick-custom.js') }}"></script>
-<!--===============================================================================================-->
-<script type="text/javascript" src="{{ asset('vendors/vendor/parallax100/parallax100.js') }}"></script>
-<script type="text/javascript">
-    $('.parallax100').parallax100();
-</script>
-<!--===============================================================================================-->
-<script type="text/javascript" src="{{ asset('vendors/vendor/countdowntime/countdowntime.js') }}"></script>
-<!--===============================================================================================-->
-<script type="text/javascript" src="{{ asset('vendors/vendor/lightbox2/js/lightbox.min.js') }}"></script>
-<!--===============================================================================================-->
-<script type="text/javascript" src="{{ asset('vendors/vendor/isotope/isotope.pkgd.min.js') }}"></script>
-<!--===============================================================================================-->
+
 <script src="{{ asset('js/main1.js') }}"></script>
 <script>
     var likeButton = document.getElementById('like');

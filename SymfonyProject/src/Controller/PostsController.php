@@ -4,41 +4,63 @@ namespace App\Controller;
 
 use App\Entity\Comments;
 use App\Entity\Posts;
+use App\Entity\PostSearch;
 use App\Entity\User;
+use App\Form\PostSearchType;
 use App\Form\PostsType;
 use App\Repository\PostsRepository;
 use Illuminate\Support\Facades\Notification;
 use JCrowe\BadWordFilter\Facades\BadWordFilter;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\CommentsType;
 use ChrisKonnertz\OpenGraph\OpenGraph;
+
 /**
  * @Route("/p1")
  */
 class PostsController extends AbstractController
 {
+
     /**
-     * @Route("/posthome", name="posts_index", methods={"GET"})
+     * @Route("/posthome", name="posts_index", methods={"POST","GET"})
      */
     public function index(PaginatorInterface $paginator,Request $request  ): Response
     {
-        $posts = $this->getDoctrine()
-            ->getRepository(Posts::class)
-            ->findAll();
+        $postSearch = new PostSearch();
+        $form1 = $this->createForm(PostSearchType::class,$postSearch);
+        $form1->handleRequest($request);
+        $posts = [];
+        $posts = $this->getDoctrine()->getRepository(Posts::class)->findAll();
+        if($form1->isSubmitted() && $form1->isValid()){
+            $nom= $postSearch->getNom();
+            if($nom != "")
+                $posts = $this->getDoctrine()->getRepository(Posts::class)->findBy(['posttitle' => $nom]);
+            else
+                $posts = $this->getDoctrine()
+                    ->getRepository(Posts::class)
+                    ->findAll();
+
+        }
+
 
         $posts= $paginator->paginate(
             $posts,
             $request->query->getInt('page',1),5
         );
 
-
+        if($request->isXmlHttpRequest() ){
+            return new JsonResponse([
+                'content'=>$this->renderView('posts/index.html.twig',['posts'=>$posts])
+            ]);
+        }
         return $this->render('posts/index.html.twig', [
-            'posts' => $posts,
+            'posts' => $posts,'form1' => $form1->createView(),
         ]);
     }
 
@@ -52,7 +74,7 @@ class PostsController extends AbstractController
         $post->setUser($this->getUser());
         $post->setPostdate(new \DateTime('now'));
         $post->setLikecount(0);
-
+        $post->setViewcount(0);
         $form = $this->createForm(PostsType::class, $post);
         $form->handleRequest($request);
 
@@ -60,7 +82,9 @@ class PostsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $filter = new \JCrowe\BadWordFilter\BadWordFilter();
             $trash =$filter->clean($post->getPostcontent());
+            $trash1 =$filter->clean($post->getPosttitle());
             $post->setPostcontent($trash);
+            $post->setPosttitle($trash1);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
             $entityManager->flush();
@@ -90,6 +114,7 @@ class PostsController extends AbstractController
         $comment1->setLikecount(0);
         $form = $this->createForm(CommentsType::class,$comment1 );
         $bost = $postsrep->findByLikeCount(10,false);
+
 
 
 
@@ -154,5 +179,6 @@ class PostsController extends AbstractController
 
         return $this->redirectToRoute('posts_index', [], Response::HTTP_SEE_OTHER);
     }
+
 
 }
