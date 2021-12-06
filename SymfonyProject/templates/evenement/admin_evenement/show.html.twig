@@ -1,54 +1,48 @@
-{% extends 'base.html.twig' %}
+{% extends 'evenement/admin_evenement/show2.html.twig' %}
 
-{% block title %}Evenement{% endblock %}
+{% block historique %}
 
-{% block body %}
-    <h1>Evenement</h1>
+    <div class="mt-4 py-2 border-top border-bottom">
+        <ul class="nav profile-navbar">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>EventId</th>
-                <td>{{ evenement.eventId }}</td>
-            </tr>
-            <tr>
-                <th>DonCategorie</th>
-                <td>{{ evenement.donCategorie }}</td>
-            </tr>
-            <tr>
-                <th>Cause</th>
-                <td>{{ evenement.cause }}</td>
-            </tr>
-            <tr>
-                <th>Region</th>
-                <td>{{ evenement.Region }}</td>
-            </tr>
-            <tr>
-                <th>Num_participants</th>
-                <td>{{ evenement.numParticipants }}</td>
-            </tr>
-            <tr>
-                <th>Date_creation</th>
-                <td>{{ evenement.dateCreation ? evenement.dateCreation|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Montant_collecte</th>
-                <td>{{ evenement.montantCollecte }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ evenement.description }}</td>
-            </tr>
-            <tr>
-                <th>CoverImage</th>
-                <td>{{ evenement.coverImage }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin_evenement_show', {'eventId': evenement.eventId}) }}">
+                    <i class="ti-receipt"></i>
+                    Détails de l'évènement
+                </a>
+            </li>
 
-    <a href="{{ path('admin_evenement_index') }}">back to list</a>
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ path('admin_evenement_show_history', {'eventId': evenement.eventId}) }}">
+                    <i class="ti-calendar"></i>
+                    Don Effectués
+                </a>
+            </li>
 
-    <a href="{{ path('admin_evenement_edit', {'eventId': evenement.eventId}) }}">edit</a>
+            <li class="nav-item">
+                <a class="nav-link active" href="{{ path('admin_evenement_show_comments', {'eventId': evenement.eventId}) }}">
+                    <i class="ti-user"></i>
+                    Commentaires postés
+                </a>
+            </li>
+        </ul>
+    </div>
+    {% for comment in comments %}
+        <div class="d-flex align-items-start profile-feed-item">
+            <img src="{{ comment.user.photo }}" alt="profile" class="img-sm rounded-circle"/>
 
-    {{ include('admin_evenement/_delete_form.html.twig') }}
+            <div class="ms-4">
+                <h6>
+                    {{ comment.user.name }}
+                    <small class="ms-4 text-muted"><i class="ti-time me-1"></i> &nbsp;{{ comment.createdAt ? comment.createdAt|date('d-m-Y') : '' }} </small>
+                </h6>
+                <p class="small text-muted mt-2 mb-0">
+                    {{ comment.content }}
+                </p>
+                <p class="small text-muted mt-2 mb-0">
+                    {% include 'shared/rating.html.twig' with {'rating' : comment.rating} %}
+                </p>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

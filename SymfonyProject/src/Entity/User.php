@@ -5,13 +5,14 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
  * @ORM\Table(name="user")
  * @ORM\Entity
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -90,9 +91,21 @@ class User
      */
     private $evenements;
 
+    /**
+     * @ORM\OneToMany(targetEntity=EventUser::class, mappedBy="userId")
+     */
+    private $eventUsers;
+
+    /**
+     * @ORM\OneToMany(targetEntity=EventComment::class, mappedBy="user")
+     */
+    private $eventComments;
+
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
+        $this->eventUsers = new ArrayCollection();
+        $this->eventComments = new ArrayCollection();
     }
 
     /**
@@ -176,7 +189,7 @@ class User
     /**
      * @return string
      */
-    public function getPassword(): string
+    public function getPass(): string
     {
         return $this->password;
     }
@@ -184,7 +197,7 @@ class User
     /**
      * @param string $password
      */
-    public function setPassword(string $password): void
+    public function setPass(string $password): void
     {
         $this->password = $password;
     }
@@ -290,5 +303,88 @@ class User
         return $this->getName();
     }
 
+    /**
+     * @return Collection|EventUser[]
+     */
+    public function getEventUsers(): Collection
+    {
+        return $this->eventUsers;
+    }
 
+    public function addEventUser(EventUser $eventUser): self
+    {
+        if (!$this->eventUsers->contains($eventUser)) {
+            $this->eventUsers[] = $eventUser;
+            $eventUser->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventUser(EventUser $eventUser): self
+    {
+        if ($this->eventUsers->removeElement($eventUser)) {
+            // set the owning side to null (unless already changed)
+            if ($eventUser->getUserId() === $this) {
+                $eventUser->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EventComment[]
+     */
+    public function getEventComments(): Collection
+    {
+        return $this->eventComments;
+    }
+
+    public function addEventComment(EventComment $eventComment): self
+    {
+        if (!$this->eventComments->contains($eventComment)) {
+            $this->eventComments[] = $eventComment;
+            $eventComment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventComment(EventComment $eventComment): self
+    {
+        if ($this->eventComments->removeElement($eventComment)) {
+            // set the owning side to null (unless already changed)
+            if ($eventComment->getUser() === $this) {
+                $eventComment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getPassword(){
+        return $this->password;
+    }
+
+    public function getSalt()
+    {
+
+    }
+
+    public function getUsername()
+    {
+        return $this->mail;
+    }
+
+    public function eraseCredentials()
+    {
+
+    }
 }

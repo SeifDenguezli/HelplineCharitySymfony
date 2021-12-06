@@ -3,11 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\EvenementRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=EvenementRepository::class)
+ * @Vich\Uploadable
  */
 class Evenement
 {
@@ -29,19 +34,19 @@ class Evenement
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Veillez spécifier la catégorie de l'évènement")
+     * @Assert\NotBlank(message="Veuillez spécifier la catégorie de l'évènement")
      */
     private $donCategorie;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Veillez spécifier l'objctif de l'évènement")
+     * @Assert\NotBlank(message="Veuillez spécifier l'objctif de l'évènement")
      */
     private $cause;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Veillez spécifier la région de l'évènement")
+     * @Assert\NotBlank(message="Veuillez spécifier la région de l'évènement")
      */
     private $Region;
 
@@ -52,7 +57,7 @@ class Evenement
 
     /**
      * @ORM\Column(type="date")
-     * @Assert\NotBlank(message="Veillez spécifier la date de l'évènement")
+     * @Assert\NotBlank(message="Veuillez spécifier la date de l'évènement")
      */
     private $date_creation;
 
@@ -62,14 +67,49 @@ class Evenement
     private $montant_collecte;
     /**
      * @ORM\Column(type="string", length=1024)
-     * @Assert\NotBlank(message="Veillez spécifier une déscription de l'évènement")
+     * @Assert\NotBlank(message="Veuillez spécifier une déscription de l'évènement")
      */
     private $description;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="events", fileNameProperty="coverImage")
+     * @Assert\NotBlank(message="Veuillez importer une image pour votre évènement")
+     *
+     * @var File|null
+     */
+    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $coverImage;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @var \DateTimeInterface|null
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=EventUser::class, mappedBy="eventId")
+     */
+    private $eventUsers;
+
+    /**
+     * @ORM\OneToMany(targetEntity=EventComment::class, mappedBy="event")
+     */
+    private $eventComments;
+
+    protected $captchaCode;
+
+    public function __construct()
+    {
+        $this->eventUsers = new ArrayCollection();
+        $this->eventComments = new ArrayCollection();
+    }
 
 
 
@@ -196,4 +236,117 @@ class Evenement
 
         return $this;
     }
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTimeInterface|null $updatedAt
+     */
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @return Collection|EventUser[]
+     */
+    public function getEventUsers(): Collection
+    {
+        return $this->eventUsers;
+    }
+
+    public function addEventUser(EventUser $eventUser): self
+    {
+        if (!$this->eventUsers->contains($eventUser)) {
+            $this->eventUsers[] = $eventUser;
+            $eventUser->setEventId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventUser(EventUser $eventUser): self
+    {
+        if ($this->eventUsers->removeElement($eventUser)) {
+            // set the owning side to null (unless already changed)
+            if ($eventUser->getEventId() === $this) {
+                $eventUser->setEventId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getCause();
+    }
+
+    /**
+     * @return Collection|EventComment[]
+     */
+    public function getEventComments(): Collection
+    {
+        return $this->eventComments;
+    }
+
+    public function addEventComment(EventComment $eventComment): self
+    {
+        if (!$this->eventComments->contains($eventComment)) {
+            $this->eventComments[] = $eventComment;
+            $eventComment->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventComment(EventComment $eventComment): self
+    {
+        if ($this->eventComments->removeElement($eventComment)) {
+            // set the owning side to null (unless already changed)
+            if ($eventComment->getEvent() === $this) {
+                $eventComment->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function getCaptchaCode()
+    {
+        return $this->captchaCode;
+    }
+
+    public function setCaptchaCode($captchaCode)
+    {
+        $this->captchaCode = $captchaCode;
+    }
+
+
+
+
 }

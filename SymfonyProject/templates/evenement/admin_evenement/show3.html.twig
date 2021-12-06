@@ -1,0 +1,46 @@
+{% extends 'evenement/admin_evenement/show2.html.twig' %}
+
+{% block historique %}
+
+    <div class="mt-4 py-2 border-top border-bottom">
+        <ul class="nav profile-navbar">
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin_evenement_show', {'eventId': evenement.eventId}) }}">
+                    <i class="ti-receipt"></i>
+                    Détails de l'évènement
+                </a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link active" href="{{ path('admin_evenement_show_history', {'eventId': evenement.eventId}) }}">
+                    <i class="ti-user"></i>
+                    Don Effectués
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin_evenement_show_comments', {'eventId': evenement.eventId}) }}">
+                    <i class="ti-user"></i>
+                    Commentaires postés
+                </a>
+            </li>
+        </ul>
+    </div>
+    {% for parti in participation %}
+    <div class="d-flex align-items-start profile-feed-item">
+        <img src="{{ parti.userId.photo }}" alt="profile" class="img-sm rounded-circle"/>
+        <div class="ms-4">
+            <h6>
+                {{ parti.userId.name }}
+                <small class="ms-4 text-muted"><i class="ti-time me-1"></i> &nbsp;{{ parti.joinDate ? parti.joinDate|date('d-m-Y') : '' }}</small>
+            </h6>
+            <p>
+                Montant du don : {{ parti.amount }} DT
+            </p>
+
+        </div>
+
+    </div>
+    {% endfor %}
+{% endblock %}
