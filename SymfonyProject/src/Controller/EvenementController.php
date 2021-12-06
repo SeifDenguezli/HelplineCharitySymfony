@@ -52,7 +52,7 @@ class EvenementController extends AbstractController
         $evenement->setMontantCollecte(0);
         $evenement->setNumParticipants(0);
         $evenement->setAssociationId($currentUser);
-        $nowDate = new \DateTime();
+        $nowDate = new \DateTime('now');
         $evenement->setDateCreation($nowDate);
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
