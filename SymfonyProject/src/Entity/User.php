@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="user")
  * @ORM\Entity
  */
-class User implements UserInterface
+class User
 {
     /**
      * @var int
@@ -189,7 +189,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getPass(): string
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -197,7 +197,7 @@ class User implements UserInterface
     /**
      * @param string $password
      */
-    public function setPass(string $password): void
+    public function setPassword(string $password): void
     {
         $this->password = $password;
     }
@@ -359,32 +359,6 @@ class User implements UserInterface
                 $eventComment->setUser(null);
             }
         }
-
         return $this;
-    }
-
-
-    public function getRoles()
-    {
-        return ['ROLE_USER'];
-    }
-
-    public function getPassword(){
-        return $this->password;
-    }
-
-    public function getSalt()
-    {
-
-    }
-
-    public function getUsername()
-    {
-        return $this->mail;
-    }
-
-    public function eraseCredentials()
-    {
-
     }
 }
