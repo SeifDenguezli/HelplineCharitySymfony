@@ -19,6 +19,38 @@ class EvenementRepository extends ServiceEntityRepository
         parent::__construct($registry, Evenement::class);
     }
 
+    public function findEventsByAssociationId($id)
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.associationId=:id')
+            ->setParameter('id',$id)
+            ->orderBy('e.date_creation', 'DESC')
+            ->setMaxResults(4)
+            ->getQuery()->getResult();
+    }
+
+    //Retrouver les evenements qui ont été créer durant les 30 derniers jours
+    public function findLastCreatedEvents()
+    {
+        $year = (int) date('Y');
+        $month = (int) date('m');
+
+        $startDate = new \DateTimeImmutable("$year-$month-01T00:00:00");
+        $endDate = $startDate->modify('last day of this month')->setTime(23, 59, 59);
+
+        return $this->createQueryBuilder('e')
+            ->where('e.date_creation BETWEEN :start AND :end')
+            ->setParameter('start', $startDate->format('Y-m-d H:i:s'))
+            ->setParameter('end', $endDate->format('Y-m-d H:i:s'))
+            ->orderBy('e.date_creation', 'DESC')
+            ->getQuery()->getResult();
+    }
+
+
+
+
+
+
     // /**
     //  * @return Evenement[] Returns an array of Evenement objects
     //  */

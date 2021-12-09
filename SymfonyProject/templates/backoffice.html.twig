@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Skydash Admin</title>
+    <title>{% block title %}Skydash Admin {% endblock %}</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('vendors/feather/feather.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/ti-icons/css/themify-icons.css') }}">
@@ -23,6 +24,23 @@
 </head>
 <body>
 <div class="container-scroller">
+    <link rel="stylesheet" href="{{ asset('vendors/jquery-toast-plugin/jquery.toast.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('js/select.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/jquery-bar-rating/css-stars.css') }}">
+
+    <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css') }}" rel="stylesheet">
+
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{{ asset('css/vertical-layout-light/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/eventStyle.css') }}">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="{{ asset('img/charity.png') }}" />
+</head>
+
+<body>
+<div class="container-scroller">
+    {% block navbar %}
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -63,6 +81,9 @@
                                 <h6 class="preview-subject font-weight-normal">Application Error</h6>
                                 <p class="font-weight-light small-text mb-0 text-muted">
                                     Just now
+                                <h6 class="preview-subject font-weight-normal">Erreur Application</h6>
+                                <p class="font-weight-light small-text mb-0 text-muted">
+                                    Maintenant
                                 </p>
                             </div>
                         </a>
@@ -73,6 +94,9 @@
                                 </div>
                             </div>
                             <div class="preview-item-content">
+                                <h6 class="preview-subject font-weight-normal">Paramétres</h6>
+                                <p class="font-weight-light small-text mb-0 text-muted">
+                                    Message Privé
                                 <h6 class="preview-subject font-weight-normal">Settings</h6>
                                 <p class="font-weight-light small-text mb-0 text-muted">
                                     Private message
@@ -89,6 +113,9 @@
                                 <h6 class="preview-subject font-weight-normal">New user registration</h6>
                                 <p class="font-weight-light small-text mb-0 text-muted">
                                     2 days ago
+                                <h6 class="preview-subject font-weight-normal">Nouvelles Inscriptions</h6>
+                                <p class="font-weight-light small-text mb-0 text-muted">
+                                    Il y'a 2 jours
                                 </p>
                             </div>
                         </a>
@@ -106,6 +133,11 @@
                         <a class="dropdown-item">
                             <i class="ti-power-off text-primary"></i>
                             Logout
+                            Paramétres
+                        </a>
+                        <a class="dropdown-item">
+                            <i class="ti-power-off text-primary"></i>
+                            Déconnexion
                         </a>
                     </div>
                 </li>
@@ -121,6 +153,7 @@
         </div>
     </nav>
     <!-- partial -->
+    {% endblock %}
     <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_settings-panel.html -->
         <div class="theme-setting-wrapper">
@@ -149,6 +182,10 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">CHATS</a>
+                    <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">Liste des tâches</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">Discussion</a>
                 </li>
             </ul>
             <div class="tab-content" id="setting-content">
@@ -158,6 +195,8 @@
                             <div class="form-group d-flex">
                                 <input type="text" class="form-control todo-list-input" placeholder="Add To-do">
                                 <button type="submit" class="add btn btn-primary todo-list-add-btn" id="add-task">Add</button>
+                                <input type="text" class="form-control todo-list-input" placeholder="Ajouter Tâche">
+                                <button type="submit" class="add btn btn-primary todo-list-add-btn" id="add-task">Ajouter</button>
                             </div>
                         </form>
                     </div>
@@ -314,6 +353,17 @@
                         <i class="mdi mdi-chemical-weapon"></i>
                         <span class="menu-title">Evenements</span>
                     </a>
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                        <i class="icon-layout menu-icon"></i>
+                        <span class="menu-title">Evenements</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('admin_evenement_index') }}">Index</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="{{ path('admin_evenement_stats') }}">Statistiques</a></li>
+                        </ul>
+                    </div>
                 </li>
 
                 <li class="nav-item">
@@ -348,15 +398,18 @@
         </nav>
         <!-- partial -->
         {% block body %}
+
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">
                     <div class="col-md-12 grid-margin">
                         <div class="row">
+                            {% block body %}
                             <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                                 <h3 class="font-weight-bold">Welcome Aamir</h3>
                                 <h6 class="font-weight-normal mb-0">All systems are running smoothly! You have <span class="text-primary">3 unread alerts!</span></h6>
                             </div>
+
                             <div class="col-12 col-xl-4">
                                 <div class="justify-content-end d-flex">
                                     <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
@@ -972,6 +1025,7 @@
                     <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
                     <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
                 </div>
+
             </footer>
             <!-- partial -->
         </div>
@@ -990,6 +1044,8 @@
 <script src="{{ asset('vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
 <script src="{{ asset('js/dataTables.select.min.js') }}"></script>
 
+<script src="{{ asset('vendors/jquery-toast-plugin/jquery.toast.min.js') }}"></script>
+<script src="{{ asset('vendors/jquery-bar-rating/jquery.barrating.min.js') }}"></script>
 <!-- End plugin js for this page -->
 <!-- inject:js -->
 <script src="{{ asset('js/off-canvas.js') }}"></script>
@@ -997,10 +1053,16 @@
 <script src="{{ asset('js/template.js') }}"></script>
 <script src="{{ asset('js/settings.js') }}"></script>
 <script src="{{ asset('js/todolist.js') }}"></script>
+<script src="{{ asset('js/profile-demo.js') }}"></script>
 <!-- endinject -->
 <!-- Custom js for this page-->
 <script src="{{ asset('js/dashboard.js') }}"></script>
 <script src="{{ asset('js/Chart.roundedBarCharts.js') }}"></script>
+<script src="{{ asset('js/alerts.js') }}"></script>
+<script src="{{ asset('js/avgrund.js') }}"></script>
+<script src="{{ asset('js/toastDemo.js') }}"></script>
+<script src="{{ asset('js/desktop-notification.js') }}"></script>
+
 <!-- End custom js for this page-->
 </body>
 
