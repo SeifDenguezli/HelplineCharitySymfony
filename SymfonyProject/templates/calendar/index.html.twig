@@ -1,0 +1,120 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Calendrier{% endblock %}
+{% block carousel %}
+    <!-- Carousel Start -->
+    <div class="carousel">
+        <div class="container-fluid">
+            <div class="owl-carousel">
+                <div class="carousel-item">
+                    <div class="carousel-img">
+                        <img src="{{ asset('img/carousel-1.jpg') }}" alt="Image">
+                    </div>
+                    <div class="carousel-text">
+
+                        <h1>Let's be kind for children</h1>
+                        <p>
+                            Lorem ipsum dolor sit amet elit. Phasellus ut mollis mauris. Vivamus egestas eleifend dui ac consequat at lectus in malesuada
+                        </p>
+                        <div class="carousel-btn">
+                            <a class="btn btn-custom" href="">Donate Now</a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-img">
+                        <img src="{{ asset('img/carousel-2.jpg') }}" alt="Image">
+                    </div>
+                    <div class="carousel-text">
+                        <h1>Get Involved with helping hand</h1>
+                        <p>
+                            Morbi sagittis turpis id suscipit feugiat. Suspendisse eu augue urna. Morbi sagittis, orci sodales varius fermentum, tortor
+                        </p>
+                        <div class="carousel-btn">
+                            <a class="btn btn-custom" href="">Donate Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-img">
+                        <img src="{{ asset('img/carousel-3.jpg') }}" alt="Image">
+                    </div>
+                    <div class="carousel-text">
+                        <h1>Bringing smiles to millions</h1>
+                        <p>
+                            Sed ultrices, est eget feugiat accumsan, dui nibh egestas tortor, ut rhoncus nibh ligula euismod quam. Proin pellentesque odio
+                        </p>
+                        <div class="carousel-btn">
+                            <a class="btn btn-custom" href="">Donate Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Carousel End -->
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        #calendrier{
+            width: 80%;
+            margin: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div id="calendrier">
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+
+        window.onload = () => {
+            let calendarElt = document.querySelector("#calendrier")
+            let calendar = new FullCalendar.Calendar(calendarElt, {
+                initialView: 'dayGridMonth',
+                locale: 'fr',
+                timeZone: 'Europe/Marseille',
+                headerToolbar: {
+                    start: 'prev,next today',
+                    center: 'title',
+                    end: 'dayGridMonth,timeGridWeek'
+                },
+
+                editable: true,
+                eventResizableFromStart: true
+            })
+            calendar.on('eventChange', (e) => {
+                let url = `/api/${e.event.id}/edit`
+                let donnees = {
+                    "title": e.event.title,
+                    "description": e.event.extendedProps.description,
+                    "start": e.event.start,
+                    "end": e.event.end,
+                    "backgroundColor": e.event.backgroundColor,
+                    "borderColor": e.event.borderColor,
+                    "textColor": e.event.textColor,
+                    "allDay": e.event.allDay
+                }
+
+                let xhr = new XMLHttpRequest
+                xhr.open("PUT", url)
+                xhr.send(JSON.stringify(donnees))
+            })
+            calendar.render()
+        }
+    </script>
+    <div class="section-header text-center">
+        <a href="{{ path('service_index') }}">Retour</a>
+    </div>
+    <div class="section-header text-center">
+    <a href="{{ path('calendar_new') }}">Céer un nouveau rendez_vous</a>
+    </div>
+{% endblock %}
