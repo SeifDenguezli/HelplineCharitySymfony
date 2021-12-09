@@ -1,0 +1,13 @@
+
+{% extends 'backoffice.html.twig' %}
+
+{% block title %}AddShop{% endblock %}
+
+{% block body %}
+    <h1>Ajouter Shop</h1>
+
+    {{ include('shop/_form.html.twig') }}
+
+    <a href="{{ path('shop_index') }}"><button type="button" class="btn btn-warning" >Back To List</button></a>
+{% endblock %}
+

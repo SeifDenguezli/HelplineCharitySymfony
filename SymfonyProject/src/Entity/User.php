@@ -101,11 +101,17 @@ class User
      */
     private $eventComments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Recompense::class, mappedBy="donorid")
+     */
+    private $recompenses;
+
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
         $this->eventUsers = new ArrayCollection();
         $this->eventComments = new ArrayCollection();
+        $this->recompenses = new ArrayCollection();
     }
 
     /**
@@ -359,6 +365,36 @@ class User
                 $eventComment->setUser(null);
             }
         }
+        return $this;
+    }
+
+    /**
+     * @return Collection|Recompense[]
+     */
+    public function getRecompenses(): Collection
+    {
+        return $this->recompenses;
+    }
+
+    public function addRecompense(Recompense $recompense): self
+    {
+        if (!$this->recompenses->contains($recompense)) {
+            $this->recompenses[] = $recompense;
+            $recompense->setDonorid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecompense(Recompense $recompense): self
+    {
+        if ($this->recompenses->removeElement($recompense)) {
+            // set the owning side to null (unless already changed)
+            if ($recompense->getDonorid() === $this) {
+                $recompense->setDonorid(null);
+            }
+        }
+
         return $this;
     }
 }

@@ -1,0 +1,11 @@
+{% extends 'backoffice.html.twig' %}
+
+{% block title %}New Recompense{% endblock %}
+
+{% block body %}
+    <h1>Create new Recompense</h1>
+
+    {{ include('recompense/_form.html.twig') }}
+
+    <a href="{{ path('recompense_index') }}">back to list</a>
+{% endblock %}
