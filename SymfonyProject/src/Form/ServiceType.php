@@ -14,18 +14,17 @@ class ServiceType extends AbstractType
     {
         $builder
             ->add('typeservice',ChoiceType::class, [
-        'choices' => [
-            'Santé' => 'Santé',
-            'Transport' => 'Transport',
-            'Construction' => 'Construction',
-            'Education' => 'Education',
-            'Autre' => 'Autre',
-        ]])
-
+                'choices' => [
+                    'Santé' => 'Santé',
+                    'Transport' => 'Transport',
+                    'Construction' => 'Construction',
+                    'Education' => 'Education',
+                    'Autre' => 'Autre',
+                ]])
             ->add('lieu')
             ->add('datedisponibilite')
-            ->add('donorid')
             ->add('description')
+            ->add('donorid')
         ;
     }
 

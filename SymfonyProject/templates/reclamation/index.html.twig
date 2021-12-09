@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reclamation ! {% endblock %}
+
+{% block body %}
+{% for message in app.flashes('sujet')%}
+    <div class= "alert alert-success" role ="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+    <h1>Réclamer ! </h1>
+    {{ form(reclamationForm) }}
+{% endblock %}

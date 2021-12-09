@@ -23,12 +23,16 @@
                 <th>Datedisponibilite</th>
                 <td>{{ service.datedisponibilite ? service.datedisponibilite|date('Y-m-d') : '' }}</td>
             </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ service.description }}</td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('service_index') }}">back to list</a>
+    <a class="btn btn-custom" href="{{ path('service_index') }}">back to list</a>
 
-    <a href="{{ path('service_edit', {'serviceid': service.serviceid}) }}">edit</a>
+    <a class="btn btn-custom" href="{{ path('service_edit', {'serviceid': service.serviceid}) }}">edit</a>
 
     {{ include('service/_delete_form.html.twig') }}
 {% endblock %}

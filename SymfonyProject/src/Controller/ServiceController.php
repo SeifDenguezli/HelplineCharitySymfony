@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Service;
 use App\Form\ServiceType;
+use App\Repository\ServiceRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,11 +19,16 @@ class ServiceController extends AbstractController
     /**
      * @Route("/", name="service_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(ServiceRepository $serviceRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $services = $this->getDoctrine()
-            ->getRepository(Service::class)
-            ->findAll();
+        $donnees = $serviceRepository->findAll();
+
+        $services = $paginator->paginate(
+            $donnees,
+            $request->query->getInt('page',1),
+            4
+
+        );
 
         return $this->render('service/index.html.twig', [
             'services' => $services,

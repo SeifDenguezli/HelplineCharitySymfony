@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Service
@@ -24,21 +25,22 @@ class Service
     /**
      * @var string
      *
-     * @ORM\Column(name="typeService", type="string", length=255, nullable=false)
+     * @ORM\Column(name="TypeService", type="string", length=255, nullable=false)
      */
     private $typeservice;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Lieu", type="string", length=255, nullable=false)
+     * @ORM\Column(name="lieu", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Veuillez spécifier le lieu")
      */
     private $lieu;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateDisponibilite", type="date", nullable=false)
+     * @ORM\Column(name="DateDisponibilite", type="date", nullable=false)
      */
     private $datedisponibilite;
 
@@ -46,6 +48,7 @@ class Service
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Veuillez spécifier une description")
      */
     private $description;
 
@@ -60,7 +63,7 @@ class Service
     private $donorid;
 
     /**
-     * @return int|null
+     * @return int
      */
     public function getServiceid(): ?int
     {
@@ -76,7 +79,7 @@ class Service
     }
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getTypeservice(): ?string
     {
@@ -92,7 +95,7 @@ class Service
     }
 
     /**
-     * @return string|null
+     * @return string
      */
     public function getLieu(): ?string
     {
@@ -108,7 +111,7 @@ class Service
     }
 
     /**
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getDatedisponibilite(): ?\DateTime
     {
@@ -124,7 +127,23 @@ class Service
     }
 
     /**
-     * @return User|null
+     * @return string
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return User
      */
     public function getDonorid(): ?User
     {
@@ -138,21 +157,8 @@ class Service
     {
         $this->donorid = $donorid;
     }
-    /**
-     * @return string|null
-     */
-    public function getdescription(): ?string
-    {
-        return $this->description;
-    }
 
-    /**
-     * @param string $description
-     */
-    public function setdescription(?string $description): void
-    {
-        $this->lieu = $description;
-    }
+
 
 
 }

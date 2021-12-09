@@ -1,0 +1,44 @@
+{% extends 'backoffice.html.twig' %}
+
+{% block title %}Service{% endblock %}
+
+{% block body %}
+    <div class="service">
+        <div class="section-header text-center">
+            <h2>Don Service</h2>
+        </div>
+        <div class="row">
+            {% for service in services %}
+                <div class="section-header text-center">
+                    <div class="col-lg-3">
+                        <div class="service-item">
+                            <div class="service-content">
+
+                                <div class="service-meta">
+                                    <p><i class="fa fa-map-marker-alt"></i>{{ service.lieu }}</p>
+                                    <p><i class="fa fa-calendar-alt"></i>{{ service.datedisponibilite ? service.datedisponibilite|date('Y-m-d') : '' }}</p>
+                                </div>
+
+                                <div class="service-text">
+                                    <h1> {{ service.typeservice }}</h1>
+                                    <p1>{{ service.description }} </p1>
+                                </div>
+                                <a class="btn btn-custom" href="{{ path('service_show', {'serviceid': service.serviceid}) }}">show</a>
+                                <a class="btn btn-custom" href="{{ path('service_edit', {'serviceid': service.serviceid}) }}">edit</a>
+                                <a class="btn btn-custom" href="{{ path('reclamation') }}">Réclamer</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <a href="{{ path('admin_service_new') }}">Create new</a>
+    <a class="btn btn-custom" href="{{ path('service_search') }}">Rechercher un don</a>
+
+    <div class="pagination">
+        {{ knp_pagination_render(services) }}
+    </div>
+{% endblock %}

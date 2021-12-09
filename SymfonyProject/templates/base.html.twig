@@ -26,7 +26,6 @@
     {% block stylesheets %}
         <!-- Template Stylesheet -->
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
     {% endblock %}
 
 </head>
@@ -40,11 +39,11 @@
                     <div class="top-bar-left">
                         <div class="text">
                             <i class="fa fa-phone-alt"></i>
-                            <p>+123 456 7890</p>
+                            <p>+216 54 487 021</p>
                         </div>
                         <div class="text">
                             <i class="fa fa-envelope"></i>
-                            <p>info@example.com</p>
+                            <p>Helplinecharity@Gmail.com</p>
                         </div>
                     </div>
                 </div>
@@ -76,7 +75,7 @@
                     <a href="index.html" class="nav-item nav-link active">Home</a>
                     <a href="about.html" class="nav-item nav-link">About</a>
                     <a href="causes.html" class="nav-item nav-link">Causes</a>
-                    <a href="eventList.html" class="nav-item nav-link">Events</a>
+                    <a href="{{ path('service_index') }}" class="nav-item nav-link">Events</a>
                     <a href="blog.html" class="nav-item nav-link">Blog</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
@@ -154,6 +153,7 @@
     </div>
     <!-- Carousel End -->
 {% endblock %}
+
 {% block body %}
     <!-- Video Modal Start-->
     <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -504,56 +504,56 @@
 
 
     <!-- Event Start -->
-    {% block events %}
-        <div class="event">
-            <div class="container">
-                <div class="section-header text-center">
-                    <p>Upcoming Events</p>
-                    <h2>Be ready for our upcoming charity events</h2>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="event-item">
-                            <img src="img/event-1.jpg" alt="Image">
-                            <div class="event-content">
-                                <div class="event-meta">
-                                    <p><i class="fa fa-calendar-alt"></i>01-Jan-45</p>
-                                    <p><i class="far fa-clock"></i>8:00 - 10:00</p>
-                                    <p><i class="fa fa-map-marker-alt"></i>New York</p>
-                                </div>
-                                <div class="event-text">
-                                    <h3>Lorem ipsum dolor sit</h3>
-                                    <p>
-                                        Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
-                                    </p>
-                                    <a class="btn btn-custom" href="">Join Now</a>
-                                </div>
+
+    <div class="event">
+        <div class="container">
+            <div class="section-header text-center">
+                <p>Upcoming Events</p>
+                <h2>Be ready for our upcoming charity events</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="event-item">
+                        <img src="img/event-1.jpg" alt="Image">
+                        <div class="event-content">
+                            <div class="event-meta">
+                                <p><i class="fa fa-calendar-alt"></i>01-Jan-45</p>
+                                <p><i class="far fa-clock"></i>8:00 - 10:00</p>
+                                <p><i class="fa fa-map-marker-alt"></i>New York</p>
+                            </div>
+                            <div class="event-text">
+                                <h3>Lorem ipsum dolor sit</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
+                                </p>
+                                <a class="btn btn-custom" href="">Join Now</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="event-item">
-                            <img src="img/event-2.jpg" alt="Image">
-                            <div class="event-content">
-                                <div class="event-meta">
-                                    <p><i class="fa fa-calendar-alt"></i>01-Jan-45</p>
-                                    <p><i class="far fa-clock"></i>8:00 - 10:00</p>
-                                    <p><i class="fa fa-map-marker-alt"></i>New York</p>
-                                </div>
-                                <div class="event-text">
-                                    <h3>Lorem ipsum dolor sit</h3>
-                                    <p>
-                                        Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
-                                    </p>
-                                    <a class="btn btn-custom" href="">Join Now</a>
-                                </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="event-item">
+                        <img src="img/event-2.jpg" alt="Image">
+                        <div class="event-content">
+                            <div class="event-meta">
+                                <p><i class="fa fa-calendar-alt"></i>01-Jan-45</p>
+                                <p><i class="far fa-clock"></i>8:00 - 10:00</p>
+                                <p><i class="fa fa-map-marker-alt"></i>New York</p>
+                            </div>
+                            <div class="event-text">
+                                <h3>Lorem ipsum dolor sit</h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
+                                </p>
+                                <a class="btn btn-custom" href="">Join Now</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    {% endblock %}
+    </div>
+
     <!-- Event End -->
 
 
@@ -863,9 +863,9 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-contact">
                         <h2>Our Head Office</h2>
-                        <p><i class="fa fa-map-marker-alt"></i>123 Street, New York, USA</p>
-                        <p><i class="fa fa-phone-alt"></i>+012 345 67890</p>
-                        <p><i class="fa fa-envelope"></i>info@example.com</p>
+                        <p><i class="fa fa-map-marker-alt"></i>123 Street, Manouba, TUNISIA</p>
+                        <p><i class="fa fa-phone-alt"></i>+216 54 487 021</p>
+                        <p><i class="fa fa-envelope"></i>Helplinecharity@Gmail.com</p>
                         <div class="footer-social">
                             <a class="btn btn-custom" href=""><i class="fab fa-twitter"></i></a>
                             <a class="btn btn-custom" href=""><i class="fab fa-facebook-f"></i></a>
