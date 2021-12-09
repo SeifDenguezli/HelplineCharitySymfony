@@ -7,12 +7,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vangrg\ProfanityBundle\Validator\Constraints as ProfanityAssert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * Posts
- *
+ * @Vich\Uploadable
  * @ORM\Table(name="posts")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PostsRepository")
  */
 class Posts
 {
@@ -61,6 +62,28 @@ class Posts
      * @ORM\Column(name="likeCount", type="integer", nullable=false)
      */
     private $likecount;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="viewCount", type="integer", nullable=true)
+     */
+    private $viewcount;
+
+    /**
+     * @return int |null
+     */
+    public function getViewcount(): ?int
+    {
+        return $this->viewcount;
+    }
+
+    /**
+     * @param int $viewcount
+     */
+    public function setViewcount(int $viewcount): void
+    {
+        $this->viewcount = $viewcount;
+    }
 
     /**
      * @var string
@@ -70,71 +93,46 @@ class Posts
      *
      */
     private $postcontent;
-
-    public function getPostid(): ?int
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User",inversedBy="postsLiked")
+     * @ORM\JoinTable(name="post_likes",
+     *     joinColumns={@ORM\JoinColumn(name="post_id",referencedColumnName="postId")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id",referencedColumnName="userId")}
+     * )
+     */
+    private $likedBy;
+    /**
+     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="postid",cascade={"remove"})
+     */
+    private $comments;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User",inversedBy="posts")
+     * @ORM\JoinColumn(name="user_id",referencedColumnName="userId")
+     */
+    private $user;
+    public function __construct()
     {
-        return $this->postid;
+        $this->comments = new ArrayCollection();
+        $this->likedBy = new ArrayCollection();
     }
-
-    public function getPosttitle(): ?string
+    /**
+     * @return Collection|comments[]
+     */
+    public function getComments(): Collection
     {
-        return $this->posttitle;
+        return $this->comments;
     }
-
-    public function setPosttitle(string $posttitle): self
+    public function removeComment(Comments $comments): self
     {
-        $this->posttitle = $posttitle;
+        if ($this->comments->removeElement($comments)) {
+            if ($comments->getPostid()=== $this) {
+                $comments->setPostid(null);
+            }
+        }
 
         return $this;
     }
 
-    public function getPosttype(): ?string
-    {
-        return $this->posttype;
-    }
-
-    public function setPosttype(string $posttype): self
-    {
-        $this->posttype = $posttype;
-
-        return $this;
-    }
-
-    public function getPostdate(): ?\DateTimeInterface
-    {
-        return $this->postdate;
-    }
-
-    public function setPostdate(\DateTimeInterface $postdate): self
-    {
-        $this->postdate = $postdate;
-
-        return $this;
-    }
-
-    public function getLikecount(): ?int
-    {
-        return $this->likecount;
-    }
-
-    public function setLikecount(int $likecount): self
-    {
-        $this->likecount = $likecount;
-
-        return $this;
-    }
-
-    public function getPostcontent(): ?string
-    {
-        return $this->postcontent;
-    }
-
-    public function setPostcontent(string $postcontent): self
-    {
-        $this->postcontent = $postcontent;
-
-        return $this;
-    }
 
     /**
      * @return int | null
@@ -246,11 +244,118 @@ class Posts
     }
 
     /**
-     * @param string $postpic
+     * @param string | null $postpic
      */
-    public function setPostpic(string $postpic): void
+    public function setPostpic($postpic): void
     {
         $this->postpic = $postpic;
     }
+
+    /**
+     * @return Collection
+     */
+    public function getLikedBy()
+    {
+        return $this->likedBy;
+    }
+
+    public function like(User $user){
+        if($this->likedBy->contains($user)){
+            return;
+        }
+        $this->likedBy->add($user);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
+    /**
+     * @Vich\UploadableField(mapping="posts" , fileNameProperty="postpic")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+
+    public function setImageFile(File $postpic = null)
+    {
+        $this->imageFile = $postpic;
+        if ($postpic) {
+
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImage($postpic)
+    {
+        $this->postpic = $postpic;
+    }
+
+    public function getImage()
+    {
+        return $this->postpic;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function addLikedBy(User $likedBy): self
+    {
+        if (!$this->likedBy->contains($likedBy)) {
+            $this->likedBy[] = $likedBy;
+        }
+
+        return $this;
+    }
+
+    public function removeLikedBy(User $likedBy): self
+    {
+        $this->likedBy->removeElement($likedBy);
+
+        return $this;
+    }
+
+    public function addComment(Comments $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setPostid($this);
+        }
+
+        return $this;
+    }
+
+
 
 }

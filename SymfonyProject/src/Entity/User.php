@@ -2,17 +2,28 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Illuminate\Support\Arr;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * User
+ *
  * @ORM\Table(name="user")
  * @ORM\Entity
+ * @Vich\Uploadable
+ * @UniqueEntity(
+ *     fields={"mail"},
+ *     message="L'email que vous avez indiqué est déja utilisé"
+ * )
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -24,12 +35,11 @@ class User
     private $userid;
 
     /**
-     * @var string
+     * @var string | null
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
-
     /**
      * @var string|null
      *
@@ -38,9 +48,21 @@ class User
     private $photo;
 
     /**
+     * @Vich\UploadableField(mapping="users", fileNameProperty="photo")
+     * @var File
+     */
+    private $imageFile;
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimum 8 caractères")
      */
     private $password;
 
@@ -78,6 +100,14 @@ class User
      * @ORM\Column(name="role", type="string", length=255, nullable=false)
      */
     private $role;
+    /**
+     * @ORM\ManyToMany (targetEntity="App\Entity\Posts",mappedBy="likedBy")
+     */
+    private $postsLiked;
+    /**
+     * @ORM\ManyToMany (targetEntity="App\Entity\Comments",mappedBy="likedBy",fetch="LAZY")
+     */
+    private $commentsLiked;
 
     /**
      * @var float|null
@@ -87,10 +117,23 @@ class User
     private $montantDonne;
 
     /**
-     * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="associationId")
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Evenement", inversedBy="userid")
+     * @ORM\JoinTable(name="event_user",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="userId", referencedColumnName="userId")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="eventId", referencedColumnName="eventId")
+     *   }
+     * )
      */
-    private $evenements;
+    private $eventid;
 
+    /**
+     * Constructor
+     */
     /**
      * @ORM\OneToMany(targetEntity=EventUser::class, mappedBy="userId")
      * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="associationId")
@@ -105,17 +148,18 @@ class User
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
+        $this->postsLiked = new ArrayCollection();
+        $this->commentsLiked = new ArrayCollection();
+        $this->posts = new ArrayCollection();
         $this->eventUsers = new ArrayCollection();
         $this->eventComments = new ArrayCollection();
     }
 
     /**
-     * @return Collection|Evenement[]
+     * @ORM\OneToMany (targetEntity="App\Entity\Posts",mappedBy="user")
      */
-    public function getEvenements(): Collection
-    {
-        return $this->evenements;
-    }
+    private $posts;
+
 
     public function addEvenement(Evenement $evenement): self
     {
@@ -271,12 +315,13 @@ class User
         }
 
         return $this;
+        $this->eventid = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * @return int
      */
-    public function getUserid(): int
+    public function getUserid(): ?int
     {
         return $this->userid;
     }
@@ -284,15 +329,15 @@ class User
     /**
      * @param int $userid
      */
-    public function setUserid(int $userid): void
+    public function setUserid(?int $userid): void
     {
         $this->userid = $userid;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -300,9 +345,9 @@ class User
     /**
      * @param string $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
-        $this->name = $name;
+        $this->name= $name;
     }
 
     /**
@@ -322,9 +367,9 @@ class User
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -332,15 +377,15 @@ class User
     /**
      * @param string $password
      */
-    public function setPassword(string $password): void
+    public function setPassword(?string $password): void
     {
         $this->password = $password;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCity(): string
+    public function getCity(): ?string
     {
         return $this->city;
     }
@@ -348,15 +393,15 @@ class User
     /**
      * @param string $city
      */
-    public function setCity(string $city): void
+    public function setCity(?string $city): void
     {
         $this->city = $city;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getGouvernorat(): string
+    public function getGouvernorat(): ?string
     {
         return $this->gouvernorat;
     }
@@ -364,15 +409,15 @@ class User
     /**
      * @param string $gouvernorat
      */
-    public function setGouvernorat(string $gouvernorat): void
+    public function setGouvernorat(?string $gouvernorat): void
     {
         $this->gouvernorat = $gouvernorat;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPhone(): string
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
@@ -380,15 +425,15 @@ class User
     /**
      * @param string $phone
      */
-    public function setPhone(string $phone): void
+    public function setPhone(?string $phone): void
     {
         $this->phone = $phone;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMail(): string
+    public function getMail(): ?string
     {
         return $this->mail;
     }
@@ -396,15 +441,15 @@ class User
     /**
      * @param string $mail
      */
-    public function setMail(string $mail): void
+    public function setMail(?string $mail): void
     {
         $this->mail = $mail;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRole(): string
+    public function getRole(): ?string
     {
         return $this->role;
     }
@@ -412,7 +457,7 @@ class User
     /**
      * @param string $role
      */
-    public function setRole(string $role): void
+    public function setRole(?string $role): void
     {
         $this->role = $role;
     }
@@ -433,11 +478,41 @@ class User
         $this->montantDonne = $montantDonne;
     }
 
-    public function __toString()
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEventid()
     {
-        return $this->getName();
+        return $this->eventid;
     }
 
+    /**
+     * @param \Doctrine\Common\Collections\Collection $eventid
+     */
+    public function setEventid($eventid): void
+    {
+        $this->eventid = $eventid;
+    }
+
+    public function eraseCredentials(){}
+    public function getSalt(){}
+    public function getRoles(){
+    return ['ROLE_USER'];
+}
+    /**
+     * @return Collection
+     */
+    public function getPostsLiked()
+    {
+        return $this->postsLiked;
+    }
+    /**
+     * @return Collection
+     */
+    public function getcommentsLiked()
+    {
+        return $this->commentsLiked;
+    }
     /**
      * @return Collection|EventUser[]
      */
@@ -465,6 +540,32 @@ class User
             }
         }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getPosts(): ArrayCollection
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @param ArrayCollection $posts
+     */
+    public function setPosts(ArrayCollection $posts): void
+    {
+        $this->posts->add();
+    }
+
+
+
+
+    /**
+     * @return string|null
+     */
+    public function getUsername()
+    {
+        return $this->name;
+    }
         return $this;
     }
 

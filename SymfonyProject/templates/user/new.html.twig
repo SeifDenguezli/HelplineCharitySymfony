@@ -1,0 +1,12 @@
+{% extends 'backoffice.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+
+
+    {{ include('user/_form.html.twig') }}
+
+    <a href="{{ path('user_index') }}">back to list</a>
+    <a href="{{ path('user_fake') }}">genratefake</a>
+{% endblock %}
