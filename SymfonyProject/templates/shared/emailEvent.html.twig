@@ -10,7 +10,7 @@
         <p>En ce qui suit, vous trouverez les informations concernant votre évènement</p>
         <div>
             <ul>
-                <li>Date de création : {{ date }}</li>
+                <li>Date de création : {{ date ? date|date('d-m-Y') : '' }}</li>
                 <li>Catégorie : {{ evenement.donCategorie }}</li>
                 <li>Région : {{ evenement.region }}</li>
                 <li>Objectif : {{ evenement.cause }}</li>

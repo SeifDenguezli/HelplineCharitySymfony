@@ -39,6 +39,13 @@ class EventCommentRepository extends ServiceEntityRepository
 
     }
 
+    public function testimonialComments(){
+        return $this->createQueryBuilder('ec')
+            ->orderBy('ec.createdAt', 'DESC')
+            ->setMaxResults(6)
+            ->getQuery()->getResult();
+    }
+
     // /**
     //  * @return EventComment[] Returns an array of EventComment objects
     //  */
