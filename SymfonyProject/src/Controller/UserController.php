@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +29,27 @@ class UserController extends AbstractController
 
         return $this->render('user/index.html.twig', [
             'users' => $users,
+        ]);
+    }
+
+    /**
+     * @Route("/stats", name="user_stats", methods={"GET"})
+     */
+    public function getStats(UserRepository $userRepository,  Request $request): Response
+    {
+
+        $users = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findAll();
+
+        $admins = $userRepository->findUsersByRole('Admin');
+        $associations = $userRepository->findUsersByRole('Association');
+        $donneurs = $userRepository->findUsersByRole('Donneur');
+        return $this->render('user/stats.html.twig', [
+            'users' => $users,
+            'admins' => $admins,
+            'associations' => $associations,
+            'donneurs' => $donneurs,
         ]);
     }
 

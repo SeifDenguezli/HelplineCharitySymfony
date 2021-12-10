@@ -1,0 +1,150 @@
+{% extends 'base.html.twig' %}
+
+{# {% block title %}Shop index{% endblock %}
+
+{% block body %}  #}
+
+    {#
+    <div class="row" >
+        {% for shop in shops %}
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="mr-5 mt-3">
+                            <img src="{{ vich_uploader_asset(shop, shop.imageFile) }}" height="250px" width="250px"/>
+                        </div>
+
+                        <div>
+                            <div class="mr-5 mt-3">
+                                <p class="text-muted">Nom</p>
+                                <h3 class="text-primary fs-30 font-weight-medium">{{ shop.name }}</h3>
+                            </div>
+
+                            <div class="mr-5 mt-3">
+                                <p class="text-muted">Cost</p>
+                                <h3 class="text-primary fs-30 font-weight-medium">{{ shop.cost }} Points</h3>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+    #}
+
+{% block body %}
+
+
+
+    <center>
+        <br>
+        <h2 style="font-family: 'Bell MT'">Recuperez des produits de fidalité </h2>
+        <br/>
+    </center>
+
+    <center>
+        <div class="row" style="padding-left: 40px" >
+
+
+
+            {% for shop in shops %}
+                <header>
+                    <style>
+
+
+                        /* Still use global css (not utility css) for base typography etc? */
+                        p {
+                            margin-bottom: 0.8em;
+                        }
+                    </style>
+                </header>
+
+
+
+                <div class="flex flex-wrap -m-3">
+
+
+                    <div class="w-full sm:w-1/2 md:w-1/3 flex flex-col p-3" style="width: 360px">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden flex-1 flex flex-col">
+                            <div class="bg-cover h-48" style="background-image: url(https://images.unsplash.com/photo-1523978591478-c753949ff840?w=900);"></div>
+
+
+
+                            <div class="mb-4 text-2xl">
+                                <img src="{{ vich_uploader_asset(shop, shop.imageFile) }}" height="250px" width="330px"/>
+                            </div>
+                            <Center>
+                                <div class="mb-4 text-2xl">
+                                    {#  <p class="text-muted">Nom</p> #}
+                                    <h3 class="text-primary fs-30 font-weight-medium">{{ shop.name }}</h3>
+                                </div>
+
+
+                                <div class="mb-4 text-2xl">
+                                    {#  <p class="text-muted">Cost</p>#}
+                                    <h3 class="text-primary fs-30 font-weight-medium">{{ shop.cost }} Points</h3>
+                                </div>
+
+                                <div class="mb-4 text-2xl">
+                                    {#  <p class="text-muted">Cost</p>#}
+
+                                    <h3 class="text-primary fs-30 font-weight-medium">
+                                        {%  if shop.Qte > 0 %}<p style="color: #00bb00">{{ shop.Qte }} Disponible</p>
+                                        {% else %}
+                                            <p style="color: #9a2b2b">Non disponible</p>
+                                        {% endif %}
+                                    </h3>
+                                </div>
+
+                            </Center>
+                            <br>
+
+
+                            <div class="mb-4 text-2xl" >
+
+                                <center><a href="{{ path('shop_buy',{ 'shopId': shop.shopId }) }}"><button type="button" class="btn btn-warning" >Choisir</button></a></center>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    </center>
+
+    <div class="pagination" >
+        {{ knp_pagination_render(shops, '@KnpPaginator/Pagination/twitter_bootstrap_v3_pagination.html.twig') }}
+    </div>
+
+    <br>
+    <br>
+    <br>
+{% endblock %}
+
+
+{#
+<br>
+
+<div class="d-flex flex-wrap mb-5">
+    <div class="mr-5 mt-3">
+        <a href="#"><button type="button" class="btn btn-warning" > Choisir</button></a>
+    </div>
+</div>
+
+</div>
+</div>
+{% endfor %}
+</div>
+<div class="pagination">
+    {{ knp_pagination_render(shops) }}
+</div>
+
+</div>
+#}

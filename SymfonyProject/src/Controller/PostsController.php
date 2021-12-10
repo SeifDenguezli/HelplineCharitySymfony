@@ -140,7 +140,7 @@ class PostsController extends AbstractController
         $og->image('https://www.capital.fr/imgre/fit/http.3A.2F.2Fprd2-bone-image.2Es3-website-eu-west-1.2Eamazonaws.2Ecom.2Fcap.2F2020.2F09.2F11.2F34e10496-9e84-46c5-b0a4-884f84d7db72.2Ejpeg/790x395/background-color/ffffff/quality/10/man-le-constructeur-de-poids-lourds-veut-supprimer-9-500-emplois-1380212.jpg');
         $og->url('127.0.0.1:8000/posts/show.html.twig');
         return $this->render('posts/show.html.twig', [
-           'post' => $post,'comment'=>$comment,'form' => $form->createView(),'bost'=>$bost,$og->renderTags(),
+            'post' => $post,'comment'=>$comment,'form' => $form->createView(),'bost'=>$bost,$og->renderTags(),
         ]);
 
     }

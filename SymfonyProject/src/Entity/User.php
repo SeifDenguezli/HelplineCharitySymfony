@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Illuminate\Support\Arr;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Doctrine\Common\Collections\ArrayCollection;
+
 
 
 /**
@@ -38,6 +39,7 @@ class User implements UserInterface
      * @var string | null
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="le Nom est obligatoire !")
      */
     private $name;
     /**
@@ -52,15 +54,10 @@ class User implements UserInterface
      * @var File
      */
     private $imageFile;
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
 
 
     /**
      * @var string
-     *
      * @ORM\Column(name="password", type="string", length=255, nullable=false)
      * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimum 8 caractères")
      */
@@ -68,28 +65,28 @@ class User implements UserInterface
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="la ville est obligatoire !")
      * @ORM\Column(name="city", type="string", length=255, nullable=false)
      */
     private $city;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="le Gouvernorat est obligatoire !")
      * @ORM\Column(name="gouvernorat", type="string", length=255, nullable=false)
      */
     private $gouvernorat;
 
     /**
      * @var string
-     *
+     * @Assert\Length(min="8", minMessage="Votre numéro tel doit faire minimum 8 caractères")
      * @ORM\Column(name="phone", type="string", length=255, nullable=false)
      */
     private $phone;
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message="le Mail est obligatoire !")
      * @ORM\Column(name="mail", type="string", length=255, nullable=false)
      */
     private $mail;
@@ -100,14 +97,6 @@ class User implements UserInterface
      * @ORM\Column(name="role", type="string", length=255, nullable=false)
      */
     private $role;
-    /**
-     * @ORM\ManyToMany (targetEntity="App\Entity\Posts",mappedBy="likedBy")
-     */
-    private $postsLiked;
-    /**
-     * @ORM\ManyToMany (targetEntity="App\Entity\Comments",mappedBy="likedBy",fetch="LAZY")
-     */
-    private $commentsLiked;
 
     /**
      * @var float|null
@@ -117,26 +106,12 @@ class User implements UserInterface
     private $montantDonne;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Evenement", inversedBy="userid")
-     * @ORM\JoinTable(name="event_user",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="userId", referencedColumnName="userId")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="eventId", referencedColumnName="eventId")
-     *   }
-     * )
+     * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="associationId")
      */
-    private $eventid;
+    private $evenements;
 
     /**
-     * Constructor
-     */
-    /**
      * @ORM\OneToMany(targetEntity=EventUser::class, mappedBy="userId")
-     * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="associationId")
      */
     private $eventUsers;
 
@@ -145,21 +120,42 @@ class User implements UserInterface
      */
     private $eventComments;
 
+
+    /**
+     * @ORM\Column(name="passwordRequestedAt", type="datetime", nullable=true)
+     * @var \DateTime
+     */
+    private $passwordRequestedAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="token", type="string", length=255, nullable=true)
+     */
+    private $token;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Recompense::class, mappedBy="donorid")
+     */
+    private $recompenses;
+
+
+    /**
+     * Constructor
+     */
     public function __construct()
     {
-        $this->evenements = new ArrayCollection();
-        $this->postsLiked = new ArrayCollection();
-        $this->commentsLiked = new ArrayCollection();
-        $this->posts = new ArrayCollection();
-        $this->eventUsers = new ArrayCollection();
-        $this->eventComments = new ArrayCollection();
+        $this->eventid = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->recompenses = new ArrayCollection();
     }
 
     /**
-     * @ORM\OneToMany (targetEntity="App\Entity\Posts",mappedBy="user")
+     * @return Collection|Evenement[]
      */
-    private $posts;
-
+    public function getEvenements(): Collection
+    {
+        return $this->evenements;
+    }
 
     public function addEvenement(Evenement $evenement): self
     {
@@ -171,140 +167,6 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getPhoto(): ?string
-    {
-        return $this->photo;
-    }
-
-    /**
-     * @param string|null $photo
-     */
-    public function setPhoto(?string $photo): void
-    {
-        $this->photo = $photo;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param string $password
-     */
-    public function setPassword(string $password): void
-    {
-        $this->password = $password;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCity(): string
-    {
-        return $this->city;
-    }
-
-    /**
-     * @param string $city
-     */
-    public function setCity(string $city): void
-    {
-        $this->city = $city;
-    }
-
-    /**
-     * @return string
-     */
-    public function getGouvernorat(): string
-    {
-        return $this->gouvernorat;
-    }
-
-    /**
-     * @param string $gouvernorat
-     */
-    public function setGouvernorat(string $gouvernorat): void
-    {
-        $this->gouvernorat = $gouvernorat;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhone(): string
-    {
-        return $this->phone;
-    }
-
-    /**
-     * @param string $phone
-     */
-    public function setPhone(string $phone): void
-    {
-        $this->phone = $phone;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMail(): string
-    {
-        return $this->mail;
-    }
-
-    /**
-     * @param string $mail
-     */
-    public function setMail(string $mail): void
-    {
-        $this->mail = $mail;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRole(): string
-    {
-        return $this->role;
-    }
-
-    /**
-     * @param string $role
-     */
-    public function setRole(string $role): void
-    {
-        $this->role = $role;
-    }
-
-    /**
-     * @return float|null
-     */
-    public function getMontantDonne(): ?float
-    {
-        return $this->montantDonne;
-    }
-
-    /**
-     * @param float|null $montantDonne
-     */
-    public function setMontantDonne(?float $montantDonne): void
-    {
-        $this->montantDonne = $montantDonne;
-    }
-
-    public function __toString()
-    {
-        return $this->getName();
-    }
-
-
     public function removeEvenement(Evenement $evenement): self
     {
         if ($this->evenements->removeElement($evenement)) {
@@ -315,7 +177,6 @@ class User implements UserInterface
         }
 
         return $this;
-        $this->eventid = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -365,6 +226,18 @@ class User implements UserInterface
     {
         $this->photo = $photo;
     }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(file $photo = null)
+    {
+        $this->imageFile=$photo;
+    }
+
+
 
     /**
      * @return string|null
@@ -497,22 +370,61 @@ class User implements UserInterface
     public function eraseCredentials(){}
     public function getSalt(){}
     public function getRoles(){
-    return ['ROLE_USER'];
-}
-    /**
-     * @return Collection
-     */
-    public function getPostsLiked()
-    {
-        return $this->postsLiked;
+        return ['ROLE_USER'];
     }
+
     /**
-     * @return Collection
+     * @return string|null
      */
-    public function getcommentsLiked()
+    public function getUsername()
     {
-        return $this->commentsLiked;
+        return $this->name;
     }
+
+    // ...
+
+
+    /*
+     * Get passwordRequestedAt
+     */
+    public function getPasswordRequestedAt()
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    /*
+     * Set passwordRequestedAt
+     */
+    public function setPasswordRequestedAt($passwordRequestedAt)
+    {
+        $this->passwordRequestedAt = $passwordRequestedAt;
+        return $this;
+    }
+
+    /*
+     * Get token
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /*
+     * Set token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+        return $this;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
     /**
      * @return Collection|EventUser[]
      */
@@ -540,32 +452,6 @@ class User implements UserInterface
             }
         }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getPosts(): ArrayCollection
-    {
-        return $this->posts;
-    }
-
-    /**
-     * @param ArrayCollection $posts
-     */
-    public function setPosts(ArrayCollection $posts): void
-    {
-        $this->posts->add();
-    }
-
-
-
-
-    /**
-     * @return string|null
-     */
-    public function getUsername()
-    {
-        return $this->name;
-    }
         return $this;
     }
 
@@ -595,6 +481,42 @@ class User implements UserInterface
                 $eventComment->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    /**
+     * @return Collection|Recompense[]
+     */
+    public function getRecompenses(): Collection
+    {
+        return $this->recompenses;
+    }
+
+    public function addRecompense(Recompense $recompense): self
+    {
+        if (!$this->recompenses->contains($recompense)) {
+            $this->recompenses[] = $recompense;
+            $recompense->setDonorid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecompense(Recompense $recompense): self
+    {
+        if ($this->recompenses->removeElement($recompense)) {
+            // set the owning side to null (unless already changed)
+            if ($recompense->getDonorid() === $this) {
+                $recompense->setDonorid(null);
+            }
+        }
+
         return $this;
     }
 }

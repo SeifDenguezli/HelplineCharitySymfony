@@ -7,6 +7,7 @@ use App\Entity\EventComment;
 use App\Entity\EventUser;
 use App\Entity\User;
 use App\Form\EvenementType;
+use App\Form\EventCommentType;
 use App\Repository\EvenementRepository;
 use App\Repository\EventCommentRepository;
 use App\Repository\EventUserRepository;
@@ -106,7 +107,7 @@ class EvenementController extends AbstractController
             $hash = $encoder->encodePassword($user, 'password');
 
             $user->setName($faker->name($genre));
-            $user->setPass($hash);
+            $user->setPassword($hash);
             $user->setCity($faker->city);
             $user->setGouvernorat($faker->state);
             $user->setPhone($faker->phoneNumber);
@@ -247,6 +248,7 @@ class EvenementController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
 
     /**
      * @Route("/{eventId}", name="evenement_delete", methods={"POST"})

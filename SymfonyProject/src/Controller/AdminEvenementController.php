@@ -24,10 +24,6 @@ class AdminEvenementController extends AbstractController
     /**
      * @Route("/", name="admin_evenement_index", methods={"GET"})
      */
-    public function index(EvenementRepository $evenementRepository): Response
-    {
-        return $this->render('evenement/admin_evenement/index.html.twig', [
-            'evenements' => $evenementRepository->findAll(),
     public function index(EvenementRepository $evenementRepository, Request $request, PaginatorInterface $paginator): Response
     {
 
@@ -73,7 +69,7 @@ class AdminEvenementController extends AbstractController
 
         foreach ($allParticipations as $i){
             $montantTotal = $montantTotal + $i->getAmount();
-    }
+        }
 
         foreach ($lastParticipations as $i){
             $montantCurrentMonth = $montantCurrentMonth + $i->getAmount();
@@ -113,7 +109,6 @@ class AdminEvenementController extends AbstractController
             return $this->redirectToRoute('admin_evenement_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('admin_evenement/new.html.twig', [
         return $this->render('evenement/admin_evenement/new.html.twig', [
             'evenement' => $evenement,
             'form' => $form->createView(),
@@ -121,12 +116,6 @@ class AdminEvenementController extends AbstractController
     }
 
     /**
-     * @Route("/{eventId}", name="admin_evenement_show", methods={"GET"})
-     */
-    public function show(Evenement $evenement): Response
-    {
-        return $this->render('evenement/admin_evenement/show.html.twig', [
-            'evenement' => $evenement,
      * @Route("/{eventId}/history", name="admin_evenement_show_history", methods={"GET"})
      */
     public function showHistory(Evenement $evenement, EventUserRepository $eventRepo): Response

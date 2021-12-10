@@ -1,0 +1,44 @@
+
+{{ form_start(form, {'attr':{'novalidate':'novalidate'}}) }}
+
+    {{ form_widget(form) }}
+<button class="btn btn-success">{{ button_label|default('Save') }}</button>
+
+{{ form_end(form) }}
+
+
+{#
+{{ form_start(form, {'attr':{'novalidate':'novalidate'}}) }}
+
+   <table align="center">
+        <tr>
+            <td>{{ form_label(form.donorId ) }}</td>
+            <td>{{ form_widget(form.donorId) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.name ) }}</td>
+            <td>{{ form_widget(form.name) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.Qte ) }}</td>
+            <td>{{ form_widget(form.Qte) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.color ) }}</td>
+            <td>{{ form_widget(form.color) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.cost ) }}</td>
+            <td>{{ form_widget(form.cost) }}</td>
+        </tr>
+    </table>
+
+    <button class="btn btn-warning" >{{ button_label|default('Save') }}</button>
+
+
+{{ form_end(form) }}
+
+{{ form_widget(form) }}
+<button class="btn btn-success">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}  #}
+

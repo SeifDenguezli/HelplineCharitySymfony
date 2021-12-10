@@ -52,76 +52,76 @@
 
 {% block body %}
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-        let js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
-{% set isLiked = post.getLikedBy.contains(app.user)%}
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+            let js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    {% set isLiked = post.getLikedBy.contains(app.user)%}
 
-<!--===============================================================================================-->
-<body class="animsition">
-
-
-<!-- Content page -->
-<section>
-    <div class="container">
-        <div class="row ">
-            <div class="col-md-8 col-lg-9">
-                <div class="p-t-80 p-b-124 bo5-r p-r-50 h-full p-r-0-md bo-none-md">
-                    <!-- Block4 -->
-                    <div class="blo4 p-b-63">
-                        <!-- - -->
-                        <div class="pic-blo3 hov-img-zoom bo-rad-10 pos-relative">
-
-                                <img src="{{ vich_uploader_asset(post)  }}" alt="IMG-Post" width="100" height="400">
+    <!--===============================================================================================-->
+    <body class="animsition">
 
 
-                            <div class="date-blo4 flex-col-c-m">
+    <!-- Content page -->
+    <section>
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-8 col-lg-9">
+                    <div class="p-t-80 p-b-124 bo5-r p-r-50 h-full p-r-0-md bo-none-md">
+                        <!-- Block4 -->
+                        <div class="blo4 p-b-63">
+                            <!-- - -->
+                            <div class="pic-blo3 hov-img-zoom bo-rad-10 pos-relative">
+
+                                <img src="{{ vich_uploader_asset(post)  }}" alt="IMG-Post" width="700" height="400">
+
+
+                                <div class="date-blo4 flex-col-c-m">
 									<span class="txt30 m-b-4">
 										{{ post.postdate ? post.postdate|date('d') : '' }}
 									</span>
 
-                                <span class="txt31">
+                                    <span class="txt31">
 										{{ post.postdate ? post.postdate|date('M,Y') : '' }}
 									</span>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- - -->
-                        <div class="text-blo4 p-t-33">
-                            <h4 class="p-b-16">
-                                <a  class="tit9">{{ post.posttitle }}</a>
-                                <button class="btn btn-outline-secondary" style="display: {% if  post.getUser == app.user %}block {% else %}none{% endif %}"> <a href="{{ path('posts_edit', {'postid': post.postid}) }}" >Modifier publication</a></button>
-                            </h4>
+                            <!-- - -->
+                            <div class="text-blo4 p-t-33">
+                                <h4 class="p-b-16">
+                                    <a  class="tit9">{{ post.posttitle }}</a>
+                                    <button class="btn btn-outline-secondary" style="display: {% if  post.getUser == app.user %}block {% else %}none{% endif %}"> <a href="{{ path('posts_edit', {'postid': post.postid}) }}" >Modifier publication</a></button>
+                                </h4>
 
-                            <div class="txt32 flex-w p-b-24">
+                                <div class="txt32 flex-w p-b-24">
 									<span>
 										{{ post.user.username }}
 										<span class="m-r-6 m-l-4">|</span>
 									</span>
 
-                                <span>
+                                    <span>
 										{{ post.postdate ? post.postdate|date('D,M,Y') : '' }}
 										<span class="m-r-6 m-l-4">|</span>
 									</span>
-                                <span>
+                                    <span>
 										{{ comment | length }} Comments
 									</span>
 
-                                <span class="fb-share-button"
-                                     data-layout="button_count">
+                                    <span class="fb-share-button"
+                                          data-layout="button_count">
                                 </span>
-                            </div>
-                            <p>{{ post.postcontent }}</p>
-                            <img src="{{ qr_code_path(app.request.schemeAndHttpHost ~ app.request.requestUri) }}" width="100" />
-                            <!-- Your share button code -->
+                                </div>
+                                <p>{{ post.postcontent }}</p>
+                                <img src="{{ qr_code_path(app.request.schemeAndHttpHost ~ app.request.requestUri) }}" width="100" />
+                                <!-- Your share button code -->
 
-                        </div>
-                        <div >
+                            </div>
+                            <div >
                              <span>
                                     <button style="display: {% if not isLiked %}block {% else %}none{% endif %} " class="btn btn-outline-secondary" id="like" >J'aime
                             <span class="badge badge-light" id="likes-like">{{ post.getLikedBy.count }}</span>
@@ -132,25 +132,25 @@
 
                                 </span>
 
-                        </div>
-                        <hr style="background-color: lightgray">
-                        <div class="p-b-16" style="font-weight: bold"> Commentaires :</div>
-                        <div class="leave-comment p-t-10" >
-                            {% for comments in comment %}
+                            </div>
+                            <hr style="background-color: lightgray">
+                            <div class="p-b-16" style="font-weight: bold"> Commentaires :</div>
+                            <div class="leave-comment p-t-10" >
+                                {% for comments in comment %}
 
-                            {% set iscLiked = comments.getLikedBy.contains(app.user) %}
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <div > <img src="{{ app.user.photo }}" width="50" class="rounded-image">
-                                                <span class="name" style="font-weight: bold ; color: orange">{{ comments.commentauthor }} </span>
-                                                <span class="name"><small>{{ comments.commentdate ? comments.commentdate|date('Y-m-d') : '' }}</small></span>
-                                                <div class="d-flex flex-column ml-2">
+                                    {% set iscLiked = comments.getLikedBy.contains(app.user) %}
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <div > <img src="{{ app.user.photo }}" width="50" class="rounded-image">
+                                                    <span class="name" style="font-weight: bold ; color: orange">{{ comments.commentauthor }} </span>
+                                                    <span class="name"><small>{{ comments.commentdate ? comments.commentdate|date('Y-m-d') : '' }}</small></span>
+                                                    <div class="d-flex flex-column ml-2">
 
 
-                                                    <br>
-                                                    <small class="comment-text" style="font-size:20px">{{ comments.commentContent }}</small>
-                                                    <pre> </pre> <span>
+                                                        <br>
+                                                        <small class="comment-text" style="font-size:20px">{{ comments.commentContent }}</small>
+                                                        <pre> </pre> <span>
                                              <button style="display: {% if not iscLiked %}block {% else %}none{% endif %}; " class="btn btn-outline-secondary" id="clike{{ comments.commentid }}">J'aime
                                                   <span class="badge badge-light" id="clikes-like">{{ comments.getLikedBy.count }}</span>
                                              </button>
@@ -158,59 +158,59 @@
                                                  <span class="badge badge-light" id="clikes-unlike">{{ comments.getLikedBy.count }}</span>
                                              </button>
                                         </span>
-                                                    <div class="d-flex flex-row align-items-center status"> </div>
+                                                        <div class="d-flex flex-row align-items-center status"> </div>
 
 
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <script>
-                                    var clikeButton = document.getElementById('clike{{ comments.commentid }}');
-                                    var cunlikelikeButton = document.getElementById('cunlike{{ comments.commentid }}');
-                                    caddOnClick(
-                                        clikeButton,cunlikelikeButton,document.getElementById('clikes-unlike'),'{{ path('clikes_like',{'commentid': comments.commentid}) }}'
-                                    );
-                                    caddOnClick(
-                                        cunlikelikeButton,clikeButton,document.getElementById('clikes-like'),'{{ path('clikes_unlike',{'commentid': comments.commentid}) }}'
-                                    );
-                                    function cswitchbuttons(button,oppositeButton){
-                                        button.disabled = true;
-                                        button.style.display = 'none' ;
-                                        oppositeButton.style.display = 'block';
-                                    }
-                                    function caddOnClick(button,oppositeButton,likeCount,path){
-                                        button.addEventListener('click',function(event){
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <script>
+                                        var clikeButton = document.getElementById('clike{{ comments.commentid }}');
+                                        var cunlikelikeButton = document.getElementById('cunlike{{ comments.commentid }}');
+                                        caddOnClick(
+                                            clikeButton,cunlikelikeButton,document.getElementById('clikes-unlike'),'{{ path('clikes_like',{'commentid': comments.commentid}) }}'
+                                        );
+                                        caddOnClick(
+                                            cunlikelikeButton,clikeButton,document.getElementById('clikes-like'),'{{ path('clikes_unlike',{'commentid': comments.commentid}) }}'
+                                        );
+                                        function cswitchbuttons(button,oppositeButton){
                                             button.disabled = true;
-                                            fetch(path,{'credentials':'include'}).then(function (response) {
-                                                response.json().then(function (json) {
-                                                    likeCount.innerText = json.count;
-                                                    cswitchbuttons(button,oppositeButton);
-                                                })
-                                            }).catch(function () {
-                                                cswitchbuttons(oppositeButton,button);
+                                            button.style.display = 'none' ;
+                                            oppositeButton.style.display = 'block';
+                                        }
+                                        function caddOnClick(button,oppositeButton,likeCount,path){
+                                            button.addEventListener('click',function(event){
+                                                button.disabled = true;
+                                                fetch(path,{'credentials':'include'}).then(function (response) {
+                                                    response.json().then(function (json) {
+                                                        likeCount.innerText = json.count;
+                                                        cswitchbuttons(button,oppositeButton);
+                                                    })
+                                                }).catch(function () {
+                                                    cswitchbuttons(oppositeButton,button);
+                                                });
+                                                event.preventDefault();
                                             });
-                                            event.preventDefault();
-                                        });
-                                    }
-                                </script>
-                                <hr style="background-color: lightgray">
-                            {% endfor %}
+                                        }
+                                    </script>
+                                    <hr style="background-color: lightgray">
+                                {% endfor %}
 
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Leave a comment -->
-                    <form class="leave-comment p-t-10">
-                        <h4 class="txt33 p-b-14">
-                           Commentez
-                        </h4>
-                        <!-- Button3 -->
+                        <!-- Leave a comment -->
+                        <form class="leave-comment p-t-10">
+                            <h4 class="txt33 p-b-14">
+                                Commentez
+                            </h4>
+                            <!-- Button3 -->
 
 
-                    </form>
-                    <div class="comment-input">
+                        </form>
+                        <div class="comment-input">
 
 
                             {{ form_start(form,{attr: {'novalidate': 'novalidate'}}) }}
@@ -219,159 +219,159 @@
                             <div >{{ form_widget(form.commentcontent) }}</div>
                             {{ form_end(form) }}
 
+                        </div>
+
                     </div>
 
                 </div>
 
-            </div>
-
-            <div class="col-md-4 col-lg-3">
-                <div class="sidebar2 p-t-80 p-b-80 p-l-20 p-l-0-md p-t-0-md">
+                <div class="col-md-4 col-lg-3">
+                    <div class="sidebar2 p-t-80 p-b-80 p-l-20 p-l-0-md p-t-0-md">
 
 
-                    <!-- Categories -->
+                        <!-- Categories -->
 
-                    <br>
-                    <div class="slideshow-container fady">
-                        <h4 class="txt33 p-b-35 p-t-58">
-                            Publicité
-                        </h4>
-                        <!-- Full images with numbers and message Info -->
-                        <div class="Containers">
+                        <br>
+                        <div class="slideshow-container fady">
+                            <h4 class="txt33 p-b-35 p-t-58">
+                                Publicité
+                            </h4>
+                            <!-- Full images with numbers and message Info -->
+                            <div class="Containers">
 
-                            <img src="/img/donation-img3.jpg" style="width: 300px ; height: 250px">
-                            <div class="Info">Aidez les pauvres !</div>
+                                <img src="/img/donation-img3.jpg" style="width: 300px ; height: 250px">
+                                <div class="Info">Aidez les pauvres !</div>
+                            </div>
+
+                            <div class="Containers">
+
+                                <img src="/img/donation-img2.jpg" style="width: 300px ; height: 250px">
+                                <div class="Info">Le plus vous donnez, vou recevez</div>
+                            </div>
+
+                            <div class="Containers">
+
+                                <img src="/img/donation-img.jpg" style="width: 300px ; height: 250px">
+                                <div class="Info">Changez leur vies !</div>
+                            </div>
+
+                            <!-- Back and forward buttons -->
+
                         </div>
 
-                        <div class="Containers">
+                        <br>
 
-                            <img src="/img/donation-img2.jpg" style="width: 300px ; height: 250px">
-                            <div class="Info">Le plus vous donnez, vou recevez</div>
+                        <!-- The circles/dots -->
+                        <div style="text-align:center">
+                            <span class="dots" onclick="currentSlide(1)"></span>
+                            <span class="dots" onclick="currentSlide(2)"></span>
+                            <span class="dots" onclick="currentSlide(3)"></span>
                         </div>
 
-                        <div class="Containers">
 
-                            <img src="/img/donation-img.jpg" style="width: 300px ; height: 250px">
-                            <div class="Info">Changez leur vies !</div>
-                        </div>
+                        <!-- Most Popular -->
+                        <div class="popular">
+                            <h4 class="txt33 p-b-35 p-t-58">
+                                Les plus populaires
+                            </h4>
 
-                        <!-- Back and forward buttons -->
+                            <ul>
 
-                    </div>
+                                {% for bot in bost %}
+                                    <li class="flex-w m-b-25">
+                                        <div class="size16 bo-rad-10 wrap-pic-w of-hidden m-r-18">
+                                            <a href="#">
+                                                <img src="{{ vich_uploader_asset(bot)  }}" alt="IMG-BLOG" width="100" height="100">
+                                            </a>
+                                        </div>
 
-                    <br>
+                                        <div class="size28">
+                                            <a href="{{ path('posts_show', {'postid': bot.postid}) }}" class="dis-block txt28 m-b-8">
+                                                {{ bot.posttitle }}
+                                            </a>
 
-                    <!-- The circles/dots -->
-                    <div style="text-align:center">
-                        <span class="dots" onclick="currentSlide(1)"></span>
-                        <span class="dots" onclick="currentSlide(2)"></span>
-                        <span class="dots" onclick="currentSlide(3)"></span>
-                    </div>
-
-
-                    <!-- Most Popular -->
-                    <div class="popular">
-                        <h4 class="txt33 p-b-35 p-t-58">
-                            Les plus populaires
-                        </h4>
-
-                        <ul>
-
-                            {% for bot in bost %}
-                            <li class="flex-w m-b-25">
-                                <div class="size16 bo-rad-10 wrap-pic-w of-hidden m-r-18">
-                                    <a href="#">
-                                        <img src="{{ vich_uploader_asset(bot)  }}" alt="IMG-BLOG">
-                                    </a>
-                                </div>
-
-                                <div class="size28">
-                                    <a href="{{ path('posts_show', {'postid': bot.postid}) }}" class="dis-block txt28 m-b-8">
-                                        {{ bot.posttitle }}
-                                    </a>
-
-                                    <span class="txt14">
+                                            <span class="txt14">
 											{{ bot.postdate ? bot.postdate|date('D,M,Y') : '' }}
 										</span>
-                                </div>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
 
 
-                    <!-- Archive -->
-                    <div class="archive">
+                        <!-- Archive -->
+                        <div class="archive">
 
-                        <h4 class="txt33 p-b-20 p-t-43">
+                            <h4 class="txt33 p-b-20 p-t-43">
 
-                        </h4>
+                            </h4>
 
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!--===============================================================================================-->
-<script type="text/javascript" src="{{ asset('vendors/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
-<!--===============================================================================================-->
-<script type="text/javascript" src="{{ asset('vendors/vendor/animsition/js/animsition.min.js') }}"></script>
-<!--===============================================================================================-->
-<script type="text/javascript" src="{{ asset('vendors/vendor/bootstrap/js/popper.js') }}"></script>
-<script type="text/javascript" src="{{ asset('vendors/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-<!--===============================================================================================-->
-<script type="text/javascript" src="{{ asset('vendors/vendor/select2/select2.min.js') }}"></script>
-<!--===============================================================================================-->
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="{{ asset('vendors/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="{{ asset('vendors/vendor/animsition/js/animsition.min.js') }}"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="{{ asset('vendors/vendor/bootstrap/js/popper.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendors/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="{{ asset('vendors/vendor/select2/select2.min.js') }}"></script>
+    <!--===============================================================================================-->
 
-<script src="{{ asset('js/main1.js') }}"></script>
-<script>
-    var likeButton = document.getElementById('like');
-    var unlikelikeButton = document.getElementById('unlike');
-    addOnClick(
-        likeButton,unlikelikeButton,document.getElementById('likes-unlike'),'{{ path('likes_like',{'postid': post.postid}) }}'
-    );
-    addOnClick(
-        unlikelikeButton,likeButton,document.getElementById('likes-like'),'{{ path('likes_unlike',{'postid': post.postid}) }}'
-    );
-    function switchbuttons(button,oppositeButton){
-        button.disabled = true;
-        button.style.display = 'none' ;
-        oppositeButton.style.display = 'block';
-    }
-    function addOnClick(button,oppositeButton,likeCount,path){
-        button.addEventListener('click',function(event){
+    <script src="{{ asset('js/main1.js') }}"></script>
+    <script>
+        var likeButton = document.getElementById('like');
+        var unlikelikeButton = document.getElementById('unlike');
+        addOnClick(
+            likeButton,unlikelikeButton,document.getElementById('likes-unlike'),'{{ path('likes_like',{'postid': post.postid}) }}'
+        );
+        addOnClick(
+            unlikelikeButton,likeButton,document.getElementById('likes-like'),'{{ path('likes_unlike',{'postid': post.postid}) }}'
+        );
+        function switchbuttons(button,oppositeButton){
             button.disabled = true;
-            fetch(path,{'credentials':'include'}).then(function (response) {
-                response.json().then(function (json) {
-                    likeCount.innerText = json.count;
-                    switchbuttons(button,oppositeButton);
-                })
-            }).catch(function () {
-                switchbuttons(button,oppositeButton);
-            });
-            event.preventDefault();
-        });
-    }
-
-</script>
-<script>
-    var slidePosition = 0;
-    SlideShow();
-
-    function SlideShow() {
-        var i;
-        var slides = document.getElementsByClassName("Containers");
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
+            button.style.display = 'none' ;
+            oppositeButton.style.display = 'block';
         }
-        slidePosition++;
-        if (slidePosition > slides.length) {slidePosition = 1}
-        slides[slidePosition-1].style.display = "block";
-        setTimeout(SlideShow, 7000); // Change image every 2 seconds
-    }
-</script>
+        function addOnClick(button,oppositeButton,likeCount,path){
+            button.addEventListener('click',function(event){
+                button.disabled = true;
+                fetch(path,{'credentials':'include'}).then(function (response) {
+                    response.json().then(function (json) {
+                        likeCount.innerText = json.count;
+                        switchbuttons(button,oppositeButton);
+                    })
+                }).catch(function () {
+                    switchbuttons(button,oppositeButton);
+                });
+                event.preventDefault();
+            });
+        }
+
+    </script>
+    <script>
+        var slidePosition = 0;
+        SlideShow();
+
+        function SlideShow() {
+            var i;
+            var slides = document.getElementsByClassName("Containers");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slidePosition++;
+            if (slidePosition > slides.length) {slidePosition = 1}
+            slides[slidePosition-1].style.display = "block";
+            setTimeout(SlideShow, 7000); // Change image every 2 seconds
+        }
+    </script>
 
 {% endblock body %}

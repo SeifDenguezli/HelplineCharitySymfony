@@ -2,45 +2,44 @@
 
 namespace App\Entity;
 
+use App\Repository\RecompenseRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Recompense
- *
- * @ORM\Table(name="recompense", indexes={@ORM\Index(name="donorId", columns={"donorId"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=RecompenseRepository::class)
  */
 class Recompense
 {
+
     /**
-     * @var int
-     *
-     * @ORM\Column(name="recompenseId", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
     private $recompenseid;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="nbrePoints", type="integer", nullable=false)
+     * @ORM\Column(type="integer")
      */
     private $nbrepoints;
 
     /**
-     * @var \User
-     *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="donorId", referencedColumnName="userId")
-     * })
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="recompenses")
+     * @ORM\JoinColumn(name="donorId", referencedColumnName="userId")
      */
     private $donorid;
+
 
     public function getRecompenseid(): ?int
     {
         return $this->recompenseid;
+    }
+
+    public function setRecompenseid(int $recompenseid): self
+    {
+        $this->recompenseid = $recompenseid;
+
+        return $this;
     }
 
     public function getNbrepoints(): ?int
@@ -66,6 +65,4 @@ class Recompense
 
         return $this;
     }
-
-
 }
