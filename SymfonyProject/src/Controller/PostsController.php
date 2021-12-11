@@ -20,6 +20,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\CommentsType;
 use ChrisKonnertz\OpenGraph\OpenGraph;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/p1")
@@ -29,6 +30,7 @@ class PostsController extends AbstractController
 
     /**
      * @Route("/posthome", name="posts_index", methods={"POST","GET"})
+     * @IsGranted("ROLE_USER")
      */
     public function index(PaginatorInterface $paginator,Request $request  ): Response
     {
@@ -67,6 +69,7 @@ class PostsController extends AbstractController
 
     /**
      * @Route("/newpost", name="posts_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function new(Request $request): Response
     {
@@ -100,6 +103,7 @@ class PostsController extends AbstractController
 
     /**
      * @Route("/{postid}", name="posts_show", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function show(Posts $post,Request $request,PostsRepository $postsrep):Response
     {   $post->setViewcount($post->getViewcount()+1);
@@ -147,6 +151,7 @@ class PostsController extends AbstractController
 
     /**
      * @Route("/{postid}/edit", name="posts_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function edit(Request $request, Posts $post): Response
     {
@@ -168,6 +173,7 @@ class PostsController extends AbstractController
 
     /**
      * @Route("/{postid}", name="posts_delete", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function delete(Request $request, Posts $post): Response
     {

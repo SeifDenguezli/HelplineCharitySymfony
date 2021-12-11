@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Evenement;
 use App\Entity\EventComment;
 use App\Entity\EventUser;
+use App\Entity\Role;
 use App\Entity\User;
 use App\Form\EvenementType;
 use App\Form\EventCommentType;
@@ -18,6 +19,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/evenement")
@@ -26,9 +29,9 @@ class EvenementController extends AbstractController
 {
 
 
-
     /**
      * @Route("/", name="evenement_index", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      */
     public function index(EvenementRepository $evenementRepository, Request $request, PaginatorInterface $paginator): Response
     {
@@ -90,6 +93,30 @@ class EvenementController extends AbstractController
     {
         $manager = $this->getDoctrine()->getManager();
         $faker = Factory::create('FR-fr');
+
+
+        $adminRole = new Role();
+        $adminRole->setTitle('ROLE_ADMIN');
+        $manager->persist($adminRole);
+
+        $adminUser = new User();
+        $hash = $encoder->encodePassword($adminUser, 'password');
+        $adminUser->setName($faker->name('male'));
+        $adminUser->setPassword($hash);
+        $adminUser->setCity($faker->city);
+        $adminUser->setGouvernorat($faker->state);
+        $adminUser->setPhone($faker->phoneNumber);
+        $adminUser->setMail($faker->email);
+        $adminUser->setRole("Admin");
+        $adminUser->setMontantDonne($faker->randomFloat());
+        $adminUser->setPhoto("https://randomuser.me/api/portraits/men/22.jpg");
+        $adminUser->addUserRole($adminRole);
+        $manager->persist($adminUser);
+
+
+
+
+
 
         $users = [];
         $genres = ['male', 'female'];
@@ -182,8 +209,10 @@ class EvenementController extends AbstractController
     }
 
 
+
     /**
      * @Route("/{eventId}", name="evenement_show")
+     * @IsGranted("ROLE_USER")
      */
     public function show(Evenement $evenement, EventCommentRepository $repo, EventUserRepository $eventUserRepo, EvenementRepository $eventRepository, Request $request): Response
     {
@@ -229,13 +258,13 @@ class EvenementController extends AbstractController
 
     /**
      * @Route("/{eventId}/edit", name="evenement_edit", methods={"GET","POST"})
+     * @Security("is_granted('ROLE_USER') and user === evenement.getAssociationId()")
      */
     public function edit(Request $request, Evenement $evenement): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 

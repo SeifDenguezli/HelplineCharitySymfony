@@ -14,11 +14,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ParticipationController extends AbstractController
 {
     /**
      * @Route("/evenement/{eventId}/donate", name="participation_don")
+     * @IsGranted("ROLE_USER")
      */
     public function joinEvent(Evenement $event, Request $request): Response
     {

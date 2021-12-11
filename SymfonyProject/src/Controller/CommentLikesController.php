@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Json;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/clikes")
@@ -18,6 +19,7 @@ class CommentLikesController extends AbstractController
 {
     /**
      * @Route("/clike/{commentid}",name="clikes_like")
+     * @IsGranted("ROLE_USER")
      */
     public function like(Comments $comment){
         $user = $this->getUser();

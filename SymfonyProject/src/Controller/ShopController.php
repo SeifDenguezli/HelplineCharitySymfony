@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/shop")
@@ -20,6 +21,7 @@ class ShopController extends AbstractController
 {
     /**
      * @Route("/", name="shop_index", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      */
     public function index(ShopRepository $shopRepository, Request $request, PaginatorInterface $paginator): Response
     {
@@ -36,6 +38,7 @@ class ShopController extends AbstractController
 
     /**
      * @Route("/front", name="shop_front_index", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      */
 
     public function showFront(ShopRepository $shopRepository, Request $request, PaginatorInterface $paginator): Response
@@ -55,6 +58,7 @@ class ShopController extends AbstractController
 
     /**
      * @Route("/new", name="shop_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function new(Request $request): Response
     {
@@ -78,6 +82,7 @@ class ShopController extends AbstractController
 
     /**
      * @Route("/{shopId}", name="shop_show", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      */
     public function show(Shop $shop): Response
     {
@@ -88,6 +93,7 @@ class ShopController extends AbstractController
 
     /**
      * @Route("/{shopId}/edit", name="shop_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function edit(Request $request, Shop $shop): Response
     {
@@ -108,6 +114,7 @@ class ShopController extends AbstractController
 
     /**
      * @Route("/{shopId}", name="shop_delete", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function delete(Request $request, Shop $shop): Response
     {
@@ -122,6 +129,7 @@ class ShopController extends AbstractController
 
     /**
      * @Route("/{shopId}/rooted", name="shop_buy", methods={"GET","POST","PUT"})
+     * @IsGranted("ROLE_USER")
      */
     public function Buy(Shop $shop, \Swift_Mailer $mailer)
     {
