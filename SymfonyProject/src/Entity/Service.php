@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Service
@@ -64,10 +65,12 @@ class Service
         return $this->serviceid;
     }
 
+
     public function getTypeservice(): ?string
     {
         return $this->typeservice;
     }
+
 
     public function setTypeservice(string $typeservice): self
     {
@@ -76,10 +79,12 @@ class Service
         return $this;
     }
 
+
     public function getLieu(): ?string
     {
         return $this->lieu;
     }
+
 
     public function setLieu(string $lieu): self
     {
@@ -93,6 +98,7 @@ class Service
         return $this->datedisponibilite;
     }
 
+
     public function setDatedisponibilite(\DateTimeInterface $datedisponibilite): self
     {
         $this->datedisponibilite = $datedisponibilite;
@@ -100,10 +106,12 @@ class Service
         return $this;
     }
 
+
     public function getDescription(): ?string
     {
         return $this->description;
     }
+
 
     public function setDescription(string $description): self
     {
@@ -112,10 +120,12 @@ class Service
         return $this;
     }
 
+
     public function getDonorid(): ?User
     {
         return $this->donorid;
     }
+
 
     public function setDonorid(?User $donorid): self
     {
@@ -123,6 +133,7 @@ class Service
 
         return $this;
     }
+
 
 
 }

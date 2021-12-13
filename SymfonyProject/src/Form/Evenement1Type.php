@@ -7,11 +7,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Evenement1Type extends AbstractType
 {
+
     private function getConfiguration($label, $placeholder){
         return[
             'label' => $label,
@@ -30,6 +32,7 @@ class Evenement1Type extends AbstractType
             ->add('description', TextareaType::class, $this->getConfiguration("Description", "Briéve description de votre évènement"))
             ->add('coverImage', TextType::class, $this->getConfiguration("Image", "Insérer une image représentative de l'évènement"))
             ->add('associationId')
+
         ;
     }
 

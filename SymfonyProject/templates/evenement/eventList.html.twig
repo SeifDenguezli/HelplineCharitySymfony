@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Evenements {% endblock %}
+
+{% block stylesheets %}
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/eventStyle.css" rel="stylesheet">
+{% endblock %}
+
+
+
+{% block body %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Eventid</th>
+            <th>Doncategorie</th>
+            <th>Cause</th>
+            <th>Region</th>
+            <th>NumParticipants</th>
+            <th>DateCreation</th>
+            <th>MontantCollecte</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.eventid }}</td>
+                <td>{{ evenement.doncategorie }}</td>
+                <td>{{ evenement.cause }}</td>
+                <td>{{ evenement.region }}</td>
+                <td>{{ evenement.numParticipants }}</td>
+                <td>{{ evenement.dateCreation ? evenement.dateCreation|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.montantCollecte }}</td>
+                <td>{{ evenement.description }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

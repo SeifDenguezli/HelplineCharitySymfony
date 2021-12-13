@@ -4,6 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+
     "content-hash": "8c9e99a34fee4099aebe7a352b0a83db",
     "packages": [
         {
@@ -1194,6 +1195,7 @@
             "time": "2021-11-26T21:00:12+00:00"
         },
         {
+
             "name": "doctrine/deprecations",
             "version": "v0.5.3",
             "source": {
@@ -1350,8 +1352,10 @@
             "time": "2021-12-01T10:13:31+00:00"
         },
         {
+
             "name": "doctrine/doctrine-migrations-bundle",
             "version": "3.2.1",
+
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMigrationsBundle.git",
@@ -1529,8 +1533,10 @@
             "time": "2020-05-29T18:28:51+00:00"
         },
         {
+
             "name": "doctrine/inflector",
             "version": "2.0.4",
+
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
@@ -2135,6 +2141,7 @@
                 "php-coveralls/php-coveralls": "^2.2",
                 "phpunit/phpunit": "^8.5.8|^9.3.3",
                 "vimeo/psalm": "^4"
+
             },
             "suggest": {
                 "ext-intl": "PHP Internationalization Libraries are required to use the SpoofChecking validation"
@@ -2142,7 +2149,9 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+
                     "dev-master": "3.0.x-dev"
+
                 }
             },
             "autoload": {
@@ -2169,6 +2178,7 @@
                 "validator"
             ],
             "support": {
+
                 "issues": "https://github.com/egulias/EmailValidator/issues",
                 "source": "https://github.com/egulias/EmailValidator/tree/3.1.2"
             },
@@ -2179,6 +2189,7 @@
                 }
             ],
             "time": "2021-10-11T09:18:27+00:00"
+
         },
         {
             "name": "endroid/installer",
@@ -6721,8 +6732,10 @@
             "time": "2021-11-12T10:50:54+00:00"
         },
         {
+
             "name": "symfony/mailer",
             "version": "v4.4.27",
+
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mailer.git",
@@ -7518,7 +7531,9 @@
                 "shim"
             ],
             "support": {
+
                 "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.23.1"
+
             },
             "funding": [
                 {
@@ -7534,6 +7549,7 @@
                     "type": "tidelift"
                 }
             ],
+
             "time": "2021-05-27T12:26:48+00:00"
         },
         {
@@ -7548,6 +7564,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/9a142215a36a3888e30d0a9eeea9766764e96976",
                 "reference": "9a142215a36a3888e30d0a9eeea9766764e96976",
+
                 "shasum": ""
             },
             "require": {
@@ -7565,7 +7582,9 @@
             },
             "autoload": {
                 "psr-4": {
+
                     "Symfony\\Polyfill\\Php72\\": ""
+
                 },
                 "files": [
                     "bootstrap.php"
@@ -7585,16 +7604,20 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
+
             "description": "Symfony polyfill backporting some PHP 7.2+ features to lower PHP versions",
             "homepage": "https://symfony.com",
             "keywords": [
                 "compatibility",
+
                 "polyfill",
                 "portable",
                 "shim"
             ],
             "support": {
+
                 "source": "https://github.com/symfony/polyfill-php72/tree/v1.23.0"
+
             },
             "funding": [
                 {
@@ -7610,7 +7633,9 @@
                     "type": "tidelift"
                 }
             ],
+
             "time": "2021-05-27T09:17:38+00:00"
+
         },
         {
             "name": "symfony/polyfill-php73",
@@ -8338,8 +8363,10 @@
             "time": "2021-11-03T10:04:43+00:00"
         },
         {
+
             "name": "symfony/security-core",
             "version": "v4.4.34",
+
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-core.git",
@@ -9153,7 +9180,9 @@
                 "php": ">=7.2.5"
             },
             "suggest": {
+
                 "symfony/translation-implementation": ""
+
             },
             "type": "library",
             "extra": {
@@ -9167,8 +9196,10 @@
             },
             "autoload": {
                 "psr-4": {
+
                     "Symfony\\Contracts\\Translation\\": ""
                 }
+
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -9184,7 +9215,9 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
+
             "description": "Generic abstractions related to translation",
+
             "homepage": "https://symfony.com",
             "keywords": [
                 "abstractions",
@@ -9195,7 +9228,9 @@
                 "standards"
             ],
             "support": {
+
                 "source": "https://github.com/symfony/translation-contracts/tree/v2.5.0"
+
             },
             "funding": [
                 {
@@ -9211,6 +9246,7 @@
                     "type": "tidelift"
                 }
             ],
+
             "time": "2021-08-17T14:20:01+00:00"
         },
         {
@@ -9291,6 +9327,7 @@
                 "psr-4": {
                     "Symfony\\Bridge\\Twig\\": ""
                 },
+
                 "exclude-from-classmap": [
                     "/Tests/"
                 ]
@@ -9309,10 +9346,12 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
+
             "description": "Provides integration for Twig with various Symfony components",
             "homepage": "https://symfony.com",
             "support": {
                 "source": "https://github.com/symfony/twig-bridge/tree/v4.4.34"
+
             },
             "funding": [
                 {
@@ -9328,6 +9367,7 @@
                     "type": "tidelift"
                 }
             ],
+
             "time": "2021-11-18T18:14:15+00:00"
         },
         {
@@ -9378,6 +9418,7 @@
             "autoload": {
                 "psr-4": {
                     "Symfony\\Bundle\\TwigBundle\\": ""
+
                 },
                 "exclude-from-classmap": [
                     "/Tests/"
@@ -9394,13 +9435,15 @@
                 },
                 {
                     "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
+                    "homepage": "http://symfony.com/contributors"
                 }
             ],
+
             "description": "Provides a tight integration of Twig into the Symfony full-stack framework",
             "homepage": "https://symfony.com",
             "support": {
                 "source": "https://github.com/symfony/twig-bundle/tree/v4.4.30"
+
             },
             "funding": [
                 {
@@ -9416,7 +9459,9 @@
                     "type": "tidelift"
                 }
             ],
+
             "time": "2021-08-04T20:31:23+00:00"
+
         },
         {
             "name": "symfony/validator",
@@ -9687,8 +9732,10 @@
             "time": "2021-11-22T10:44:13+00:00"
         },
         {
+
             "name": "symfony/web-link",
             "version": "v4.4.27",
+
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/web-link.git",
@@ -10370,6 +10417,112 @@
             "time": "2020-11-12T00:07:28+00:00"
         },
         {
+            "name": "vich/uploader-bundle",
+            "version": "1.18.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dustin10/VichUploaderBundle.git",
+                "reference": "c5250c8d6a072960250ce5130e68a5693b3b48dd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/c5250c8d6a072960250ce5130e68a5693b3b48dd",
+                "reference": "c5250c8d6a072960250ce5130e68a5693b3b48dd",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "jms/metadata": "^2.4",
+                "php": "^7.3 || ^8.0",
+                "symfony/config": "^4.4 || ^5.0",
+                "symfony/console": "^4.4 || ^5.0",
+                "symfony/dependency-injection": "^4.4 || ^5.0",
+                "symfony/event-dispatcher-contracts": "^1.1 || ^2.0",
+                "symfony/http-foundation": "^4.4 || ^5.0",
+                "symfony/http-kernel": "^4.4 || ^5.0",
+                "symfony/mime": "^4.4 || ^5.0",
+                "symfony/property-access": "^4.4 || ^5.0",
+                "symfony/string": "^5.0"
+            },
+            "conflict": {
+                "league/flysystem": "<2.0"
+            },
+            "require-dev": {
+                "alcaeus/mongo-php-adapter": "^1.2",
+                "doctrine/doctrine-bundle": "^2.2",
+                "doctrine/mongodb-odm": "^1.2 || ^2.0",
+                "doctrine/orm": "^2.7",
+                "ext-sqlite3": "*",
+                "knplabs/knp-gaufrette-bundle": "^0.7",
+                "league/flysystem-bundle": "^2.0",
+                "league/flysystem-memory": "^2.0",
+                "matthiasnoback/symfony-dependency-injection-test": "^4.1",
+                "mikey179/vfsstream": "^1.6",
+                "phpunit/phpunit": "^9.5",
+                "symfony/asset": "^4.4 || ^5.0",
+                "symfony/browser-kit": "^4.4 || ^5.0",
+                "symfony/css-selector": "^4.4 || ^5.0",
+                "symfony/doctrine-bridge": "^4.4 || ^5.0",
+                "symfony/dom-crawler": "^4.4 || ^5.0",
+                "symfony/form": "^4.4 || ^5.0",
+                "symfony/framework-bundle": "^4.4 || ^5.0",
+                "symfony/phpunit-bridge": "^5.2",
+                "symfony/security-csrf": "^4.4 || ^5.0",
+                "symfony/translation": "^4.4 || ^5.0",
+                "symfony/twig-bridge": "^4.4 || ^5.0",
+                "symfony/twig-bundle": "^4.4 || ^5.0",
+                "symfony/validator": "^4.4 || ^5.0",
+                "symfony/var-dumper": "^4.4 || ^5.0",
+                "symfony/yaml": "^4.4 || ^5.0"
+            },
+            "suggest": {
+                "doctrine/doctrine-bundle": "For integration with Doctrine",
+                "doctrine/mongodb-odm-bundle": "For integration with Doctrine ODM",
+                "doctrine/orm": "For integration with Doctrine ORM",
+                "doctrine/phpcr-odm": "For integration with Doctrine PHPCR",
+                "knplabs/knp-gaufrette-bundle": "For integration with Gaufrette",
+                "league/flysystem-bundle": "For integration with Flysystem",
+                "liip/imagine-bundle": "To generate image thumbnails",
+                "ocramius/proxy-manager": "To use lazy services",
+                "oneup/flysystem-bundle": "For integration with Flysystem",
+                "symfony/asset": "To generate better links",
+                "symfony/form": "To handle uploads in forms",
+                "symfony/yaml": "To use YAML mapping"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Vich\\UploaderBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dustin Dobervich",
+                    "email": "ddobervich@gmail.com"
+                }
+            ],
+            "description": "Ease file uploads attached to entities",
+            "homepage": "https://github.com/dustin10/VichUploaderBundle",
+            "keywords": [
+                "file uploads",
+                "upload"
+            ],
+            "support": {
+                "issues": "https://github.com/dustin10/VichUploaderBundle/issues",
+                "source": "https://github.com/dustin10/VichUploaderBundle/tree/1.18.0"
+            },
+            "time": "2021-06-04T12:22:58+00:00"
+        },
+        {
             "name": "webmozart/assert",
             "version": "1.10.0",
             "source": {
@@ -10648,6 +10801,7 @@
             "time": "2020-11-13T09:40:50+00:00"
         },
         {
+
             "name": "nikic/php-parser",
             "version": "v4.13.2",
             "source": {
@@ -10704,6 +10858,7 @@
             "time": "2021-11-30T19:35:32+00:00"
         },
         {
+
             "name": "phar-io/manifest",
             "version": "2.0.3",
             "source": {

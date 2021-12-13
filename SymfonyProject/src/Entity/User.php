@@ -262,6 +262,7 @@ class User implements UserInterface
     }
 
     /**
+
      * @return string|null
      */
     public function getCity(): ?string
@@ -291,11 +292,13 @@ class User implements UserInterface
     public function setGouvernorat(?string $gouvernorat): void
     {
         $this->gouvernorat = $gouvernorat;
+
     }
 
     /**
      * @return string|null
      */
+
     public function getPhone(): ?string
     {
         return $this->phone;
@@ -496,6 +499,7 @@ class User implements UserInterface
         }
 
         return $this;
+
     }
 
     public function __toString()
@@ -560,3 +564,4 @@ class User implements UserInterface
         return $this;
     }
 }
+

@@ -271,6 +271,7 @@ class Evenement
     }
 
     /**
+
      * @return Collection|EventUser[]
      */
     public function getEventUsers(): Collection
@@ -345,6 +346,7 @@ class Evenement
     {
         $this->captchaCode = $captchaCode;
     }
+
 
 
 

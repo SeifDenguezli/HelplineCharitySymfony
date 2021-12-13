@@ -2327,6 +2327,7 @@ form textarea:valid ~ button:hover{
 .container1.active .audience{
     opacity: 1;
 }
+
 .audience header{
     padding: 17px 0;
     text-align: center;
@@ -2485,5 +2486,6 @@ form textarea:valid ~ button:hover{
     font-size: x-small;
     align-content: center;
 }
+
 
 
