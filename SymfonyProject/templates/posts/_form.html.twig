@@ -1,0 +1,22 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+<div class="container">
+    <br>
+    <div class="section-header text-center">
+        <h4>Ajouter un nouveau post</h4>
+    </div>
+    <br>
+    {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
+    {{ form_widget(form) }}
+
+    <div>
+
+
+    </div>
+    <button class="btn btn-outline-google">{{ button_label|default('Ajouter') }}</button>
+    {{ form_end(form) }}
+    <br>
+
+</div>
+
+

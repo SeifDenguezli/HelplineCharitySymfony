@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Evenement{% endblock %}
+
+
+
+{% block body %}
+
+    {{ include('evenement/_multiStepForm.html.twig') }}
+
+    <a href="{{ path('evenement_index') }}">Retour à la liste</a>
+{% endblock %}
+
+

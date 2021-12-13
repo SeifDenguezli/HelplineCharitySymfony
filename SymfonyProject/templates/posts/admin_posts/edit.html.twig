@@ -1,0 +1,13 @@
+{% extends 'backoffice.html.twig' %}
+
+{% block title %}Edit Posts{% endblock %}
+
+{% block body %}
+    <h1>Edit Posts</h1>
+
+    {{ include('/posts/admin_posts/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admin_posts_index') }}">back to list</a>
+
+
+{% endblock %}

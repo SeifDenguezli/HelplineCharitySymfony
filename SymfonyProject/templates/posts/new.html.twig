@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block carousel %}
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Blog</h2>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block body %}
+<div >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    </div>
+
+
+<center>
+<div class="card" style="width: 700px">
+
+    <div class="card-header"  style="background-color: lightyellow">
+        {{ form_start(form,{attr: {'novalidate': 'novalidate'}}) }}
+        <h1 style="font-size: 25px">Titre </h1>
+        {{ form_errors(form.posttitle) }}
+        {{ form_widget(form.posttitle) }}
+    </div>
+    <div class="card-body" style="background-color: lightyellow">
+         <h1 style="font-size: 25px; padding-left: 0px">Type </h1>
+        {{ form_errors(form.posttype) }}
+        {{ form_widget(form.posttype) }}
+        <br>
+        <h1 style="font-size: 25px">Contenu </h1>
+        {{ form_errors(form.postcontent) }}
+        {{ form_widget(form.postcontent) }}
+        <br>
+        <h1 style="font-size: 25px">Image</h1>
+        {{ form_errors(form.imageFile) }}
+        {{ form_widget(form.imageFile) }}
+
+
+    </div>
+
+
+    <center>
+        <button type="submit" class="btn btn-custom" href="{{ path('posts_index') }}" >Terminé</button>
+        {{ form_end(form) }}
+       <a class="btn btn-custom"  href="{{ path('posts_index') }}">Retour</a>
+    </center>
+</div>
+</center>
+{% endblock body %}

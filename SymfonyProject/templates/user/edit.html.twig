@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+
+
+    {{ include('security/registration.html.twig', {'button_label': 'Update'}) }}
+
+
+    <a class="btn btn-success" href=""{{ path('acceuil') }}">Retour vers Acceuil</a>
+
+    {{ include('user/_delete_form.html.twig') }}
+{% endblock %}

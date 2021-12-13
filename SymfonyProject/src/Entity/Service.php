@@ -33,7 +33,6 @@ class Service
      * @var string
      *
      * @ORM\Column(name="lieu", type="string", length=255, nullable=false)
-     * @Assert\NotBlank(message="Veuillez spécifier le lieu")
      */
     private $lieu;
 
@@ -48,12 +47,11 @@ class Service
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
-     * @Assert\NotBlank(message="Veuillez spécifier une description")
      */
     private $description;
 
     /**
-     * @var User
+     * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
@@ -62,102 +60,79 @@ class Service
      */
     private $donorid;
 
-    /**
-     * @return int
-     */
     public function getServiceid(): ?int
     {
         return $this->serviceid;
     }
 
-    /**
-     * @param int $serviceid
-     */
-    public function setServiceid(?int $serviceid): void
-    {
-        $this->serviceid = $serviceid;
-    }
 
-    /**
-     * @return string
-     */
     public function getTypeservice(): ?string
     {
         return $this->typeservice;
     }
 
-    /**
-     * @param string $typeservice
-     */
-    public function setTypeservice(?string $typeservice): void
+
+    public function setTypeservice(string $typeservice): self
     {
         $this->typeservice = $typeservice;
+
+        return $this;
     }
 
-    /**
-     * @return string
-     */
+
     public function getLieu(): ?string
     {
         return $this->lieu;
     }
 
-    /**
-     * @param string $lieu
-     */
-    public function setLieu(?string $lieu): void
+
+    public function setLieu(string $lieu): self
     {
         $this->lieu = $lieu;
+
+        return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDatedisponibilite(): ?\DateTime
+    public function getDatedisponibilite(): ?\DateTimeInterface
     {
         return $this->datedisponibilite;
     }
 
-    /**
-     * @param \DateTime $datedisponibilite
-     */
-    public function setDatedisponibilite(?\DateTime $datedisponibilite): void
+
+    public function setDatedisponibilite(\DateTimeInterface $datedisponibilite): self
     {
         $this->datedisponibilite = $datedisponibilite;
+
+        return $this;
     }
 
-    /**
-     * @return string
-     */
+
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     */
-    public function setDescription(?string $description): void
+
+    public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
     }
 
-    /**
-     * @return User
-     */
+
     public function getDonorid(): ?User
     {
         return $this->donorid;
     }
 
-    /**
-     * @param User $donorid
-     */
-    public function setDonorid(?User $donorid): void
+
+    public function setDonorid(?User $donorid): self
     {
         $this->donorid = $donorid;
-    }
 
+        return $this;
+    }
 
 
 

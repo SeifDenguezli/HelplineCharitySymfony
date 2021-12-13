@@ -2,258 +2,352 @@
 
 namespace App\Entity;
 
+use App\Repository\EvenementRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * Evenement
- *
- * @ORM\Table(name="evenement", indexes={@ORM\Index(name="associationId", columns={"associationId"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=EvenementRepository::class)
+ * @Vich\Uploadable
  */
 class Evenement
 {
+
     /**
-     * @var int
-     *
-     * @ORM\Column(name="eventId", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     *
      */
-    private $eventid;
+    private $eventId;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="donCategorie", type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="evenements")
+     * @ORM\JoinColumn(name="associationId", referencedColumnName="userId")
+     * @Assert\NotBlank(message="Veuillez spécifier l'association organisatrice")
      */
-    private $doncategorie;
+    private $associationId;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="cause", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez spécifier la catégorie de l'évènement")
+     */
+    private $donCategorie;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez spécifier l'objctif de l'évènement")
      */
     private $cause;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="Region", type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez spécifier la région de l'évènement")
      */
-    private $region;
+    private $Region;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="num_participants", type="integer", nullable=false)
+     * @ORM\Column(type="integer")
      */
-    private $numParticipants;
+    private $num_participants;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_creation", type="date", nullable=false)
+     * @ORM\Column(type="date")
+     * @Assert\NotBlank(message="Veuillez spécifier la date de l'évènement")
      */
-    private $dateCreation;
+    private $date_creation;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="montant_collecte", type="float", precision=10, scale=0, nullable=false)
+     * @ORM\Column(type="float")
      */
-    private $montantCollecte;
-
+    private $montant_collecte;
     /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=1024, nullable=false)
+     * @ORM\Column(type="string", length=1024)
+     * @Assert\NotBlank(message="Veuillez spécifier une déscription de l'évènement")
      */
     private $description;
 
     /**
-     * @var \User
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @ORM\ManyToOne(targetEntity="User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="associationId", referencedColumnName="userId")
-     * })
+     * @Vich\UploadableField(mapping="events", fileNameProperty="coverImage")
+     * @Assert\NotBlank(message="Veuillez importer une image pour votre évènement")
+     *
+     * @var File|null
      */
-    private $associationid;
+    private $imageFile;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="eventid")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $userid;
+    private $coverImage;
 
     /**
-     * Constructor
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @var \DateTimeInterface|null
      */
+    private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=EventUser::class, mappedBy="eventId")
+     */
+    private $eventUsers;
+
+    /**
+     * @ORM\OneToMany(targetEntity=EventComment::class, mappedBy="event")
+     */
+    private $eventComments;
+
+    protected $captchaCode;
+
     public function __construct()
     {
-        $this->userid = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->eventUsers = new ArrayCollection();
+        $this->eventComments = new ArrayCollection();
     }
 
-    /**
-     * @return int
-     */
-    public function getEventid(): int
+
+
+
+    public function getEventId(): ?int
     {
-        return $this->eventid;
+        return $this->eventId;
     }
 
     /**
-     * @param int $eventid
+     * @param mixed $eventId
      */
-    public function setEventid(int $eventid): void
+    public function setEventId($eventId): void
     {
-        $this->eventid = $eventid;
+        $this->eventId = $eventId;
     }
 
-    /**
-     * @return string
-     */
-    public function getDoncategorie(): string
+
+
+    public function getAssociationId(): ?User
     {
-        return $this->doncategorie;
+        return $this->associationId;
     }
 
-    /**
-     * @param string $doncategorie
-     */
-    public function setDoncategorie(string $doncategorie): void
+    public function setAssociationId(?User $associationId): self
     {
-        $this->doncategorie = $doncategorie;
+        $this->associationId = $associationId;
+
+        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getCause(): string
+    public function getDonCategorie(): ?string
+    {
+        return $this->donCategorie;
+    }
+
+    public function setDonCategorie(string $donCategorie): self
+    {
+        $this->donCategorie = $donCategorie;
+
+        return $this;
+    }
+
+    public function getCause(): ?string
     {
         return $this->cause;
     }
 
-    /**
-     * @param string $cause
-     */
-    public function setCause(string $cause): void
+    public function setCause(string $cause): self
     {
         $this->cause = $cause;
+
+        return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getRegion(): ?string
     {
-        return $this->region;
+        return $this->Region;
     }
 
-    /**
-     * @param string|null $region
-     */
-    public function setRegion(?string $region): void
+    public function setRegion(string $Region): self
     {
-        $this->region = $region;
+        $this->Region = $Region;
+
+        return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getNumParticipants(): int
+    public function getNumParticipants(): ?int
     {
-        return $this->numParticipants;
+        return $this->num_participants;
     }
 
-    /**
-     * @param int $numParticipants
-     */
-    public function setNumParticipants(int $numParticipants): void
+    public function setNumParticipants(int $num_participants): self
     {
-        $this->numParticipants = $numParticipants;
+        $this->num_participants = $num_participants;
+
+        return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDateCreation(): \DateTime
+    public function getDateCreation(): ?\DateTimeInterface
     {
-        return $this->dateCreation;
+        return $this->date_creation;
     }
 
-    /**
-     * @param \DateTime $dateCreation
-     */
-    public function setDateCreation(\DateTime $dateCreation): void
+    public function setDateCreation(\DateTimeInterface $date_creation): self
     {
-        $this->dateCreation = $dateCreation;
+        $this->date_creation = $date_creation;
+
+        return $this;
     }
 
-    /**
-     * @return float
-     */
-    public function getMontantCollecte(): float
+    public function getMontantCollecte(): ?float
     {
-        return $this->montantCollecte;
+        return $this->montant_collecte;
     }
 
-    /**
-     * @param float $montantCollecte
-     */
-    public function setMontantCollecte(float $montantCollecte): void
+    public function setMontantCollecte(float $montant_collecte): self
     {
-        $this->montantCollecte = $montantCollecte;
+        $this->montant_collecte = $montant_collecte;
+
+        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description): void
+    public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCoverImage(): ?string
+    {
+        return $this->coverImage;
+    }
+
+    public function setCoverImage(?string $coverImage): self
+    {
+        $this->coverImage = $coverImage;
+
+        return $this;
     }
 
     /**
-     * @return \User
+     * @return \DateTimeInterface|null
      */
-    public function getAssociationid(): \User
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->associationid;
+        return $this->updatedAt;
     }
 
     /**
-     * @param \User $associationid
+     * @param \DateTimeInterface|null $updatedAt
      */
-    public function setAssociationid(\User $associationid): void
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): void
     {
-        $this->associationid = $associationid;
+        $this->updatedAt = $updatedAt;
+    }
+
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+
+     * @return Collection|EventUser[]
      */
-    public function getUserid()
+    public function getEventUsers(): Collection
     {
-        return $this->userid;
+        return $this->eventUsers;
+    }
+
+    public function addEventUser(EventUser $eventUser): self
+    {
+        if (!$this->eventUsers->contains($eventUser)) {
+            $this->eventUsers[] = $eventUser;
+            $eventUser->setEventId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventUser(EventUser $eventUser): self
+    {
+        if ($this->eventUsers->removeElement($eventUser)) {
+            // set the owning side to null (unless already changed)
+            if ($eventUser->getEventId() === $this) {
+                $eventUser->setEventId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getCause();
     }
 
     /**
-     * @param \Doctrine\Common\Collections\Collection $userid
+     * @return Collection|EventComment[]
      */
-    public function setUserid($userid): void
+    public function getEventComments(): Collection
     {
-        $this->userid = $userid;
+        return $this->eventComments;
     }
+
+    public function addEventComment(EventComment $eventComment): self
+    {
+        if (!$this->eventComments->contains($eventComment)) {
+            $this->eventComments[] = $eventComment;
+            $eventComment->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventComment(EventComment $eventComment): self
+    {
+        if ($this->eventComments->removeElement($eventComment)) {
+            // set the owning side to null (unless already changed)
+            if ($eventComment->getEvent() === $this) {
+                $eventComment->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function getCaptchaCode()
+    {
+        return $this->captchaCode;
+    }
+
+    public function setCaptchaCode($captchaCode)
+    {
+        $this->captchaCode = $captchaCode;
+    }
+
+
 
 
 

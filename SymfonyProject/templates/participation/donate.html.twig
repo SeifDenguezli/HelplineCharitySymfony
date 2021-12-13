@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Donation{% endblock %}
+
+{% block carousel %}
+
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Donate Now</h2>
+                </div>
+                <div class="col-12">
+                    <a href="">Home</a>
+                    <a href="">Donate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block body %}
+
+
+    <!-- Service Start -->
+    <div class="service">
+        <div class="container">
+            <div class="section-header text-center">
+                <p>A propos de nous</p>
+                <h2>Nous sommes sûr que nous pouvons sauver plusieurs vies avec vous !</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="flaticon-diet"></i>
+                        </div>
+                        <div class="service-text">
+                            <h3>Nourriture Saine</h3>
+                            <p>Nous tenons à s'assurer que le niveau de famine dans tous les coins du monde soit minimal</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="flaticon-water"></i>
+                        </div>
+                        <div class="service-text">
+                            <h3>Eau Pure</h3>
+                            <p>Chaque personne dans le monde à le droit d'avoir de l'eau pure, c'est notre devoir</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="flaticon-healthcare"></i>
+                        </div>
+                        <div class="service-text">
+                            <h3>Santé</h3>
+                            <p>On veille sur la protection des pauvres contre tous type de maladie</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="flaticon-education"></i>
+                        </div>
+                        <div class="service-text">
+                            <h3>Education Primaire</h3>
+                            <p>Un monde sans éducation ne peut s'évoluer en aucun cas, c'est l'un de nos occupations primaires</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="flaticon-home"></i>
+                        </div>
+                        <div class="service-text">
+                            <h3>Logement</h3>
+                            <p>On ne peut imaginer aucun pauvre sans abri des changement climatiques séveres</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="flaticon-social-care"></i>
+                        </div>
+                        <div class="service-text">
+                            <h3>Protection sociale</h3>
+                            <p>On offre une protection social pour les enfants</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+
+
+
+
+
+
+
+
+
+    <div class="container">
+        <div class="donate" data-parallax="scroll" data-image-src="{{ asset('img/donate.jpg') }}">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <div class="donate-content">
+                        <div class="section-header">
+                            <p>Donate Now</p>
+                            <h2>Let's donate to needy people for better lives</h2>
+                        </div>
+                        <div class="donate-text">
+                            <p>
+                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non. Aliquam metus tortor, auctor id gravida, viverra quis sem. Curabitur non nisl nec nisi maximus. Aenean convallis porttitor. Aliquam interdum at lacus non blandit.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="donate-form">
+                        <div class="control-group">
+                            <p>Merci pour votre confiance en nous !</p>
+                            <p>Veuillez insérer le montant de votre don ci-dessous</p>
+                        </div>
+                        {{ form_start(form) }}
+                            <div class="control-group">
+                                {{ form_widget(form.amount) }}
+                            </div>
+                            <div>
+                                <button class="btn btn-custom" type="submit">Valider le don</button>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,23 @@
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <h1>Votre évènement à bien été créer !</h1>
+
+        <p>Merci de nous avoir choisi pour aider les gens à travers le monde entier </p>
+        <p>En ce qui suit, vous trouverez les informations concernant votre évènement</p>
+        <div>
+            <ul>
+                <li>Date de création : {{ date ? date|date('d-m-Y') : '' }}</li>
+                <li>Catégorie : {{ evenement.donCategorie }}</li>
+                <li>Région : {{ evenement.region }}</li>
+                <li>Objectif : {{ evenement.cause }}</li>
+                <li>Description : {{ evenement.description }}</li>
+            </ul>
+        </div>
+
+    </body>
+
+</html>

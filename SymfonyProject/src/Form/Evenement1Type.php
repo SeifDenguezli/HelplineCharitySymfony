@@ -4,23 +4,35 @@ namespace App\Form;
 
 use App\Entity\Evenement;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Evenement1Type extends AbstractType
 {
+
+    private function getConfiguration($label, $placeholder){
+        return[
+            'label' => $label,
+            'attr' => [
+                'placeholder' => $placeholder
+            ]
+        ];
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('doncategorie')
-            ->add('cause')
-            ->add('region')
-            ->add('numParticipants')
-            ->add('dateCreation')
-            ->add('montantCollecte')
-            ->add('description')
-            ->add('associationid')
-            ->add('userid')
+            ->add('donCategorie', TextType::class, $this->getConfiguration("Catégorie de l'évènement", "Catégorie de l'évènement"))
+            ->add('cause', TextType::class, $this->getConfiguration("Objectif", "Objectif à atteindre de cet évènement"))
+            ->add('Region',TextType::class, $this->getConfiguration("Région", "Région de l'évènement"))
+            ->add('date_creation', DateType::class, $this->getConfiguration("Date de l'évènement", "Date de l'évènement"))
+            ->add('description', TextareaType::class, $this->getConfiguration("Description", "Briéve description de votre évènement"))
+            ->add('coverImage', TextType::class, $this->getConfiguration("Image", "Insérer une image représentative de l'évènement"))
+            ->add('associationId')
+
         ;
     }
 

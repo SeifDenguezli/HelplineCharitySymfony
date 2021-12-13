@@ -1,0 +1,280 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails Evenement{% endblock %}
+
+{% block carousel %}
+
+    <!-- Page Header Start -->
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Detail Page</h2>
+                </div>
+                <div class="col-12">
+                    <a href="">Home</a>
+                    <a href="">Detail</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+
+{% endblock %}
+
+{% block body %}
+
+
+    <!-- Single Post Start-->
+    <div class="single">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="single-content">
+                        {#
+                        If statement used to display either uploaded image with VichUpload or Random image from the FakerBundle
+                            To remove after stop using FixtureBundle
+                            Only keep :::::   <img src="{{ vich_uploader_asset(evenement) }}">
+                        #}
+                        {% if evenement.updatedAt is not null %}
+                            <img src="{{ vich_uploader_asset(evenement) }}">
+                        {% else %}
+                            <img src="{{ evenement.coverImage }}" alt="Image">
+                        {% endif %}
+                        {% if comments|length > 0 %}
+                        <h2>Rating : {% include 'shared/rating.html.twig' with {'rating' : avgRatings.avgRating} %}</h2>
+                        {% else %}
+                        <h2>Cet évènement n'a pas de rating en ce moment</h2>
+                        {% endif %}
+                        <div class="mr-5 mt-3">
+                            <h5>Catégorie</h5>
+                            <p class="text-info">{{ evenement.donCategorie }}</p>
+                        </div>
+                        <hr>
+                        <div class="mr-5 mt-3">
+                            <h5>Region</h5>
+                            <p class="text-info">{{ evenement.region }}</p>
+                        </div>
+                        <hr>
+                        <div class="mr-5 mt-3">
+                            <h5>Objectif</h5>
+                            <p class="text-info">{{ evenement.cause }}</p>
+                        </div>
+                        <hr>
+                        <div class="mr-5 mt-3">
+                            <h5>Nombre De Participants</h5>
+                            <p class="text-info">{{ evenement.numParticipants }}</p>
+                        </div>
+                        <hr>
+                        <div class="mr-5 mt-3">
+                            <h5>Montant Collecté</h5>
+                            <p class="text-info">{{ evenement.montantCollecte }} DT</p>
+                        </div>
+                        <hr>
+                        <h4>Description de l'évènement</h4>
+                        <p>
+                            {{ evenement.description }}
+                        </p>
+                        <hr>
+                    </div>
+                    <div class="single-tags">
+                        <a href="">National</a>
+                        <a href="">International</a>
+                        <a href="">Economics</a>
+                        <a href="">Politics</a>
+                        <a href="">Lifestyle</a>
+                        <a href="">Technology</a>
+                        <a href="">Trades</a>
+                    </div>
+                    <div class="single-bio">
+                        <div class="single-bio-img">
+                            <img src="{{ evenement.associationId.photo }}" />
+                        </div>
+                        <div class="single-bio-text">
+                            <h3>Responsable de l'évènement</h3>
+                            <div class="text-info mt-2">
+                                {{ evenement.associationId.name }}
+                            </div>
+                            <div class="text-info mt-2">
+                                {{ evenement.associationId.phone }}
+                            </div>
+                            <div class="text-info mt-2">
+                                {{ evenement.associationId.mail }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-related">
+                        <h2>Autres évènements relatifs à l'association</h2>
+                        <div class="owl-carousel related-slider">
+
+                            {% for relatifEvent in relatifEvents %}
+                            <div class="post-item">
+                                <div class="post-img">
+                                    {#
+                                    If statement used to display either uploaded image with VichUpload or Random image from the FakerBundle
+                                        To remove after stop using FixtureBundle
+                                        Only keep :::::   <img src="{{ vich_uploader_asset(evenement) }}">
+                                    #}
+                                    {% if evenement.updatedAt is not null %}
+                                        <img src="{{ vich_uploader_asset(relatifEvent) }}">
+                                    {% else %}
+                                        <img src="{{ relatifEvent.coverImage }}" alt="Image">
+                                    {% endif %}
+                                </div>
+                                <div class="post-text">
+                                    <a href="">{{ relatifEvent.cause }}</a>
+                                    <div class="post-meta">
+                                        <p>By<a href="">{{ relatifEvent.associationId.name }}</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+
+
+    {{ include('evenement/_delete_form.html.twig') }}
+                    <div class="single-comment">
+                        {% if comments|length > 0 %}
+
+                        <h2>{{ comments|length }} Commentaires</h2>
+                        {% for comment in comments %}
+                        <ul class="comment-list">
+                            <li class="comment-item">
+                                <div class="comment-body">
+                                    <div class="comment-img">
+                                        <img src="{{ comment.user.photo }}" />
+                                    </div>
+                                    <div class="comment-text">
+                                        <h3><a href="">{{ comment.user.name }}</a>
+                                            {% include 'shared/rating.html.twig' with {'rating' : comment.rating} %}
+                                        </h3>
+                                        <span>{{ comment.createdAt ? comment.createdAt|date('Y-m-d') : ''}}</span>
+                                        <p>
+                                            {{ comment.content }}
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        </ul>
+                        {% else %}
+                            <h2>Pas de commentaires postés pour cet évènement</h2>
+                        {% endif %}
+
+                    </div>
+                    <div class="comment-form">
+                        <h2>Postez votre propre commentaire</h2>
+                        {{ form_start(form) }}
+                        <div class="form-group">
+                            <label for="message">Contenu *</label>
+                            {{ form_widget(form.content) }}
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Rating *</label>
+
+                            {{ form_widget(form.rating) }}
+
+                        </div>
+                        <div>
+                            <button class="btn btn-custom" type="submit">Valider le commentaire</button>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="sidebar">
+                        <div class="sidebar-widget">
+                            <div class="search-widget">
+                                <form>
+                                    <input class="form-control" type="text" placeholder="Search Keyword">
+                                    <button class="btn"><i class="fa fa-search"></i></button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-widget">
+                            <h2 class="widget-title">Donneurs récents</h2>
+                            <div class="recent-post">
+                                {% if donneurs|length > 0 %}
+                            {% for donneur in donneurs %}
+                                <div class="post-item">
+                                    <div class="post-img">
+                                        <img src="{{ donneur.userId.photo }}" />
+                                    </div>
+                                    <div class="post-text">
+                                        <a href="#">{{ donneur.userId.name }}</a>
+                                        <div class="post-meta">
+                                            <p><i class="fas fa-euro-sign"></i><a href="">{{ donneur.amount }}</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% else %}
+                                    <h4>Aucun don effectué au profit de cet évènement en ce moment</h4>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="sidebar-widget">
+                            <div class="image-widget">
+                                <a href="#"><img src="{{ asset('img/blog-1.jpg') }}" alt="Image"></a>
+                            </div>
+                        </div>
+
+
+
+                        <div class="sidebar-widget">
+                            <div class="image-widget">
+                                <a href="#"><img src="{{ asset('img/blog-2.jpg') }}" alt="Image"></a>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-widget">
+                            <h2 class="widget-title">Categories</h2>
+                            <div class="category-widget">
+                                <ul>
+                                    <li><a href="">National</a><span>(98)</span></li>
+                                    <li><a href="">International</a><span>(87)</span></li>
+                                    <li><a href="">Economics</a><span>(76)</span></li>
+                                    <li><a href="">Politics</a><span>(65)</span></li>
+                                    <li><a href="">Lifestyle</a><span>(54)</span></li>
+                                    <li><a href="">Technology</a><span>(43)</span></li>
+                                    <li><a href="">Trades</a><span>(32)</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-widget">
+                            <div class="image-widget">
+                                <a href="#"><img src="{{ asset('img/blog-3.jpg') }}" alt="Image"></a>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-widget">
+                            <h2 class="widget-title">Tags Cloud</h2>
+                            <div class="tag-widget">
+                                <a href="">National</a>
+                                <a href="">International</a>
+                                <a href="">Economics</a>
+                                <a href="">Politics</a>
+                                <a href="">Lifestyle</a>
+                                <a href="">Technology</a>
+                                <a href="">Trades</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Single Post End-->
+
+
+{% endblock %}

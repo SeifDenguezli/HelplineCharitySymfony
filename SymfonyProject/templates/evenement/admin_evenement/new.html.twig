@@ -1,0 +1,10 @@
+{% extends 'backoffice.html.twig' %}
+
+{% block title %}New Evenement{% endblock %}
+
+{% block body %}
+
+    {{ include('evenement/admin_evenement/_form.html.twig') }}
+
+    <a class="btn btn-info" href="{{ path('admin_evenement_index') }}">back to list</a>
+{% endblock %}

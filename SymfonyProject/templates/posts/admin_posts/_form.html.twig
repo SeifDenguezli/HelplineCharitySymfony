@@ -1,0 +1,17 @@
+<div class="container">
+    <br>
+    <div class="section-header text-center">
+        <h4>Ajouter un nouveau post</h4>
+    </div>
+    <br>
+        {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
+        {{ form_widget(form) }}
+       <div>
+           <button class="btn btn-outline-google">{{ button_label|default('Ajouter') }}</button>
+           <a href="{{ path('admin_posts_index') }}" class="btn btn-outline-google">Retour</a>
+       </div>
+        {{ form_end(form) }}
+    <br>
+
+    </div>
+

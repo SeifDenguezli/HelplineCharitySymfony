@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+{% block carousel %}
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Blog</h2>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block body %}
+    <body style="background-color: rgba(0,2,7,0.85)"></body>
+
+
+    <script>
+        var botmanWidget = {
+            frameEndpoint: '{{ path("chatframe") }}',
+            chatServer: '{{ path("message") }}',
+            introMessage: 'Hello, I am a HasBot',
+            title: 'HelpLineCharity Bot',
+            mainColor: '#456765',
+            bubbleBackground: '#b67a23',
+            aboutText: 'By Hassan',
+
+
+        };
+    </script>
+    <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+    <Center>
+        <a class="btn btn-custom" href="{{ path('posts_new') }}" class="btn-group">Créer un post</a>
+    </Center>
+    <br>
+    <br>
+
+<style type="text/css">
+    .highlighted{
+        background-color: #2BA6CB; color :#FFF
+    }
+</style>
+    </center>
+    <div >
+    <center><input class="form-control" type="text" name="category" id="categoryfilter" style="border-color: rgba(255,221,0,0.76);border-width: 2px; width: 300px ; -webkit-appearance: none;" placeholder="Chercher" >
+   </center>
+        </div>
+    <br>
+    <div class="container js-filter" >
+        <div class="row" id="filter">
+            {% for post in posts %}
+
+                <div class="col-sm-6 col-lg-4 " style="padding-top: 10px" >
+                    <div class="card h-100 js-filter-content">
+                       <div class="card-header">
+                        <img src={{ vich_uploader_asset(post)  }} class="card-img-top" width="150px" height="200px" alt="...">
+                           <h6> Auteur : {{ post.user.name }}</h6>
+                       </div>
+                        <div class="card-body" >
+
+                            <h5 class="card-title" ><span>{{ post.posttitle }}</span></h5>
+                            <p class="card-text" >{{ post.postcontent | slice(0,30) }}</p>
+
+                        </div>
+                    <div class="card-footer">
+                        <Center>
+                            <a class="btn btn-custom" href="{{ path('posts_show', {'postid': post.postid} )}}" class="btn-group">Consulter</a>
+                        </Center>
+                    </div>
+                    </div>
+
+                </div>
+
+            {% endfor %}
+            <br>
+        </div>
+
+    </div>
+
+
+    <br>
+    <br>
+    <br>
+    <div class="js-filter-pagination">
+    {{ knp_pagination_render(posts, '@KnpPaginator/Pagination/twitter_bootstrap_v3_pagination.html.twig') }}
+    </div>
+    </b>
+    <script type="module" src="{{ asset('js/modules/app.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+{% endblock body %}
+

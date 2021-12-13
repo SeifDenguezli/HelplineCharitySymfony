@@ -11,12 +11,16 @@
     <!-- Favicon -->
     <link href="{{ asset('img/favicon.ico') }}" rel="icon">
 
+
     <!-- Google Font -->
     <link href="{{ asset('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap') }}" rel="stylesheet">
 
     <!-- CSS Libraries -->
     <link href="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('vendors/jquery-bar-rating/css-stars.css') }}">
+
 
     <link href="{{ asset('lib/flaticon/font/flaticon.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
@@ -27,6 +31,7 @@
         <!-- Template Stylesheet -->
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     {% endblock %}
+
 
 </head>
 <body>
@@ -39,11 +44,13 @@
                     <div class="top-bar-left">
                         <div class="text">
                             <i class="fa fa-phone-alt"></i>
-                            <p>+216 54 487 021</p>
+
+                            <p>+216 73 254 896</p>
                         </div>
                         <div class="text">
                             <i class="fa fa-envelope"></i>
-                            <p>Helplinecharity@Gmail.com</p>
+                            <p>helplinecharityapp@gmail.com</p>
+
                         </div>
                     </div>
                 </div>
@@ -65,29 +72,34 @@
     <!-- Nav Bar Start -->
     <div class="navbar navbar-expand-lg bg-dark navbar-dark">
         <div class="container-fluid">
-            <a href="index.html" class="navbar-brand">Helpline </a>
+
+            <a href="index.html" class="navbar-brand">Helpline</a>
+
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav ml-auto">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="causes.html" class="nav-item nav-link">Causes</a>
-                    <a href="{{ path('service_index') }}" class="nav-item nav-link">Events</a>
-                    <a href="blog.html" class="nav-item nav-link">Blog</a>
+
+                    <a href="index.html" class="nav-item nav-link active">Acceuil</a>
+                    <a href="about.html" class="nav-item nav-link">Services</a>
+                    <a href="{{ path('shop_index') }}" class="nav-item nav-link">Shop</a>
+                    <a href="{{ path('evenement_index') }}" class="nav-item nav-link">Evenements</a>
+                    <a href="{{ path('posts_index') }}" class="nav-item nav-link">Blog</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    <a style="{% if app.user.role != 'Admin' %} display:none   {% endif %}"  class="nav-item nav-link" href="{{ path('user_index') }}">Espace Admin</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                        <img height="50px"  width="65px" class="nav-link dropdown-toggle" data-toggle="dropdown" style="border-radius: 80%" src="{{ app.user.photo }}" alt="">
                         <div class="dropdown-menu">
-                            <a href="single.html" class="dropdown-item">Detail Page</a>
-                            <a href="service.html" class="dropdown-item">What We Do</a>
-                            <a href="team.html" class="dropdown-item">Meet The Team</a>
-                            <a href="donate.html" class="dropdown-item">Donate Now</a>
-                            <a href="volunteer.html" class="dropdown-item">Become A Volunteer</a>
+                            <!--  vich_uploader_asset(app.user) }} -->
+
+                            <a href="{{ path('user_edit', {'userid': app.user.userid}) }}" class="dropdown-item">{{ app.user.username }}</a>
+                            <a href="{{ path('security_logout') }}"class="dropdown-item">Déconnexion</a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+
+
                 </div>
             </div>
         </div>
@@ -106,12 +118,14 @@
                     </div>
                     <div class="carousel-text">
 
-                        <h1>Let's be kind for children</h1>
+
+                        <h1>Un Simple Geste Peut Changer La Vie d'un Enfant</h1>
                         <p>
-                            Lorem ipsum dolor sit amet elit. Phasellus ut mollis mauris. Vivamus egestas eleifend dui ac consequat at lectus in malesuada
+                            Environ 30% de la popuation mondiale n'a pas l'accées toute l'année à une alimentation adéquate, Nous comptons sur vous pour changer cela !
                         </p>
                         <div class="carousel-btn">
-                            <a class="btn btn-custom" href="">Donate Now</a>
+                            <a class="btn btn-custom" href="">Faire un don</a>
+
                             <a class="btn btn-custom btn-play" data-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-target="#videoModal">Watch Video</a>
                         </div>
 
@@ -122,12 +136,14 @@
                         <img src="img/carousel-2.jpg" alt="Image">
                     </div>
                     <div class="carousel-text">
-                        <h1>Get Involved with helping hand</h1>
+
+                        <h1>S'impliquer avec un coup de main</h1>
                         <p>
-                            Morbi sagittis turpis id suscipit feugiat. Suspendisse eu augue urna. Morbi sagittis, orci sodales varius fermentum, tortor
+                            Participer au changement du monde quelque soit par un don d'argent, quelques produits ou même un service
                         </p>
                         <div class="carousel-btn">
-                            <a class="btn btn-custom" href="">Donate Now</a>
+                            <a class="btn btn-custom" href="">Faire un don</a>
+
                             <a class="btn btn-custom btn-play" data-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-target="#videoModal">Watch Video</a>
                         </div>
                     </div>
@@ -137,12 +153,14 @@
                         <img src="img/carousel-3.jpg" alt="Image">
                     </div>
                     <div class="carousel-text">
-                        <h1>Bringing smiles to millions</h1>
+
+                        <h1>Dessinez un sourire sur le visage de millions de personnes</h1>
                         <p>
-                            Sed ultrices, est eget feugiat accumsan, dui nibh egestas tortor, ut rhoncus nibh ligula euismod quam. Proin pellentesque odio
+                            Un simple geste peut apporter le bonheur à plusieurs familles dont ont besoin. N'attendez plus longtemps, impliquez vous dés maintenant
                         </p>
                         <div class="carousel-btn">
-                            <a class="btn btn-custom" href="">Donate Now</a>
+                            <a class="btn btn-custom" href="">Faire un don</a>
+
                             <a class="btn btn-custom btn-play" data-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-target="#videoModal">Watch Video</a>
                         </div>
                     </div>
@@ -150,9 +168,10 @@
             </div>
         </div>
 
+
     </div>
     <!-- Carousel End -->
-{% endblock %}
+{% endblock carousel %}
 
 {% block body %}
     <!-- Video Modal Start-->
@@ -166,183 +185,22 @@
                     <!-- 16:9 aspect ratio -->
                     <div class="embed-responsive embed-responsive-16by9">
                         <iframe class="embed-responsive-item" src="" id="video"  allowscriptaccess="always" allow="autoplay"></iframe>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Video Modal End -->
 
 
-    <!-- About Start -->
-    <div class="about">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="about-img" data-parallax="scroll" data-image-src="img/about.jpg"></div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="section-header">
-                        <p>Learn About Us</p>
-                        <h2>Worldwide non-profit charity organization</h2>
-                    </div>
-                    <div class="about-tab">
-                        <ul class="nav nav-pills nav-justified">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="pill" href="#tab-content-1">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="pill" href="#tab-content-2">Mission</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="pill" href="#tab-content-3">Vision</a>
-                            </li>
-                        </ul>
-
-                        <div class="tab-content">
-                            <div id="tab-content-1" class="container tab-pane active">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae pellentesque turpis. Donec in hendrerit dui, vel blandit massa. Ut vestibulum suscipit cursus. Cras quis porta nulla, ut placerat risus. Aliquam nec magna eget velit luctus dictum. Phasellus et felis sed purus tristique dignissim. Morbi sit amet leo at purus accumsan pellentesque. Vivamus fermentum nisi vel dapibus blandit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            </div>
-                            <div id="tab-content-2" class="container tab-pane fade">
-                                Sed tincidunt, magna ut vehicula volutpat, turpis diam condimentum justo, posuere congue turpis massa in mi. Proin ornare at massa at fermentum. Nunc aliquet sed nisi iaculis ornare. Nam semper tortor eget est egestas, eu sagittis nunc sodales. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent bibendum sapien sed purus molestie malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            </div>
-                            <div id="tab-content-3" class="container tab-pane fade">
-                                Aliquam dolor odio, mollis sed feugiat sit amet, feugiat ut sapien. Nunc eu dignissim lorem. Suspendisse at hendrerit enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed condimentum semper turpis vel facilisis. Nunc vel faucibus orci. Mauris ut mauris rhoncus, efficitur nisi at, venenatis quam. Praesent egestas pretium enim sit amet finibus. Curabitur at erat molestie, tincidunt lorem eget, consequat ligula.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- About End -->
+    {% block about %} {% endblock about %}
 
 
-    <!-- Service Start -->
-    <div class="service">
-        <div class="container">
-            <div class="section-header text-center">
-                <p>What We Do?</p>
-                <h2>We believe that we can save more lifes with you</h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-item">
-                        <div class="service-icon">
-                            <i class="flaticon-diet"></i>
-                        </div>
-                        <div class="service-text">
-                            <h3>Healthy Food</h3>
-                            <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-item">
-                        <div class="service-icon">
-                            <i class="flaticon-water"></i>
-                        </div>
-                        <div class="service-text">
-                            <h3>Pure Water</h3>
-                            <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-item">
-                        <div class="service-icon">
-                            <i class="flaticon-healthcare"></i>
-                        </div>
-                        <div class="service-text">
-                            <h3>Health Care</h3>
-                            <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-item">
-                        <div class="service-icon">
-                            <i class="flaticon-education"></i>
-                        </div>
-                        <div class="service-text">
-                            <h3>Primary Education</h3>
-                            <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-item">
-                        <div class="service-icon">
-                            <i class="flaticon-home"></i>
-                        </div>
-                        <div class="service-text">
-                            <h3>Residence Facilities</h3>
-                            <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="service-item">
-                        <div class="service-icon">
-                            <i class="flaticon-social-care"></i>
-                        </div>
-                        <div class="service-text">
-                            <h3>Social Care</h3>
-                            <p>Lorem ipsum dolor sit amet elit. Phase nec preti facils ornare velit non metus tortor</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Service End -->
+    {% block services %} {% endblock services %}
 
-
-    <!-- Facts Start -->
-    <div class="facts" data-parallax="scroll" data-image-src="img/facts.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="facts-item">
-                        <i class="flaticon-home"></i>
-                        <div class="facts-text">
-                            <h3 class="facts-plus" data-toggle="counter-up">150</h3>
-                            <p>Countries</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="facts-item">
-                        <i class="flaticon-charity"></i>
-                        <div class="facts-text">
-                            <h3 class="facts-plus" data-toggle="counter-up">400</h3>
-                            <p>Volunteers</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="facts-item">
-                        <i class="flaticon-kindness"></i>
-                        <div class="facts-text">
-                            <h3 class="facts-dollar" data-toggle="counter-up">10000</h3>
-                            <p>Our Goal</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="facts-item">
-                        <i class="flaticon-donation"></i>
-                        <div class="facts-text">
-                            <h3 class="facts-dollar" data-toggle="counter-up">5000</h3>
-                            <p>Raised</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Facts End -->
-
+    {% block facts %} {% endblock facts %}
 
     <!-- Causes Start -->
     <div class="causes">
@@ -404,12 +262,15 @@
                     <div class="causes-img">
                         <img src="img/causes-3.jpg" alt="Image">
                     </div>
+
                     <div class="causes-progress">
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
                                 <span>85%</span>
                             </div>
+
                         </div>
+
                         <div class="progress-text">
                             <p><strong>Raised:</strong> $100000</p>
                             <p><strong>Goal:</strong> $50000</p>
@@ -418,7 +279,9 @@
                     <div class="causes-text">
                         <h3>Lorem ipsum dolor sit</h3>
                         <p>Lorem ipsum dolor sit amet elit. Phasell nec pretium mi. Curabit facilis ornare velit non vulputa</p>
+
                     </div>
+
                     <div class="causes-btn">
                         <a class="btn btn-custom">Learn More</a>
                         <a class="btn btn-custom">Donate Now</a>
@@ -427,6 +290,7 @@
                 <div class="causes-item">
                     <div class="causes-img">
                         <img src="img/causes-4.jpg" alt="Image">
+
                     </div>
                     <div class="causes-progress">
                         <div class="progress">
@@ -502,142 +366,9 @@
     </div>
     <!-- Donate End -->
 
+    {% block evenements %} {% endblock evenements %}
 
-    <!-- Event Start -->
-
-    <div class="event">
-        <div class="container">
-            <div class="section-header text-center">
-                <p>Upcoming Events</p>
-                <h2>Be ready for our upcoming charity events</h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="event-item">
-                        <img src="img/event-1.jpg" alt="Image">
-                        <div class="event-content">
-                            <div class="event-meta">
-                                <p><i class="fa fa-calendar-alt"></i>01-Jan-45</p>
-                                <p><i class="far fa-clock"></i>8:00 - 10:00</p>
-                                <p><i class="fa fa-map-marker-alt"></i>New York</p>
-                            </div>
-                            <div class="event-text">
-                                <h3>Lorem ipsum dolor sit</h3>
-                                <p>
-                                    Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
-                                </p>
-                                <a class="btn btn-custom" href="">Join Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="event-item">
-                        <img src="img/event-2.jpg" alt="Image">
-                        <div class="event-content">
-                            <div class="event-meta">
-                                <p><i class="fa fa-calendar-alt"></i>01-Jan-45</p>
-                                <p><i class="far fa-clock"></i>8:00 - 10:00</p>
-                                <p><i class="fa fa-map-marker-alt"></i>New York</p>
-                            </div>
-                            <div class="event-text">
-                                <h3>Lorem ipsum dolor sit</h3>
-                                <p>
-                                    Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
-                                </p>
-                                <a class="btn btn-custom" href="">Join Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Event End -->
-
-
-    <!-- Team Start -->
-    <div class="team">
-        <div class="container">
-            <div class="section-header text-center">
-                <p>Meet Our Team</p>
-                <h2>Awesome guys behind our charity activities</h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-item">
-                        <div class="team-img">
-                            <img src="img/team-1.jpg" alt="Team Image">
-                        </div>
-                        <div class="team-text">
-                            <h2>Donald John</h2>
-                            <p>Founder & CEO</p>
-                            <div class="team-social">
-                                <a href=""><i class="fab fa-twitter"></i></a>
-                                <a href=""><i class="fab fa-facebook-f"></i></a>
-                                <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                <a href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-item">
-                        <div class="team-img">
-                            <img src="img/team-2.jpg" alt="Team Image">
-                        </div>
-                        <div class="team-text">
-                            <h2>Adam Phillips</h2>
-                            <p>Chef Executive</p>
-                            <div class="team-social">
-                                <a href=""><i class="fab fa-twitter"></i></a>
-                                <a href=""><i class="fab fa-facebook-f"></i></a>
-                                <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                <a href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-item">
-                        <div class="team-img">
-                            <img src="img/team-3.jpg" alt="Team Image">
-                        </div>
-                        <div class="team-text">
-                            <h2>Thomas Olsen</h2>
-                            <p>Chef Advisor</p>
-                            <div class="team-social">
-                                <a href=""><i class="fab fa-twitter"></i></a>
-                                <a href=""><i class="fab fa-facebook-f"></i></a>
-                                <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                <a href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="team-item">
-                        <div class="team-img">
-                            <img src="img/team-4.jpg" alt="Team Image">
-                        </div>
-                        <div class="team-text">
-                            <h2>James Alien</h2>
-                            <p>Advisor</p>
-                            <div class="team-social">
-                                <a href=""><i class="fab fa-twitter"></i></a>
-                                <a href=""><i class="fab fa-facebook-f"></i></a>
-                                <a href=""><i class="fab fa-linkedin-in"></i></a>
-                                <a href=""><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Team End -->
-
+    {% block team %} {% endblock team %}
 
     <!-- Volunteer Start -->
     <div class="volunteer" data-parallax="scroll" data-image-src="img/volunteer.jpg">
@@ -671,188 +402,91 @@
                             <p>
                                 Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non. Aliquam metus tortor, auctor id gravida, viverra quis sem. Curabitur non nisl nec nisi maximus. Aenean convallis porttitor. Aliquam interdum at lacus non blandit.
                             </p>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Volunteer End -->
 
 
-    <!-- Testimonial Start -->
-    <div class="testimonial">
-        <div class="container">
-            <div class="section-header text-center">
-                <p>Testimonial</p>
-                <h2>What people are talking about our charity activities</h2>
-            </div>
-            <div class="owl-carousel testimonials-carousel">
-                <div class="testimonial-item">
-                    <div class="testimonial-profile">
-                        <img src="img/testimonial-1.jpg" alt="Image">
-                        <div class="testimonial-name">
-                            <h3>Person Name</h3>
-                            <p>Profession</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-text">
-                        <p>
-                            Lorem ipsum dolor sit amet elit. Phasel preti mi facilis ornare velit non vulputa. Aliqu metus tortor, auctor id gravid vivera quis
-                        </p>
-                    </div>
-                </div>
-                <div class="testimonial-item">
-                    <div class="testimonial-profile">
-                        <img src="img/testimonial-2.jpg" alt="Image">
-                        <div class="testimonial-name">
-                            <h3>Person Name</h3>
-                            <p>Profession</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-text">
-                        <p>
-                            Lorem ipsum dolor sit amet elit. Phasel preti mi facilis ornare velit non vulputa. Aliqu metus tortor, auctor id gravid vivera quis
-                        </p>
-                    </div>
-                </div>
-                <div class="testimonial-item">
-                    <div class="testimonial-profile">
-                        <img src="img/testimonial-3.jpg" alt="Image">
-                        <div class="testimonial-name">
-                            <h3>Person Name</h3>
-                            <p>Profession</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-text">
-                        <p>
-                            Lorem ipsum dolor sit amet elit. Phasel preti mi facilis ornare velit non vulputa. Aliqu metus tortor, auctor id gravid vivera quis
-                        </p>
-                    </div>
-                </div>
-                <div class="testimonial-item">
-                    <div class="testimonial-profile">
-                        <img src="img/testimonial-4.jpg" alt="Image">
-                        <div class="testimonial-name">
-                            <h3>Person Name</h3>
-                            <p>Profession</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-text">
-                        <p>
-                            Lorem ipsum dolor sit amet elit. Phasel preti mi facilis ornare velit non vulputa. Aliqu metus tortor, auctor id gravid vivera quis
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Testimonial End -->
+    {% block testimonial %} {% endblock testimonial %}
 
 
-    <!-- Contact Start -->
-    <div class="contact">
-        <div class="container">
-            <div class="section-header text-center">
-                <p>Get In Touch</p>
-                <h2>Contact for any query</h2>
-            </div>
-            <div class="contact-img">
-                <img src="img/contact.jpg" alt="Image">
-            </div>
-            <div class="contact-form">
-                <div id="success"></div>
-                <form name="sentMessage" id="contactForm" novalidate="novalidate">
-                    <div class="control-group">
-                        <input type="text" class="form-control" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="control-group">
-                        <input type="email" class="form-control" id="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="control-group">
-                        <input type="text" class="form-control" id="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div class="control-group">
-                        <textarea class="form-control" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div>
-                        <button class="btn btn-custom" type="submit" id="sendMessageButton">Send Message</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Contact End -->
+    {% block contact %} {% endblock contact %}
 
+    {% block blog %}
+        <!-- Blog Start -->
+        <div class="blog">
+            <div class="container">
+                <div class="section-header text-center">
+                    <p>Our Blog</p>
+                    <h2>Latest news & articles directly from our blog</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="blog-item">
+                            <div class="blog-img">
+                                <img src="img/blog-1.jpg" alt="Image">
+                            </div>
+                            <div class="blog-text">
+                                <h3><a href="#">Lorem ipsum dolor sit</a></h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
+                                </p>
+                            </div>
+                            <div class="blog-meta">
+                                <p><i class="fa fa-user"></i><a href="">Admin</a></p>
+                                <p><i class="fa fa-comments"></i><a href="">15 Comments</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="blog-item">
+                            <div class="blog-img">
+                                <img src="img/blog-2.jpg" alt="Image">
+                            </div>
+                            <div class="blog-text">
+                                <h3><a href="#">Lorem ipsum dolor sit</a></h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
+                                </p>
+                            </div>
+                            <div class="blog-meta">
+                                <p><i class="fa fa-user"></i><a href="">Admin</a></p>
+                                <p><i class="fa fa-comments"></i><a href="">15 Comments</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="blog-item">
+                            <div class="blog-img">
+                                <img src="img/blog-3.jpg" alt="Image">
+                            </div>
+                            <div class="blog-text">
+                                <h3><a href="#">Lorem ipsum dolor sit</a></h3>
+                                <p>
+                                    Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
+                                </p>
+                            </div>
+                            <div class="blog-meta">
+                                <p><i class="fa fa-user"></i><a href="">Admin</a></p>
+                                <p><i class="fa fa-comments"></i><a href="">15 Comments</a></p>
 
-    <!-- Blog Start -->
-    <div class="blog">
-        <div class="container">
-            <div class="section-header text-center">
-                <p>Our Blog</p>
-                <h2>Latest news & articles directly from our blog</h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="blog-item">
-                        <div class="blog-img">
-                            <img src="img/blog-1.jpg" alt="Image">
-                        </div>
-                        <div class="blog-text">
-                            <h3><a href="#">Lorem ipsum dolor sit</a></h3>
-                            <p>
-                                Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
-                            </p>
-                        </div>
-                        <div class="blog-meta">
-                            <p><i class="fa fa-user"></i><a href="">Admin</a></p>
-                            <p><i class="fa fa-comments"></i><a href="">15 Comments</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="blog-item">
-                        <div class="blog-img">
-                            <img src="img/blog-2.jpg" alt="Image">
-                        </div>
-                        <div class="blog-text">
-                            <h3><a href="#">Lorem ipsum dolor sit</a></h3>
-                            <p>
-                                Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
-                            </p>
-                        </div>
-                        <div class="blog-meta">
-                            <p><i class="fa fa-user"></i><a href="">Admin</a></p>
-                            <p><i class="fa fa-comments"></i><a href="">15 Comments</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="blog-item">
-                        <div class="blog-img">
-                            <img src="img/blog-3.jpg" alt="Image">
-                        </div>
-                        <div class="blog-text">
-                            <h3><a href="#">Lorem ipsum dolor sit</a></h3>
-                            <p>
-                                Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
-                            </p>
-                        </div>
-                        <div class="blog-meta">
-                            <p><i class="fa fa-user"></i><a href="">Admin</a></p>
-                            <p><i class="fa fa-comments"></i><a href="">15 Comments</a></p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Blog End -->
-{% endblock %}
+
+        <!-- Blog End -->
+    {% endblock blog %}
+
+{% endblock body %}
 
 
 {% block footer %}
@@ -862,10 +496,10 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-contact">
-                        <h2>Our Head Office</h2>
-                        <p><i class="fa fa-map-marker-alt"></i>123 Street, Manouba, TUNISIA</p>
-                        <p><i class="fa fa-phone-alt"></i>+216 54 487 021</p>
-                        <p><i class="fa fa-envelope"></i>Helplinecharity@Gmail.com</p>
+                        <h2>Notre siége social</h2>
+                        <p><i class="fa fa-map-marker-alt"></i>6052, Ariana, Tunis</p>
+                        <p><i class="fa fa-phone-alt"></i>+216 73 254 896</p>
+                        <p><i class="fa fa-envelope"></i>helplinecharity@gmail.com</p>
                         <div class="footer-social">
                             <a class="btn btn-custom" href=""><i class="fab fa-twitter"></i></a>
                             <a class="btn btn-custom" href=""><i class="fab fa-facebook-f"></i></a>
@@ -877,17 +511,17 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-link">
-                        <h2>Popular Links</h2>
-                        <a href="">About Us</a>
-                        <a href="">Contact Us</a>
-                        <a href="">Popular Causes</a>
-                        <a href="">Upcoming Events</a>
-                        <a href="">Latest Blog</a>
+                        <h2>Liens Populaires</h2>
+                        <a href="">Services</a>
+                        <a href="">Recompenses</a>
+                        <a href="">Evenements</a>
+                        <a href="">Blog</a>
+                        <a href="">Contact</a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-link">
-                        <h2>Useful Links</h2>
+                        <h2>Liens Utiles</h2>
                         <a href="">Terms of use</a>
                         <a href="">Privacy policy</a>
                         <a href="">Cookies</a>
@@ -897,11 +531,11 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-newsletter">
-                        <h2>Newsletter</h2>
+                        <h2>Recevoir les nouveautés</h2>
                         <form>
-                            <input class="form-control" placeholder="Email goes here">
-                            <button class="btn btn-custom">Submit</button>
-                            <label>Don't worry, we don't spam!</label>
+                            <input class="form-control" placeholder="Tapez votre Email">
+                            <button class="btn btn-custom">Valider</button>
+                            <label>N'ayez pas peur, ne nous spamons pas !</label>
                         </form>
                     </div>
                 </div>
@@ -910,14 +544,15 @@
         <div class="container copyright">
             <div class="row">
                 <div class="col-md-6">
-                    <p>&copy; <a href="#">Your Site Name</a>, All Right Reserved.</p>
+                    <p>&copy; <a href="#">helplinecharity.com</a>, Tout Droit Réservé.</p>
                 </div>
                 <div class="col-md-6">
-                    <p>Designed By <a href="https://htmlcodex.com">HTML Codex</a></p>
+                    <p>Créer Par <a href="https://htmlcodex.com">Bug Busters</a></p>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Footer End -->
 
     <!-- Back to top button -->
@@ -927,6 +562,7 @@
     <div id="loader" class="show">
         <div class="loader"></div>
     </div>
+
 
 
 

@@ -1,17 +1,126 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EvenementController!{% endblock %}
+
+{% block title %}Evenement index{% endblock %}
+
+
+
+{% block carousel %}
+
+    <!-- Carousel Start -->
+    <div class="carousel">
+        <div class="container-fluid">
+            <div class="owl-carousel">
+                <div class="carousel-item">
+                    <div class="carousel-img">
+                        <img src="{{ asset('img/carousel-1.jpg') }}" alt="Image">
+                    </div>
+                    <div class="carousel-text">
+
+                        <h1>Un simple geste peut changer la vie d'un enfant</h1>
+                        <p>
+                            Environ 30% de la popuation mondiale n'a pas l'accées toute l'année à une alimentation adéquate, Nous comptons sur vous pour changer cela !
+                        </p>
+                        <div class="carousel-btn">
+                            <a class="btn btn-custom" href="">Faire un don</a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-img">
+                        <img src="{{ asset('img/carousel-2.jpg') }}" alt="Image">
+                    </div>
+                    <div class="carousel-text">
+                        <h1>S'impliquer avec un coup de main</h1>
+                        <p>
+                            Participer au changement du monde quelque soit par un don d'argent, quelques produits ou même un service
+                        </p>
+                        <div class="carousel-btn">
+                            <a class="btn btn-custom" href="">Faire un don</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-img">
+                        <img src="{{ asset('img/carousel-3.jpg') }}" alt="Image">
+                    </div>
+                    <div class="carousel-text">
+                        <h1>Dessinez un sourire sur le visage de millions de personnes</h1>
+                        <p>
+                            Un simple geste peut apporter le bonheur à plusieurs familles dont ont besoin. N'attendez plus longtemps, impliquez vous dés maintenant
+                        </p>
+                        <div class="carousel-btn">
+                            <a class="btn btn-custom" href="">Faire un don</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Carousel End -->
+{% endblock %}
+
+
 
 {% block body %}
 
+    <div class="event">
+        <div class="container">
+            <div class="section-header text-center">
+                <p>Evenements Actifs</p>
+                <h2>Explorez notre actualité d'évènements </h2>
+            </div>
+            <div class="row">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                {% for evenement in evenements %}
+                    <div class="col-lg-6">
+                        <div class="event-item">
+                            {#
+                            If statement used to display either uploaded image with VichUpload or Random image from the FakerBundle
+                                To remove after stop using FixtureBundle
+                                Only keep :::::   <img src="{{ vich_uploader_asset(evenement) }}">
+                            #}
+                            {% if evenement.updatedAt is not null %}
+                                <img src="{{ vich_uploader_asset(evenement) }}" width = "600" height = "400">
+                            {% else %}
+                                <img src="{{ evenement.coverImage }}" alt="Image">
+                            {% endif %}
+                            <div class="event-content">
+                                <div class="event-meta">
+                                    <p><i class="fa fa-calendar-alt"></i>{{ evenement.dateCreation ? evenement.dateCreation|date('Y-m-d') : '' }}</p>
+                                    <p><i class="far fa-clock"></i>{{ evenement.montantCollecte }} TND</p>
+                                    <p><i class="fa fa-map-marker-alt"></i>{{ evenement.Region }}</p>
+                                </div>
+                                <div class="event-text">
+                                    <h3>{{ evenement.cause }}</h3>
+                                    <p>
+                                        {{ evenement.description }}
+                                    </p>
+                                    <a class="btn btn-custom" href="">Join Now</a>
+                                    <a class="btn btn-custom" href="{{ path('evenement_show', {'eventId': evenement.eventId}) }}">Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="pagination">
+                {{ knp_pagination_render(evenements) }}
+            </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/SeifD/Desktop/HelplineCharitySymfony/SymfonyProject/src/Controller/EvenementController.php'|file_link(0) }}">src/Controller/EvenementController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/SeifD/Desktop/HelplineCharitySymfony/SymfonyProject/templates/evenement/index.html.twig'|file_link(0) }}">templates/evenement/index.html.twig</a></code></li>
-    </ul>
-</div>
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+    <a class="btn btn-custom" href="{{ path('getFakeData') }}">Generate Database</a>
+
 {% endblock %}
+

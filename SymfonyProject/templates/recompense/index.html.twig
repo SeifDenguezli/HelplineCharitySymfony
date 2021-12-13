@@ -1,0 +1,35 @@
+{% extends 'backoffice.html.twig' %}
+
+{% block title %}Recompense index{% endblock %}
+
+{% block body %}
+    <h1>Recompense index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Recompenseid</th>
+            <th>Nbrepoints</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for recompense in recompenses %}
+            <tr>
+                <td>{{ recompense.recompenseid }}</td>
+                <td>{{ recompense.nbrepoints }}</td>
+                <td>
+                    <button class="btn btn-success" href="{{ path('recompense_show', {'recompenseid': recompense.recompenseid}) }}">show</button>
+                    <button  class=" btn btn-danger" href="{{ path('recompense_edit', {'recompenseid': recompense.recompenseid}) }}">edit</button>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('recompense_new') }}">Create new</a>
+{% endblock %}

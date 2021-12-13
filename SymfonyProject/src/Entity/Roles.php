@@ -24,9 +24,26 @@ class Roles
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=100, nullable=false)
+     * @ORM\Column(name="`type`", type="string", length=100, nullable=false)
      */
     private $type;
+
+    public function getRoleid(): ?int
+    {
+        return $this->roleid;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
 
 
 }
