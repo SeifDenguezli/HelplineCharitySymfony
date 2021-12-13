@@ -6,6 +6,7 @@ use App\Entity\Service;
 use App\Form\ServiceType;
 use App\Repository\ServiceRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,6 +38,7 @@ class ServiceController extends AbstractController
 
     /**
      * @Route("/new", name="service_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function new(Request $request): Response
     {
@@ -60,6 +62,7 @@ class ServiceController extends AbstractController
 
     /**
      * @Route("/{serviceid}", name="service_show", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      */
     public function show(Service $service): Response
     {
@@ -70,6 +73,7 @@ class ServiceController extends AbstractController
 
     /**
      * @Route("/{serviceid}/edit", name="service_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function edit(Request $request, Service $service): Response
     {
@@ -90,6 +94,7 @@ class ServiceController extends AbstractController
 
     /**
      * @Route("/{serviceid}", name="service_delete", methods={"POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function delete(Request $request, Service $service): Response
     {

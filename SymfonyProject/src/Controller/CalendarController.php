@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Calendar;
 use App\Form\CalendarType;
 use App\Repository\CalendarRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,7 @@ class CalendarController extends AbstractController
 {
     /**
      * @Route("/", name="calendar_index", methods={"GET"})
+     * @IsGranted("ROLE_USER")
      */
     public function index(CalendarRepository $calendarRepository): Response
     {

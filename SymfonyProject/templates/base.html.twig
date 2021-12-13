@@ -83,10 +83,12 @@
                 <div class="navbar-nav ml-auto">
 
                     <a href="index.html" class="nav-item nav-link active">Acceuil</a>
-                    <a href="about.html" class="nav-item nav-link">Services</a>
+                    <a href="{{ path('service_index') }}" class="nav-item nav-link">Services</a>
                     <a href="{{ path('shop_index') }}" class="nav-item nav-link">Shop</a>
                     <a href="{{ path('evenement_index') }}" class="nav-item nav-link">Evenements</a>
                     <a href="{{ path('posts_index') }}" class="nav-item nav-link">Blog</a>
+                    <a href="{{ path('reclamation') }}" class="nav-item nav-link">Reclamation</a>
+
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                     <a style="{% if app.user.role != 'Admin' %} display:none   {% endif %}"  class="nav-item nav-link" href="{{ path('user_index') }}">Espace Admin</a>
                     <div class="nav-item dropdown">
